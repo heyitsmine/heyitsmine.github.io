@@ -112,7 +112,7 @@ void print(const int ia[], size_t size)
 // matrix points to the first element in an array whose elements are arrays of ten ints
 void print(int (*matrix)[10], int rowSize) { /* . . . */ }
 ```
-也可以使用数组的语法，此时编译器会忽略第一个维度：
+- 也可以使用数组的语法，此时编译器会忽略第一个维度：
 ```c++
 // equivalent definition
 void print(int matrix[][10], int rowSize) { /* . . . */ }
@@ -155,7 +155,7 @@ vector<string> process()
         return {"functionX", expected, actual};
 }
 ```
-如果函数返回的是内置类型，则花括号包围的列表最多包含一个值，而且该值所占的空间不能大于目标类型的空间。
+- 如果函数返回的是内置类型，则花括号包围的列表最多包含一个值，而且该值所占的空间不能大于目标类型的空间。
 
 - 如果`main`函数的结尾没有`return`语句，编译器将隐式的插入一条返回`0`的`return`语句。
 
@@ -173,8 +173,7 @@ int arr[10];          // arr is an array of ten ints
 int *p1[10];          // p1 is an array of ten pointers
 int (*p2)[10] = &arr; // p2 points to an array of ten ints
 ```
-因此，返回数组指针的函数形式如下所示：
-
+- 因此，返回数组指针的函数形式如下所示：
 ```c++
 Type (*function(parameter_list))[dimension]
 ```
@@ -212,3 +211,32 @@ Record lookup(Phone* const);  // redeclares Record lookup(Phone*)
 # 特殊用途语言特性
 
 ## 默认参数
+
+- 默认参数用于函数调用中最右端的实参。
+- 通常一个函数只在头文件中声明一次，但多次声明一个函数也是合法的。但一个形参在指定作用域内只能设置一次默认值，随后的函数声明只能为之前未设置默认值的形参添加一个默认值。
+```c++
+string screen(sz, sz, char = ' ');        // no default for the height or width parameters
+string screen(sz, sz, char = '*');        // error: redeclaration
+string screen(sz = 24, sz = 80, char);    // ok: add default arguements
+```
+
+- 局部变量不能用作默认参数：
+```c++
+// the declarations of wd, def, and ht must appear outside a function
+sz wd = 80;
+char def = ' ';
+sz ht();
+string screen(sz = ht(), sz = wd, char = def);
+string window = screen();    // calls screen(ht(), 80, ' ')
+```
+用作默认参数的名字在函数声明的作用域内进行解析，这些名字在函数调用时求值：
+
+```c++
+void f2()
+{
+    def = '*';         // changes the value of a default argument
+    sz wd = 100;       // hides the outer definition of wd but does not change the default
+    window = screen(); // calls screen(ht(), 80. '*')
+}
+```
+
