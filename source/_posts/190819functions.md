@@ -210,10 +210,10 @@ Record lookup(Phone* const);  // redeclares Record lookup(Phone*)
 
 # 特殊用途语言特性
 
-## 默认参数
+## 默认实参
 
-- 默认参数用于函数调用中最右端的实参。
-- 通常一个函数只在头文件中声明一次，但多次声明一个函数也是合法的。但一个形参在指定作用域内只能设置一次默认值，随后的函数声明只能为之前未设置默认值的形参添加一个默认值。
+- 默认实参用于函数调用中最右端的实参。
+- 通常一个函数只在头文件中声明一次，但多次声明一个函数也是合法的。但一个形参在给定作用域内只能赋予一次默认实参，随后的函数声明只能为之前未设置默认值的形参添加一个默认实参。
 ```c++
 string screen(sz, sz, char = ' ');        // no default for the height or width parameters
 string screen(sz, sz, char = '*');        // error: redeclaration
@@ -229,8 +229,8 @@ sz ht();
 string screen(sz = ht(), sz = wd, char = def);
 string window = screen();    // calls screen(ht(), 80, ' ')
 ```
-用作默认参数的名字在函数声明的作用域内进行解析，这些名字在函数调用时求值：
 
+- 用作默认参数的名字在函数声明所在的作用域内解析，这些名字在函数调用时求值：
 ```c++
 void f2()
 {
@@ -238,5 +238,57 @@ void f2()
     sz wd = 100;       // hides the outer definition of wd but does not change the default
     window = screen(); // calls screen(ht(), 80. '*')
 }
+```
+
+## 内联函数和`constexpr`函数
+
+- 定义`constexpr`函数的方法与其他函数类似，但要遵循几项约定：函数的返回类型以及所有形参类型都必须是字面类型，而且函数体中必须有且只有一条`return`语句：
+```c++
+constexpr int new_sz() { return 42; }
+constexpr int foo = new_sz();  // ok: foo is a constant expression
+```
+
+- `constexpr`函数被隐式地指定为内联函数。
+- 我们允许`constexpr`函数返回一个非常量：
+```c++
+// scale(arg) is a constant expression if arg is a constant expression
+constexpr size_t scale(size_t cnt) { return new_sz() * cnt; }
+```
+
+- 内联函数和`constexpr`函数可以在程序中多次定义，编译器需要函数定义而非函数声明来展开函数。不过，对于某个给定的内联函数或`constexpr`函数，它的多个定义必须完全一致。基于这个原因，内联函数和`constexpr`函数通常定义在头文件中。
+
+## 调试帮助
+
+- `assert`预处理宏
+- `NDEBUG`预处理变量
+
+# 函数匹配
+
+- **候选函数**（candidate function）具备两个特征：一是与被调用的函数同名，二是其声明在调用点可见。
+- **可行函数**（viable function）也具备两个特征：一是其形参数量与函数调用提供的实参数量相等，二是每个实参的类型与形参的类型相同，或者能转换成形参的类型。
+- 若有多个可行函数都在某一个实参上实现了更好的匹配，该函数调用会因具有二义性被拒绝。
+
+# 函数指针
+
+- 函数的类型取决于它的返回类型以及形参的类型，与函数名无关。
+```c++
+// compares lengths of two strings
+bool lengthCompare(const string &, const string &);
+
+// pf points to a function returning bool that takes two const string references
+bool (*pf)(const string &, const string &);  // uninitialized
+```
+
+- 当函数名被作为一个值使用时，该函数自动地转换成指针。
+
+- 不同于将函数类型传递给形参的情况，返回类型不会自动转换为指针，必须显式地将返回类型指定为指针：
+```c++
+using F = int(int*, int);     // F is a function type, not a pointer
+using PF = int(*)(int*, int); // PF is a pointer type
+
+PF f1(int); // ok: PF is a pointer to function; f1 returns a pointer to function
+F f1(int);  // error: F is a function type; f1 can't return a function
+F *f1(int); // ok: explicitly specify that the return type is a pointer to function
+int (*f1(int))(int*, int); // declare f1 directly
 ```
 
