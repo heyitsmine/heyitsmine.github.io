@@ -167,7 +167,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array
 
 ### `allocator`类
 
-- 不能分配元素类型为“没有默认构函数的类类型”的动态数组。
+- 不能分配元素类型为“没有默认构造函数的类类型”的动态数组。
 - 标准库`allocator`类及其算法
 ![](DynamicMemory/12-7.png)
 
