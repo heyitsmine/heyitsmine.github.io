@@ -260,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/CopyControl/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Song">
@@ -279,7 +279,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2019/09/CopyControl/" itemprop="url">CopyControl</a></h1>
         
 
         <div class="post-meta">
@@ -291,8 +291,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-05T20:30:00+08:00">
-                2019-07-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-23T15:42:57+08:00">
+                2019-09-23
               </time>
             
 
@@ -301,6 +301,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -331,19 +353,2042 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+            <h1 id="拷贝控制"><a href="#拷贝控制" class="headerlink" title="拷贝控制"></a>拷贝控制</h1><p>当我们定义一个类时，我们显式地或隐式地指定在此类型的对象拷贝、移动、赋值和销毁时做什么。一个类通过定义五种特殊的成员函数来控制这些操作，包括：<strong>拷贝构造函数</strong>（copy constructor）、<strong>拷贝赋值运算符</strong>（copy assignment operator）、<strong>移动构造函数</strong>（move constructor）、<strong>移动赋值运算符</strong>（move assignment operator）和<strong>析构函数</strong>（destructor）。</p>
+<h2 id="拷贝、赋值与销毁"><a href="#拷贝、赋值与销毁" class="headerlink" title="拷贝、赋值与销毁"></a>拷贝、赋值与销毁</h2><h3 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h3><ul>
+<li><p>如果一个构造函数的第一个参数是对自身类型的引用，并且其他参数都有默认值，则此构造函数是拷贝构造函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Foo();            <span class="comment">// default constructor</span></span><br><span class="line">    Foo(<span class="keyword">const</span> Foo&amp;);  <span class="comment">// copy constructor</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>与合成默认构造函数不同，即使我们定义了其他构造函数，编译器也会为我们合成一个拷贝构造函数。</p>
+</li>
+<li><p>合成拷贝构造函数依次将每个非<code>static</code>成员拷贝到正在创建的对象中。每个成员的类型决定了它如何拷贝：对类类型的成员，使用其拷贝构造函数来拷贝；内置类型的成员则直接拷贝。</p>
+</li>
+<li><p>虽然我们不能直接拷贝一个数组，但合成拷贝构造函数会逐元素地拷贝一个数组类型的成员。如果数组元素是类类型，则使用元素的拷贝构造函数来进行拷贝。</p>
+</li>
+<li><p>拷贝初始化不仅在使用<code>=</code>定义变量时发生，在下列情况下也会发生：</p>
+<ul>
+<li>将一个对象作为实参传递给一个非引用类型的形参</li>
+<li>从一个返回类型为非引用类型的函数返回一个对象</li>
+<li>用花括号列表初始化一个数组中的元素或一个聚合类中的成员</li>
+</ul>
+</li>
+</ul>
+<h3 id="拷贝赋值运算符"><a href="#拷贝赋值运算符" class="headerlink" title="拷贝赋值运算符"></a>拷贝赋值运算符</h3><ul>
+<li>如果一个运算符是一个成员函数，其左侧运算对象就绑定到隐式的<code>this</code>参数。对于二元运算符，其右侧对象作为显式参数传递。</li>
+</ul>
+<h3 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h3><ul>
+<li>由于析构函数没有参数，因此它不能被重载。对一个给定的类，只会有一个析构函数。</li>
+<li>在析构函数中，首先执行函数体，然后销毁成员。成员按初始化的逆序销毁。</li>
+<li>销毁类类型的成员需要执行成员自己的析构函数。内置类型没有析构函数，所以销毁内置类型成员什么都不需要做。</li>
+</ul>
+<h3 id="三-五法则"><a href="#三-五法则" class="headerlink" title="三/五法则"></a>三/五法则</h3><ul>
+<li>如果一个类需要析构函数，那么它几乎肯定也需要拷贝构造函数和拷贝赋值运算符。</li>
+<li>如果一个类需要拷贝构造函数，那么它几乎一定需要拷贝赋值运算符，反之亦然。</li>
+</ul>
+<h3 id="使用-default"><a href="#使用-default" class="headerlink" title="使用=default"></a>使用<code>=default</code></h3><ul>
+<li>当在类内使用<code>=default</code>修饰成员的声明时，合成的函数将隐式地声明为内联的。</li>
+</ul>
+<h3 id="阻值拷贝"><a href="#阻值拷贝" class="headerlink" title="阻值拷贝"></a>阻值拷贝</h3><ul>
+<li><p><code>=delete</code>必须出现在函数第一次声明的时候，并且可以对任何函数指定<code>=delete</code>。</p>
+</li>
+<li><p>如果一个类成员的析构函数是删除的，则该成员无法被销毁；而如果一个成员无法被销毁，则该对象整体也无法被销毁。</p>
+</li>
+<li><p>如果一个类有数据成员不能默认构造、拷贝、复制或销毁，则类的合成拷贝控制成员将被定义为删除的。</p>
+</li>
+</ul>
+<h2 id="拷贝控制和资源管理"><a href="#拷贝控制和资源管理" class="headerlink" title="拷贝控制和资源管理"></a>拷贝控制和资源管理</h2><h3 id="行为像值的类"><a href="#行为像值的类" class="headerlink" title="行为像值的类"></a>行为像值的类</h3><ul>
+<li>编写赋值运算符时，需要记住两点：<ul>
+<li>赋值运算符必须在一个对象赋值给他本身时正确工作。</li>
+<li>大多数赋值运算组合了析构函数和构造函数的工作。</li>
+</ul>
+</li>
+</ul>
+<h3 id="行为像指针的类"><a href="#行为像指针的类" class="headerlink" title="行为像指针的类"></a>行为像指针的类</h3><ul>
+<li>使用动态内存进行引用计数。</li>
+</ul>
+<h2 id="交换操作"><a href="#交换操作" class="headerlink" title="交换操作"></a>交换操作</h2><ul>
+<li>如果存在类型特定的<code>swap</code>版本，其匹配优先程度会优于<code>std</code>中定义的版本。</li>
+</ul>
+<h2 id="动态内存管理"><a href="#动态内存管理" class="headerlink" title="动态内存管理"></a>动态内存管理</h2><ul>
+<li>移动构造函数通常是将资源从给定对象“移动”而不是拷贝到正在创建的对象。</li>
+<li>调用<code>move</code>的返回结果会令<code>construct</code>使用<code>string</code>的移动构造函数。</li>
+<li>对一个对象调用<code>move</code>之后，我们无法知道该对象中保存的值，但是可以保证该对象的构造函数可以正确地执行。</li>
+</ul>
+<h2 id="对象移动"><a href="#对象移动" class="headerlink" title="对象移动"></a>对象移动</h2><h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><ul>
+<li><p><strong>右值引用</strong>（rvalue reference）是必须绑定到右值的引用，通过<code>&amp;&amp;</code>而不是<code>&amp;</code>来获得右值引用。</p>
+</li>
+<li><p>左值有持久的状态，而右值要么是字面常量，要么是在表达式求值过程中创建的临时变量。</p>
+</li>
+<li><p>变量是左值，因此我们不能将一个右值引用直接绑定到一个变量上，即使这个变量是右值引用类型也不行。</p>
+</li>
+<li><p><code>move</code>函数返回给定对象的右值引用。</p>
+</li>
+<li><p>应该直接调用<code>std::move</code>而不是<code>move</code>。</p>
+</li>
+</ul>
+<h3 id="移动构造函数和移动赋值运算符"><a href="#移动构造函数和移动赋值运算符" class="headerlink" title="移动构造函数和移动赋值运算符"></a>移动构造函数和移动赋值运算符</h3><ul>
+<li><p>一旦资源完成移动，源对象必须不再指向被移动的资源——这些资源的所有权已经归属新创建的对象。</p>
+</li>
+<li><p>不会抛出异常的移动构造函数和移动赋值运算符必须标记为<code>noexcept</code>。</p>
+</li>
+<li><p>移动操作必须保证移动源对象仍是有效的；一般来说对象有效是指可以安全地为其赋予新值或者可以安全地使用而不依赖其当前值。例如，在移动一个<code>string</code>或者其他容器对象后，该移后源对象仍然是有效的，我们可以对它执行<code>empty</code>、<code>size</code>等操作，但结果无法得到保证。</p>
+</li>
+<li><p>如果一个类定义了自己的拷贝构造函数、拷贝赋值运算符或者析构函数，编译器就不会为它合成移动构造函数和移动赋值运算符了。如果一个类没有移动操作，通过正常的函数匹配，类会使用对应的拷贝操作来代替移动操作。</p>
+</li>
+<li><p>只有当一个类没有定义任任何自己版本的拷贝控制成员，且它的所有数据成员都可以移动构造或移动赋值时，编译器才会为它合成移动构造函数或移动赋值运算符。</p>
+</li>
+<li><p>“何时将合成的移动操作定义为删除的函数”遵循与“定义删除的合成拷贝操作“类似的原则。</p>
+<ul>
+<li>与拷贝构造函数不同的，移动构造函数被定义为删除函数的条件是：有类成员定义了自己的拷贝构造函数且未定义移动构造函数，或是有类成员未定义自己的拷贝构造函数且编译器不能为其合成移动构造函数。移动赋值运算符的情况类似。</li>
+<li>其他条件与拷贝操作类似。</li>
+</ul>
+</li>
+<li><p>定义了一个移动构造函数或者移动赋值运算符的类必须也定义自己的拷贝操作，否则这些成员默认地被定义为删除的。</p>
+</li>
+<li><p>如果一个类既有移动构造函数，也有拷贝构造函数，编译器将使用普通的函数匹配规则来确定使用哪个构造函数。</p>
+</li>
+<li><p>如果一个类没有移动构造函数，函数匹配保证该类型的对象会被拷贝，即使调用了<code>move</code>也是如此：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Foo() = <span class="keyword">default</span>;</span><br><span class="line">    Foo(<span class="keyword">const</span> Foo&amp;); <span class="comment">// copy constructor</span></span><br><span class="line">    <span class="comment">// other members, but Foo does not define a move constructor</span></span><br><span class="line">&#125;;</span><br><span class="line">Foo x;</span><br><span class="line"><span class="function">Foo <span class="title">y</span><span class="params">(x)</span></span>;            <span class="comment">// copy constructor; x is an lvalue</span></span><br><span class="line"><span class="function">Foo <span class="title">z</span><span class="params">(<span class="built_in">std</span>::move(x))</span></span>; <span class="comment">// copy constructor, because there is no move constructor</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对<strong>移动迭代器</strong>（move iterator）进行解引用得到的是右值引用。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> StrVec::reallocate()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// allocate space for twice as many elements as the current size</span></span><br><span class="line">    <span class="keyword">auto</span> newcapacity = size() ? <span class="number">2</span> * size() : <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">auto</span> first = alloc.allocate(newcapacity);</span><br><span class="line">    <span class="comment">// move the elements</span></span><br><span class="line">    <span class="keyword">auto</span> last = uninitialized_copy(make_move_iterator(begin()), </span><br><span class="line">                                   make_move_iterator(end()), first);</span><br><span class="line">    <span class="built_in">free</span>(); <span class="comment">// free the old space</span></span><br><span class="line">    elements = first; <span class="comment">// update the pointers</span></span><br><span class="line">    first_free = last;</span><br><span class="line">    cap = elements + newcapacity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="右值引用与成员函数"><a href="#右值引用与成员函数" class="headerlink" title="右值引用与成员函数"></a>右值引用与成员函数</h3><ul>
+<li><p>区分移动和拷贝的重载函数通常有一个版本接受一个<code>const T&amp;</code>，而另一个版本接受一个<code>T&amp;&amp;</code>。</p>
+</li>
+<li><p>通常，无论对象是左值还是右值，我们都可以调用它的成员函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s1 = <span class="string">"a value"</span>, s2 = <span class="string">"another"</span>;</span><br><span class="line"><span class="keyword">auto</span> n = (s1 + s2).find(<span class="string">'a'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指定<code>this</code>的左值/右值属性的方式与定义<code>const</code>成员函数相同，即在参数列表后放置一个<strong>引用限定符</strong>（reference qualifier）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Foo &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> Foo&amp;) &amp;; <span class="comment">// may assign only to modifiable lvalues</span></span><br><span class="line">    <span class="comment">// other members of Foo</span></span><br><span class="line">&#125;;</span><br><span class="line">Foo &amp;Foo::<span class="keyword">operator</span>=(<span class="keyword">const</span> Foo &amp;rhs) &amp;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// do whatever is needed to assign rhs to this object</span></span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>引用限定符可以是<code>&amp;</code>或者<code>&amp;&amp;</code>，分别指出<code>this</code>指向一个左值或右值。</p>
+</li>
+<li><p>一个函数可以同时用<code>const</code>和引用限定，引用限定符必须跟随在<code>const</code>限定符之后：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Foo <span class="title">someMem</span><span class="params">()</span> &amp; <span class="keyword">const</span></span>;    <span class="comment">// error: const qualifier must come first</span></span><br><span class="line">    <span class="function">Foo <span class="title">anotherMem</span><span class="params">()</span> <span class="keyword">const</span> &amp;</span>; <span class="comment">// ok: const qualifier comes first</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以根据引用限定符对函数进行重载：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Foo <span class="title">sorted</span><span class="params">()</span> &amp;&amp;</span>; <span class="comment">// may run on modifiable rvalues</span></span><br><span class="line">    <span class="function">Foo <span class="title">sorted</span><span class="params">()</span> <span class="keyword">const</span> &amp;</span>; <span class="comment">// may run on any kind of Foo</span></span><br><span class="line">    <span class="comment">// other members of Foo</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; data;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// this object is an rvalue, so we can sort in place</span></span><br><span class="line">Foo Foo::sorted() &amp;&amp;</span><br><span class="line">&#123;</span><br><span class="line">    sort(data.begin(), data.end());</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line">    <span class="comment">// this object is either const or it is an lvalue; either way we can't sort in place</span></span><br><span class="line">Foo Foo::sorted() <span class="keyword">const</span> &amp; &#123;</span><br><span class="line">    <span class="function">Foo <span class="title">ret</span><span class="params">(*<span class="keyword">this</span>)</span></span>; <span class="comment">// make a copy</span></span><br><span class="line">    sort(ret.data.begin(), ret.data.end()); <span class="comment">// sort the copy</span></span><br><span class="line">    <span class="keyword">return</span> ret; <span class="comment">// return the copy</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果我们定义两个或两个以上具有相同名字和相同参数列表的成员函数，就必须对所有的函数都加上引用限定符，或者所有的都不加：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Foo <span class="title">sorted</span><span class="params">()</span> &amp;&amp;</span>;</span><br><span class="line">    <span class="function">Foo <span class="title">sorted</span><span class="params">()</span> <span class="keyword">const</span></span>; <span class="comment">// error: must have reference qualifier</span></span><br><span class="line">    <span class="comment">// Comp is type alias for the function type (see § 6.7 (p. 249))</span></span><br><span class="line">    <span class="comment">// that can be used to compare int values</span></span><br><span class="line">    <span class="keyword">using</span> Comp = <span class="keyword">bool</span>(<span class="keyword">const</span> <span class="keyword">int</span>&amp;, <span class="keyword">const</span> <span class="keyword">int</span>&amp;);</span><br><span class="line">    <span class="function">Foo <span class="title">sorted</span><span class="params">(Comp*)</span></span>; <span class="comment">// ok: different parameter list</span></span><br><span class="line">    <span class="function">Foo <span class="title">sorted</span><span class="params">(Comp*)</span> <span class="keyword">const</span></span>; <span class="comment">// ok: neither version is reference qualified</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
 
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/DynamicMemory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/DynamicMemory/" itemprop="url">Dynamic Memory</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-16T19:47:01+08:00">
+                2019-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="动态内存"><a href="#动态内存" class="headerlink" title="动态内存"></a>动态内存</h1><ul>
+<li>静态内存用于保存局部<code>static</code>对象，类的<code>static</code>成员以及定义在任何函数之外的变量。栈内存用于保存定义在函数内的非<code>static</code>变量。</li>
+<li>除了静态内存与栈内存，每个程序还拥有一个内存池，这部分内存被称为<strong>自由空间</strong>（free store）或<strong>堆</strong>（heap）。</li>
+</ul>
+<h2 id="动态内存与智能指针"><a href="#动态内存与智能指针" class="headerlink" title="动态内存与智能指针"></a>动态内存与智能指针</h2><ul>
+<li>在C++中，动态内存的管理通过 一对运算符完成：<code>new</code>，在动态内存中为对象分配空间并返回一个指向该对象的指针，我们可以选择对对象进行初始化；<code>delete</code>，接受一个动态对象的指针，销毁该对象，并释放与之关联的内存。</li>
+<li>新标准库提供了两种<strong>智能指针</strong>（smart pointer）类型来管理动态对象：<code>shared_ptr</code>允许多个指针指向同一个对象；<code>unique_ptr</code>则“独占”所指向的对象。标准库还定义了一个名为<code>weak_ptr</code>的伴随类，它是一种弱引用，指向<code>shared_ptr</code>所管理的对象。</li>
+</ul>
+<h3 id="shared-ptr类"><a href="#shared-ptr类" class="headerlink" title="shared_ptr类"></a><code>shared_ptr</code>类</h3><ul>
+<li><p>默认初始化的智能指针保存着一个空指针。</p>
+</li>
+<li><p><code>shared_ptr</code>和<code>unique_ptr</code>都支持的操作<br><img src="/2019/09/DynamicMemory/12-1.png" alt></p>
+</li>
+<li><p><code>shared_ptr</code>独有的操作<br><img src="/2019/09/DynamicMemory/12-2.png" alt></p>
+</li>
+<li><p>一旦一个<code>shared_ptr</code>的计数器变为0，它将自动释放自己所管理的对象：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> r = make_shared&lt;<span class="keyword">int</span>&gt;(<span class="number">42</span>); <span class="comment">// int to which r points has one user</span></span><br><span class="line">r = q; <span class="comment">// assign to r, making it point to a different address</span></span><br><span class="line">       <span class="comment">// increase the use count for the object to which q points</span></span><br><span class="line">       <span class="comment">// reduce the use count of the object to which r had pointed</span></span><br><span class="line">       <span class="comment">// the object r had pointed to has no users; that object is automatically freed</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="直接管理内存"><a href="#直接管理内存" class="headerlink" title="直接管理内存"></a>直接管理内存</h3><ul>
+<li><p>运算符<code>new</code>分配内存，<code>delete</code>释放<code>new</code>分配的内存。</p>
+</li>
+<li><p>默认情况下，动态分配的对象是默认初始化的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> *ps = <span class="keyword">new</span> <span class="built_in">string</span>; <span class="comment">// initialized to empty string</span></span><br><span class="line"><span class="keyword">int</span> *pi = <span class="keyword">new</span> <span class="keyword">int</span>; <span class="comment">// pi points to an uninitialized int</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以使用直接初始化的方式初始化一个动态分配的对象，可以使用传统的构造方式，也可以使用列表初始化：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *pi = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">1024</span>); <span class="comment">// object to which pi points has value 1024</span></span><br><span class="line"><span class="built_in">string</span> *ps = <span class="keyword">new</span> <span class="built_in">string</span>(<span class="number">10</span>, <span class="string">'9'</span>); <span class="comment">// *ps is "9999999999"</span></span><br><span class="line"><span class="comment">// vector with ten elements with values from 0 to 9</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; *pv = <span class="keyword">new</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于编译器使用初始值类型来推断需要分配内存的类型，只有当括号中仅有单一初始化器时才可以使用<code>auto</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> p1 = <span class="keyword">new</span> <span class="keyword">auto</span>(obj); <span class="comment">// p points to an object of the type of obj</span></span><br><span class="line"><span class="comment">// that object is initialized from obj</span></span><br><span class="line"><span class="keyword">auto</span> p2 = <span class="keyword">new</span> <span class="keyword">auto</span>&#123;a,b,c&#125;; <span class="comment">// error: must use parentheses for the initializer</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类似其他<code>const</code>对象，动态分配的<code>const</code>对象必须进行初始化。</p>
+</li>
+<li><p>若<code>new</code>不能分配所要求的内存空间，它会抛出一个类型为<code>bad_alloc</code>的异常，可以改变<code>new</code>的使用方式阻止其抛出异常：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// if allocation fails, new returns a null pointer</span></span><br><span class="line"><span class="keyword">int</span> *p1 = <span class="keyword">new</span> <span class="keyword">int</span>; <span class="comment">// if allocation fails, new throws std::bad_alloc</span></span><br><span class="line"><span class="keyword">int</span> *p2 = <span class="keyword">new</span> (nothrow) <span class="keyword">int</span>; <span class="comment">// if allocation fails, new returns a null pointer</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="shared-ptr和new结合使用"><a href="#shared-ptr和new结合使用" class="headerlink" title="shared_ptr和new结合使用"></a><code>shared_ptr</code>和<code>new</code>结合使用</h3><ul>
+<li><p>定义和改变<code>shared_ptr</code>的其他方法<br><img src="/2019/09/DynamicMemory/12-3.png" alt></p>
+</li>
+<li><p>接受指针参数的智能指针构造函数是<code>explicit</code>的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; p1 = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">1024</span>); <span class="comment">// error: must use direct initialization</span></span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; p2(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">1024</span>)); <span class="comment">// ok: uses direct initialization</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>默认情况下，智能指针使用<code>delete</code>释放与之关联的对象。</p>
+</li>
+<li><p>当将一个<code>shared_ptr</code>绑定到一个普通指针时，我们就将内存的管理责任交给了这个<code>shared_ptr</code>。一旦这样做了，我们就不应该再使用内置指针来访问<code>shared_ptr</code>所指向的内存了。</p>
+</li>
+<li><p>虽然编译器不会给出报错信息，但将另一个智能指针也绑定到<code>get</code>返回的指针上是错误的。</p>
+</li>
+</ul>
+<h3 id="智能指针与异常"><a href="#智能指针与异常" class="headerlink" title="智能指针与异常"></a>智能指针与异常</h3><ul>
+<li>如果一个异常发生在<code>new</code>与<code>delete</code>之间，并且异常没有在<code>f</code>中捕获，那么内存将永远不会被释放：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *ip = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">42</span>); <span class="comment">// dynamically allocate a new object</span></span><br><span class="line">    <span class="comment">// code that throws an exception that is not caught inside f</span></span><br><span class="line">    <span class="keyword">delete</span> ip; <span class="comment">// free the memory before exiting</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="unique-ptr"><a href="#unique-ptr" class="headerlink" title="unique_ptr"></a><code>unique_ptr</code></h3><ul>
+<li>不同于<code>shared_ptr</code>，同时只能有一个<code>unique_ptr</code>指向一个给定对象。</li>
+<li><code>unique_ptr</code>操作<br><img src="/2019/09/DynamicMemory/12-4.png" alt></li>
+</ul>
+<ul>
+<li><p>与<code>shared_ptr</code>不同，没有类似<code>make_shared</code>的标准库函数返回一个<code>unique_ptr</code>。当我们定义一个<code>unique_ptr</code>时，需要将其绑定到一个<code>new</code>返回的指针上。类似<code>shared_ptr</code>，初始化<code>unique_ptr</code>必须采用直接初始化形式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="keyword">double</span>&gt; p1; <span class="comment">// unique_ptr that can point at a double</span></span><br><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="keyword">int</span>&gt; p2(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">42</span>)); <span class="comment">// p2 points to int with value 42</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不能拷贝<code>unique_ptr</code>的规则有一个例外：我们拷贝或赋值一个将要被销毁的<code>unique_ptr</code>，最常见的例子是从函数返回一个<code>unique_ptr</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="keyword">int</span>&gt; clone(<span class="keyword">int</span> p) &#123;</span><br><span class="line">    <span class="comment">// ok: explicitly create a unique_ptr&lt;int&gt; from int*</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">unique_ptr</span>&lt;<span class="keyword">int</span>&gt;(<span class="keyword">new</span> <span class="keyword">int</span>(p));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="keyword">int</span>&gt; clone(<span class="keyword">int</span> p) &#123;</span><br><span class="line">    <span class="built_in">unique_ptr</span>&lt;<span class="keyword">int</span>&gt; ret(<span class="keyword">new</span> <span class="keyword">int</span> (p));</span><br><span class="line">    <span class="comment">// . . .</span></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a><code>weak_ptr</code></h3><ul>
+<li><img src="/2019/09/DynamicMemory/12-5.png" alt></li>
+</ul>
+<h2 id="动态数组"><a href="#动态数组" class="headerlink" title="动态数组"></a>动态数组</h2><ul>
+<li>分配了动态数组的类必须定义自己版本的操作，在拷贝、复制及销毁对象时管理所关联的内存。</li>
+</ul>
+<h3 id="new和数组"><a href="#new和数组" class="headerlink" title="new和数组"></a><code>new</code>和数组</h3><ul>
+<li><p>使用<code>new</code>分配一个数组时，获得的不是数组类型的对象，而是指向数组元素类型的指针。由于得到的不是数组类型，不能对动态数组调用<code>begin</code>或<code>end</code>。</p>
+</li>
+<li><p>默认情况下，<code>new</code>分配的对象，不管是单个分配还是数组中的，都是默认初始化的。可以对数组中的元素进行值初始化，方法是在大小之后跟一队空括号。在新标准中，还可以提供一个元素初始化器的花括号列表：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *pia = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>]; <span class="comment">// block of ten uninitialized ints</span></span><br><span class="line"><span class="keyword">int</span> *pia2 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>](); <span class="comment">// block of ten ints value initialized to 0</span></span><br><span class="line"><span class="built_in">string</span> *psa = <span class="keyword">new</span> <span class="built_in">string</span>[<span class="number">10</span>]; <span class="comment">// block of ten empty strings</span></span><br><span class="line"><span class="built_in">string</span> *psa2 = <span class="keyword">new</span> <span class="built_in">string</span>[<span class="number">10</span>](); <span class="comment">// block of ten empty strings</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// block of ten ints each initialized from the corresponding initializer</span></span><br><span class="line"><span class="keyword">int</span> *pia3 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>]&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;;</span><br><span class="line"><span class="comment">// block of ten strings; the first four are initialized from the given initializers</span></span><br><span class="line"><span class="comment">// remaining elements are value initialized</span></span><br><span class="line"><span class="built_in">string</span> *psa3 = <span class="keyword">new</span> <span class="built_in">string</span>[<span class="number">10</span>]&#123;<span class="string">"a"</span>, <span class="string">"an"</span>, <span class="string">"the"</span>, <span class="built_in">string</span>(<span class="number">3</span>,<span class="string">'x'</span>)&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为了释放动态数组，必须使用一种特殊形式的<code>delete</code>，在指针前加上一个空方括号对：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> p; <span class="comment">// p must point to a dynamically allocated object or be null</span></span><br><span class="line"><span class="keyword">delete</span> [] pa; <span class="comment">// pa must point to a dynamically allocated array or be null</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组中的元素按逆序销毁。</p>
+</li>
+<li><p>指向数组的<code>unique_ptr</code><br><img src="/2019/09/DynamicMemory/12-6.png" alt></p>
+</li>
+<li><p>与<code>unique_ptr</code>不同，<code>shared_ptr</code>不支持直接管理动态数组，如果希望使用<code>shared_ptr</code>管理一个动态数组，必须提供自己定义的删除器：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// to use a shared_ptr we must supply a deleter</span></span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; sp(<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>], [](<span class="keyword">int</span> *p) &#123; <span class="keyword">delete</span>[] p; &#125;);</span><br><span class="line">sp.reset(); <span class="comment">// uses the lambda we supplied that uses delete[] to free the array</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="allocator类"><a href="#allocator类" class="headerlink" title="allocator类"></a><code>allocator</code>类</h3><ul>
+<li><p>不能分配元素类型为“没有默认构造函数的类类型”的动态数组。</p>
+</li>
+<li><p>标准库<code>allocator</code>类及其算法<br><img src="/2019/09/DynamicMemory/12-7.png" alt></p>
+</li>
+<li><p><code>allocator</code>算法<br><img src="/2019/09/DynamicMemory/12-8.png" alt></p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/AssociativeContainers/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/AssociativeContainers/" itemprop="url">Associative Containers</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T10:36:49+08:00">
+                2019-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="关联容器"><a href="#关联容器" class="headerlink" title="关联容器"></a>关联容器</h1><ul>
+<li>关联容器类型<br><img src="/2019/09/AssociativeContainers/11-1.png" alt></li>
+</ul>
+<h1 id="使用关联容器"><a href="#使用关联容器" class="headerlink" title="使用关联容器"></a>使用关联容器</h1><ul>
+<li><p>使用关联数组的一个典型例子是单词数统计：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// count the number of times each word occurs in the input</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt; word_count; <span class="comment">// empty map from string to size_t</span></span><br><span class="line"><span class="built_in">string</span> word;</span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">cin</span> &gt;&gt; word)</span><br><span class="line">        ++word_count[word];   <span class="comment">// fetch and increment the counter for word</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;w : word_count) <span class="comment">// for each element in the map</span></span><br><span class="line">    <span class="comment">// print the results</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt;  w.first &lt;&lt; <span class="string">" occurs "</span> &lt;&lt; w.second</span><br><span class="line">         &lt;&lt; ((w.second &gt; <span class="number">1</span>) ? <span class="string">" times"</span> : <span class="string">" time"</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若<code>word</code>不存在于<code>map</code>中，下标操作会创建一个键为<code>word</code>值为<code>0</code>的元素。</p>
+</li>
+<li><p>当我们从<code>map</code>中获取一个元素时，得到的元素类型为<code>pair</code>。</p>
+</li>
+</ul>
+<h1 id="关联容器概述"><a href="#关联容器概述" class="headerlink" title="关联容器概述"></a>关联容器概述</h1><h2 id="定义关联容器"><a href="#定义关联容器" class="headerlink" title="定义关联容器"></a>定义关联容器</h2><ul>
+<li>在<code>C++ 11</code>标准下，关联容器可以进行列表初始化：</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt; word_count;  <span class="comment">// empty</span></span><br><span class="line"><span class="comment">// list initialization</span></span><br><span class="line"><span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; exclude = &#123;<span class="string">"the"</span>, <span class="string">"but"</span>, <span class="string">"and"</span>, <span class="string">"or"</span>, <span class="string">"an"</span>, <span class="string">"a"</span>,</span><br><span class="line">                       <span class="string">"The"</span>, <span class="string">"But"</span>, <span class="string">"And"</span>, <span class="string">"Or"</span>, <span class="string">"An"</span>,</span><br><span class="line"><span class="string">"A"</span>&#125;;</span><br><span class="line"><span class="comment">// three elements; authors maps last name to first</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; authors = &#123; &#123;<span class="string">"Joyce"</span>, <span class="string">"James"</span>&#125;,</span><br><span class="line">                                &#123;<span class="string">"Austen"</span>, <span class="string">"Jane"</span>&#125;,</span><br><span class="line">                                &#123;<span class="string">"Dickens"</span>, <span class="string">"Charles"</span>&#125; &#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>map</code>或<code>set</code>中的键必须是唯一的，一个键只能对应容器中的一个元素；<code>multimap</code>和<code>multiset</code>没有这个限制，可以有多个元素具有相同的键。</li>
+</ul>
+<h2 id="键类型的要求"><a href="#键类型的要求" class="headerlink" title="键类型的要求"></a>键类型的要求</h2><ul>
+<li><p>默认情况下，标准库使用键类型的<code>&lt;</code>运算符来比较两个键。</p>
+</li>
+<li><p>对于没有<code>&lt;</code>运算符的类型，可以在模板参数中提供比较操作类型（函数指针）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">compareIsbn</span><span class="params">(<span class="keyword">const</span> Sales_data &amp;lhs, <span class="keyword">const</span> Sales_data &amp;rhs)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> lhs.isbn() &lt; rhs.isbn();</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">multiset</span>&lt;Sales_data, <span class="keyword">decltype</span>(compareIsbn)*&gt; bookstore(compareIsbn);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对函数名使用<code>decltype</code>时，必须添加<code>*</code>才能得到函数指针类型。</p>
+</li>
+</ul>
+<h2 id="pair类型"><a href="#pair类型" class="headerlink" title="pair类型"></a><code>pair</code>类型</h2><ul>
+<li><code>pair</code>的默认构造函数对数据成员进行值初始化。</li>
+<li><code>pair</code>上的操作<br><img src="/2019/09/AssociativeContainers/11-2.png" alt></li>
+</ul>
+<h1 id="关联容器操作"><a href="#关联容器操作" class="headerlink" title="关联容器操作"></a>关联容器操作</h1><ul>
+<li>关联容器的额外类型别名<br><img src="/2019/09/AssociativeContainers/11-3.png" alt></li>
+</ul>
+<h2 id="关联容器迭代器"><a href="#关联容器迭代器" class="headerlink" title="关联容器迭代器"></a>关联容器迭代器</h2><ul>
+<li><code>set</code>类型定义了<code>iterator</code>和<code>const_iterator</code>类型，但两种迭代器对<code>set</code>的元素都只能进行只读访问。</li>
+</ul>
+<h2 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h2><ul>
+<li>关联容器<code>insert</code>操作<br><img src="/2019/09/AssociativeContainers/11-4.png" alt></li>
+</ul>
+<h2 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h2><ul>
+<li>从关联容器中删除元素<br><img src="/2019/09/AssociativeContainers/11-5.png" alt></li>
+</ul>
+<h2 id="map的下标操作"><a href="#map的下标操作" class="headerlink" title="map的下标操作"></a><code>map</code>的下标操作</h2><ul>
+<li><code>map</code>和<code>unordered_map</code>的下标操作<br><img src="/2019/09/AssociativeContainers/11-6.png" alt></li>
+</ul>
+<h2 id="访问元素"><a href="#访问元素" class="headerlink" title="访问元素"></a>访问元素</h2><ul>
+<li>在一个关联容器中查找元素的操作<br><img src="/2019/09/AssociativeContainers/11-7.png" alt></li>
+</ul>
+<h1 id="无序容器"><a href="#无序容器" class="headerlink" title="无序容器"></a>无序容器</h1><ul>
+<li>无序容器管理操作<br><img src="/2019/09/AssociativeContainers/11-8.png" alt></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/GenericAlgorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/GenericAlgorithm/" itemprop="url">Generic Algorithm</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-06T19:10:35+08:00">
+                2019-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h1><ul>
+<li><p>对于一个对象或表达式，如果可以对其使用调用运算符，则称它为可调用的。</p>
+</li>
+<li><p>除函数与函数指针外，还有两种可调用对象：重载了函数调用运算符的类以及<strong>lambda表达式</strong>（lambda expression）。lambda表达式的基本形式如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[capture <span class="built_in">list</span>] (parameter <span class="built_in">list</span>) -&gt; <span class="keyword">return</span> type  &#123; function body &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>与普通函数不同，lambda不能有默认参数。</p>
+</li>
+<li><p>如果lambda的函数体包含任何单一<code>return</code>语句之外的内容，且未指定返回类型，则返回<code>void</code>。</p>
+</li>
+<li><p>捕获列表只用于局部非<code>static</code>变量，lambda可以直接使用局部<code>static</code>变量和它所在函数之外声明的名字。</p>
+</li>
+<li><p>当定义一个lambda时，编译器生成一个与lambda对应的新的（未命名的）类类型。</p>
+</li>
+<li><p>lambda捕获列表</p>
+</li>
+</ul>
+<p><img src="/2019/09/GenericAlgorithm/10-1.png" alt></p>
+<ul>
+<li>如果函数返回一个lambda，则与函数不能返回一个局部变量的引用类似，此lambda也不能包含引用捕获。</li>
+</ul>
+<h1 id="参数绑定"><a href="#参数绑定" class="headerlink" title="参数绑定"></a>参数绑定</h1><ul>
+<li><p><code>functional</code>头文件中的<code>bind</code>函数可以接受一个可调用对象，生成一个新的可调用对象。调用<code>bind</code>的一般形式为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> newCallable = bind(callable, arg_list);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>std::placeholder</code>命名空间中的<code>_n</code>是<code>bind</code>参数的占位符。对于<code>auto g = bind(f, a, b, _2, c, _1)</code>，调用<code>g(X, Y)</code>相当于调用<code>f(a, b, Y, c, X)</code>。</p>
+</li>
+<li><p>默认情况下，<code>bind</code>中的非占位符参数被拷贝到<code>bind</code>返回的可调用对象中。如果希望传递给<code>bind</code>一个对象而又不拷贝它，就必须使用标准库<code>ref</code>函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for_each(words.begin(), words.end(), bind(print, ref(os), _1, <span class="string">' '</span>));</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="再探迭代器"><a href="#再探迭代器" class="headerlink" title="再探迭代器"></a>再探迭代器</h1><ul>
+<li><p>插入迭代器操作<br><img src="/2019/09/GenericAlgorithm/10-2.png" alt></p>
+</li>
+<li><p><code>istream_iterator</code>操作<br><img src="/2019/09/GenericAlgorithm/10-3.png" alt></p>
+</li>
+<li><p><code>ostream_iterator</code>操作<br><img src="/2019/09/GenericAlgorithm/10-4.png" alt></p>
+</li>
+<li><p>对于绑定到流的迭代器，一旦其关联的流遇到文件结束或IO错误，迭代器的值就与尾迭代器相等。</p>
+</li>
+<li><p>对于反向迭代器，可以使用<code>base()</code>成员函数返回其对应的普通迭代器，下图显示了普通迭代器与反向迭代器之间的关系。<br><img src="/2019/09/GenericAlgorithm/10-6.png" alt></p>
+</li>
+<li><p>当我们从一个普通迭代器初始化一个反向迭代器，或是给一个反向迭代器赋值时，结果迭代器与原迭代器指向的并不是相同的元素。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/SequentialContainer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/SequentialContainer/" itemprop="url">Sequential Container</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T10:22:26+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="顺序容器概述"><a href="#顺序容器概述" class="headerlink" title="顺序容器概述"></a>顺序容器概述</h1><ul>
+<li><p>顺序容器类型<br><img src="/2019/09/SequentialContainer/9-1.png" alt></p>
+</li>
+<li><p>与<code>vector</code>、<code>deque</code>和<code>array</code>相比，<code>list</code>和<code>forward_list</code>的内存开销更大。</p>
+</li>
+</ul>
+<h1 id="容器库概览"><a href="#容器库概览" class="headerlink" title="容器库概览"></a>容器库概览</h1><ul>
+<li><p>容器操作<br><img src="/2019/09/SequentialContainer/9-2-1.png" alt><br><img src="/2019/09/SequentialContainer/9-2-2.png" alt></p>
+</li>
+<li><p>容器定义和初始化<br><img src="/2019/09/SequentialContainer/9-3.png" alt></p>
+</li>
+<li><p>为了创建一个容器为另一个容器的拷贝，两个容器的类型及其元素类型必须匹配。不过，当传递迭代器参数来拷贝一个范围时，不要求容器类型是相同的。而且，新容器和原容器中的元素类型也可以不同，只要能将拷贝的元素转换为要初始化的元素类型即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// each container has three elements, initialized from the given initializers</span></span><br><span class="line"><span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt; authors = &#123;<span class="string">"Milton"</span>, <span class="string">"Shakespeare"</span>, <span class="string">"Austen"</span>&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">const</span> <span class="keyword">char</span>*&gt; articles = &#123;<span class="string">"a"</span>, <span class="string">"an"</span>, <span class="string">"the"</span>&#125;;</span><br><span class="line"><span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt; list2(authors);     <span class="comment">// ok: types match</span></span><br><span class="line"><span class="built_in">deque</span>&lt;<span class="built_in">string</span>&gt; authList(authors); <span class="comment">// error: container types don't match</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; words(articles);  <span class="comment">// error: element types must match</span></span><br><span class="line"><span class="comment">// ok: converts const char* elements to string</span></span><br><span class="line">forward_list&lt;<span class="built_in">string</span>&gt; words(articles.begin(), articles.end());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果元素是内置类型或具有默认构造函数的类类型，可以只为构造函数提供一个容器大小参数。如果元素类型没有默认构造函数，则除了大小参数外，还必须指定一个显式的元素初始值。</p>
+</li>
+<li><p>与内置数组一样，标准库<code>array</code>的大小也是类型的一部分。</p>
+</li>
+<li><p>容器赋值运算<br><img src="/2019/09/SequentialContainer/9-4.png" alt></p>
+</li>
+<li><p>对于<code>array</code>，<code>swap</code>会真正的交换它们的元素，在<code>swap</code>操作后，指针、引用和迭代器所绑定的元素不变，但元素值已经与另一个array中对应元素的值进行了交换。</p>
+</li>
+</ul>
+<h1 id="顺序容器操作"><a href="#顺序容器操作" class="headerlink" title="顺序容器操作"></a>顺序容器操作</h1><ul>
+<li><p>想顺序容器添加元素的操作<br><img src="/2019/09/SequentialContainer/9-5.png" alt></p>
+</li>
+<li><p>如果传递给<code>insert</code>一对迭代器，它们不能指向添加元素的目标容器。</p>
+</li>
+<li><p><code>emplace</code>函数在容器中直接构造元素。</p>
+</li>
+<li><p>在顺序容器中访问元素的操作<br><img src="/2019/09/SequentialContainer/9-6.png" alt></p>
+</li>
+<li><p>顺序表容器的删除操作<br><img src="/2019/09/SequentialContainer/9-7.png" alt></p>
+</li>
+<li><p>在<code>forward_list</code>中插入或删除元素的操作<br><img src="/2019/09/SequentialContainer/9-8.png" alt></p>
+</li>
+<li><p>顺序容器大小操作<br><img src="/2019/09/SequentialContainer/9-9.png" alt></p>
+</li>
+</ul>
+<h1 id="vector对象是如何增长的"><a href="#vector对象是如何增长的" class="headerlink" title="vector对象是如何增长的"></a><code>vector</code>对象是如何增长的</h1><ul>
+<li><p>容器大小管理操作<br><img src="/2019/09/SequentialContainer/9-10.png" alt></p>
+</li>
+<li><p>若请求的容器大小小于或等于已有的容量，<code>reserve</code>不会进行任何操作。</p>
+</li>
+<li><p>调用<code>shrink_to_fit</code>并不保证一定退回内存空间。</p>
+</li>
+</ul>
+<h1 id="string的额外操作"><a href="#string的额外操作" class="headerlink" title="string的额外操作"></a>string的额外操作</h1><ul>
+<li><p>构造<code>string</code>的其他方法<br><img src="/2019/09/SequentialContainer/9-11.png" alt></p>
+</li>
+<li><p><code>substr</code>操作<br><img src="/2019/09/SequentialContainer/9-12.png" alt><br>如果<code>pos + n</code>大于<code>string</code>的大小，则<code>substr</code>只拷贝到<code>string</code>的末尾。</p>
+</li>
+<li><p>修改<code>string</code>的操作<br><img src="/2019/09/SequentialContainer/9-13.png" alt></p>
+</li>
+<li><p><code>string</code>搜索操作<br><img src="/2019/09/SequentialContainer/9-14.png" alt></p>
+</li>
+<li><p><code>s.compare</code>的几种参数形式<br><img src="/2019/09/SequentialContainer/9-15.png" alt></p>
+</li>
+<li><p><code>string</code>与数值之间的转换<br><img src="/2019/09/SequentialContainer/9-16.png" alt></p>
+</li>
+</ul>
+<h1 id="容器适配器"><a href="#容器适配器" class="headerlink" title="容器适配器"></a>容器适配器</h1><ul>
+<li><p>所有容器适配器都支持的操作和类型<br><img src="/2019/09/SequentialContainer/9-17.png" alt></p>
+</li>
+<li><p>默认情况下，<code>stack</code>和<code>queue</code>基于<code>deque</code>实现，<code>priority_queue</code>基于<code>vector</code>实现。可以在创建一个适配器时将一个命名的顺序容器作为第二个类型参数，重载默认容器类型。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// empty stack implemented on top of vector</span></span><br><span class="line"><span class="built_in">stack</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; str_stk;</span><br><span class="line"><span class="comment">// str_stk2 is implemented on top of vector and initially holds a copy of svec</span></span><br><span class="line"><span class="built_in">stack</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; str_stk2(svec);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>stack</code>的特有操作<br><img src="/2019/09/SequentialContainer/9-18.png" alt></p>
+</li>
+<li><p><code>queue</code>和<code>priority_queue</code>的特有操作<br><img src="/2019/09/SequentialContainer/9-19.png" alt></p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/190829IO-Library/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/190829IO-Library/" itemprop="url">The IO Library</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-29T10:45:20+08:00">
+                2019-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="IO类"><a href="#IO类" class="headerlink" title="IO类"></a>IO类</h1><ul>
+<li>IO库类型和头文件<br><img src="/2019/08/190829IO-Library/8-1.png" alt></li>
+</ul>
+<h2 id="IO对象无拷贝或赋值"><a href="#IO对象无拷贝或赋值" class="headerlink" title="IO对象无拷贝或赋值"></a>IO对象无拷贝或赋值</h2><ul>
+<li>由于不能拷贝IO对象，我们不能将函数的形参或返回类型设为流类型。</li>
+</ul>
+<h2 id="条件状态"><a href="#条件状态" class="headerlink" title="条件状态"></a>条件状态</h2><ul>
+<li>IO库条件状态<br><img src="/2019/08/190829IO-Library/8-2.png" alt></li>
+</ul>
+<h2 id="管理输出缓冲"><a href="#管理输出缓冲" class="headerlink" title="管理输出缓冲"></a>管理输出缓冲</h2><ul>
+<li>导致缓冲刷新的条件有以下几种：<ul>
+<li>程序正常结束</li>
+<li>缓冲区满</li>
+<li>使用<code>endl</code>, <code>flush</code>等操纵符显式刷新缓冲</li>
+<li>使用<code>unitbuf</code>操纵符设置流的内部状态，使流在每次输出操作后自动刷新缓冲</li>
+<li>一个输出流A可以关联到另一个流B，此时读写B时，A的缓冲区会被刷新</li>
+</ul>
+</li>
+<li>有两个与<code>endl</code>类似的操纵符：<code>flush</code>和<code>ends</code>。<code>flush</code>刷新缓冲区但不向输出添加任何字符；<code>ends</code>在缓冲区末尾插入一个空字符，然后刷新缓冲区。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"hi!"</span> &lt;&lt; <span class="built_in">endl</span>;   <span class="comment">// writes hi and a newline, then flushes the buffer</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"hi!"</span> &lt;&lt; flush;  <span class="comment">// writes hi, then flushes the buffer; adds no data</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"hi!"</span> &lt;&lt; ends;   <span class="comment">// writes hi and a null, then flushes the buffer</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="文件输入和输出"><a href="#文件输入和输出" class="headerlink" title="文件输入和输出"></a>文件输入和输出</h1><ul>
+<li><code>fstream</code>特有操作<br><img src="/2019/08/190829IO-Library/8-3.png" alt></li>
+</ul>
+<h2 id="使用文件流对象"><a href="#使用文件流对象" class="headerlink" title="使用文件流对象"></a>使用文件流对象</h2><ul>
+<li>当<code>fstream</code>对象被销毁时，会自动调用<code>close</code>。</li>
+</ul>
+<h2 id="文件模式"><a href="#文件模式" class="headerlink" title="文件模式"></a>文件模式</h2><ul>
+<li><p>文件模式<br><img src="/2019/08/190829IO-Library/8-4.png" alt></p>
+</li>
+<li><p>默认情况下，当我们打开一个<code>ofstream</code>时，文件的内容会被丢弃。阻止一个<code>ofsteam</code>清空给定文件内容的方法是同时指定<code>app</code>模式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// file1 is truncated in each of these cases</span></span><br><span class="line"><span class="function">ofstream <span class="title">out</span><span class="params">(<span class="string">"file1"</span>)</span></span>;   <span class="comment">// out and trunc are implicit</span></span><br><span class="line"><span class="function">ofstream <span class="title">out2</span><span class="params">(<span class="string">"file1"</span>, ofstream::out)</span></span>;   <span class="comment">// trunc is implicit</span></span><br><span class="line"><span class="function">ofstream <span class="title">out3</span><span class="params">(<span class="string">"file1"</span>, ofstream::out | ofstream::trunc)</span></span>;</span><br><span class="line"><span class="comment">// to preserve the file's contents, we must explicitly specify app mode</span></span><br><span class="line"><span class="function">ofstream <span class="title">app</span><span class="params">(<span class="string">"file2"</span>, ofstream::app)</span></span>;   <span class="comment">// out is implicit</span></span><br><span class="line"><span class="function">ofstream <span class="title">app2</span><span class="params">(<span class="string">"file2"</span>, ofstream::out | ofstream::app)</span></span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="string流"><a href="#string流" class="headerlink" title="string流"></a>string流</h1><ul>
+<li>stringstream特有操作<br><img src="/2019/08/190829IO-Library/8-5.png" alt></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/190827classes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/190827classes/" itemprop="url">Classes</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-27T10:47:18+08:00">
+                2019-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="定义抽象数据类型"><a href="#定义抽象数据类型" class="headerlink" title="定义抽象数据类型"></a>定义抽象数据类型</h1><ul>
+<li><p>成员函数必须在类的内部声明，可以在类的内部或外部定义。定义在类内部的函数是隐式的<code>inline</code>函数。</p>
+</li>
+<li><p>调用成员函数时，<code>this</code>被初始化为调用成员函数的对象的地址。普通成员函数的<code>this</code>为指向非<code>const</code>对象的<code>const</code>指针，<code>const</code>成员函数的<code>this</code>为指向<code>const</code>对象的<code>const</code>指针。</p>
+</li>
+<li><p><code>const</code>对象以及指向<code>const</code>对象的引用或指针只能调用对象的<code>const</code>成员函数。</p>
+</li>
+<li><p>构造函数在创建类类型的对象时执行。构造函数不能被声明为<code>const</code>。当我们在创建一个类的<code>const</code>对象时，构造函数可以向对象写入值。</p>
+</li>
+<li><p>若一个类定义了构造函数，该类就不会再有默认构造函数，除非我们自己定义默认构造函数。</p>
+</li>
+</ul>
+<h1 id="访问控制与封装"><a href="#访问控制与封装" class="headerlink" title="访问控制与封装"></a>访问控制与封装</h1><ul>
+<li><code>struct</code>关键字的默认访问权限为<code>public</code>，<code>class</code>关键字的默认访问权限为<code>private</code>。</li>
+</ul>
+<h2 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h2><ul>
+<li>如果类想把一个函数作为它的友元，只需要增加一条以<code>friend</code>关键字开始的函数声明语句即可。</li>
+<li>友元声明只能出现在类定义的内部，但在类内出现的具体位置不限。友元不是类的成员，也不受访问控制的约束。</li>
+<li>友元的声明仅仅指定了访问的权限，而非一个真正意义上的函数声明。如果我们希望类的用户能够调用某个友元函数，那么我们必须在友元声明之外再对函数进行一次声明。</li>
+</ul>
+<h1 id="类的其他特性"><a href="#类的其他特性" class="headerlink" title="类的其他特性"></a>类的其他特性</h1><h2 id="类成员"><a href="#类成员" class="headerlink" title="类成员"></a>类成员</h2><ul>
+<li>由类定义的类型名与其他类成员一样存在访问权限控制，可以是<code>public</code>或<code>private</code>中的一种。</li>
+<li>不同于普通成员，定义类型的成员必须先定义后使用。</li>
+<li><code>mutable</code>数据成员永远不是<code>const</code>，即使它是<code>const</code>对象的成员。</li>
+</ul>
+<h2 id="返回-this的成员函数"><a href="#返回-this的成员函数" class="headerlink" title="返回*this的成员函数"></a>返回<code>*this</code>的成员函数</h2><ul>
+<li>一个<code>const</code>成员函数如果以引用的形式返回<code>*this</code>，那么它的返回类型是对<code>const</code>的引用。</li>
+</ul>
+<h2 id="类类型"><a href="#类类型" class="headerlink" title="类类型"></a>类类型</h2><ul>
+<li>可以只声明但不定义一个类，这样的声明称为<strong>前向声明</strong>（forward declaration），声明的类在定义之前称为<strong>不完全类型</strong>（incomplete type）。</li>
+<li>不完全类型只能用于以下情形：定义不完全类型的指针或引用；声明（而不是定义）函数时，使用不完全类型作为参数或返回类型。</li>
+</ul>
+<h1 id="类的作用域"><a href="#类的作用域" class="headerlink" title="类的作用域"></a>类的作用域</h1><h2 id="名字查找与类的作用域"><a href="#名字查找与类的作用域" class="headerlink" title="名字查找与类的作用域"></a>名字查找与类的作用域</h2><ul>
+<li>编译器处理完类内所有声明之后再处理成员函数的定义。</li>
+<li>由于成员函数的函数体在整个类可见之后才被处理，因此它能使用类中定义的任何名字。但在类中的声明使用的名字必须在使用前确保可见。</li>
+<li>在类中，如果一个成员使用了在外层作用域中定义的类型名，则类之后将不能重新定义该名字。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">double</span> Money;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Account</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Money <span class="title">balance</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> bal; &#125;  <span class="comment">// uses Money from the outer scope</span></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">double</span> Money; <span class="comment">// error: cannot redefine Money</span></span><br><span class="line">    Money bal;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="构造函数再探"><a href="#构造函数再探" class="headerlink" title="构造函数再探"></a>构造函数再探</h1><h2 id="构造函数初始值列表"><a href="#构造函数初始值列表" class="headerlink" title="构造函数初始值列表"></a>构造函数初始值列表</h2><ul>
+<li>如果成员是<code>const</code>或引用的话，构造函数必须将其初始化。</li>
+<li>类成员初始化的顺序由它们在类定义中出现的顺序决定，与构造函数初始化列表中的顺序无关。</li>
+</ul>
+<h2 id="委托构造函数"><a href="#委托构造函数" class="headerlink" title="委托构造函数"></a>委托构造函数</h2><ul>
+<li><p>委托构造函数使用它所属类的其他构造函数执行它自己的初始化过程。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sales_data</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// nondelegating constructor initializes members from corresponding arguments</span></span><br><span class="line">    Sales_data(<span class="built_in">std</span>::<span class="built_in">string</span> s, <span class="keyword">unsigned</span> cnt, <span class="keyword">double</span> price):</span><br><span class="line">            bookNo(s), units_sold(cnt), revenue(cnt*price) &#123;</span><br><span class="line">&#125;</span><br><span class="line">    <span class="comment">// remaining constructors all delegate to another constructor</span></span><br><span class="line">    Sales_data(): Sales_data(<span class="string">""</span>, <span class="number">0</span>, <span class="number">0</span>) &#123;&#125;</span><br><span class="line">    Sales_data(<span class="built_in">std</span>::<span class="built_in">string</span> s): Sales_data(s, <span class="number">0</span>,<span class="number">0</span>) &#123;&#125;</span><br><span class="line">    Sales_data(<span class="built_in">std</span>::istream &amp;is): Sales_data()</span><br><span class="line">                                        &#123; read(is, *<span class="keyword">this</span>); &#125;</span><br><span class="line">    <span class="comment">// other members as before</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>受委托的构造函数会先执行。</p>
+</li>
+</ul>
+<h2 id="隐式类类型转换"><a href="#隐式类类型转换" class="headerlink" title="隐式类类型转换"></a>隐式类类型转换</h2><ul>
+<li>可以将构造函数声明为<code>explicit</code>以避免隐式类型转换。</li>
+</ul>
+<h2 id="聚合类"><a href="#聚合类" class="headerlink" title="聚合类"></a>聚合类</h2><ul>
+<li><strong>聚合类</strong>（aggregate class）使得用户可以直接访问其成员，并且具有特殊的初始化语法形式。当一个类满足以下条件时，我们说它是聚合的：<ul>
+<li>所有数据成员都是<code>public</code>的。</li>
+<li>没有定义任何构造函数。</li>
+<li>没有类内初始值。</li>
+<li>没有基类，也没有<code>virtual</code>函数。</li>
+</ul>
+</li>
+<li>可以提供一个花括号括起来的成员初始值列表，并用它初始化聚合类的数据成员：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Data</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> ival;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// val1.ival = 0; val1.s = string("Anna")</span></span><br><span class="line">Data val1 = &#123; <span class="number">0</span>, <span class="string">"Anna"</span> &#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="字面值常量类"><a href="#字面值常量类" class="headerlink" title="字面值常量类"></a>字面值常量类</h2><h1 id="类的静态成员"><a href="#类的静态成员" class="headerlink" title="类的静态成员"></a>类的静态成员</h1><ul>
+<li>一般来说，不能在类的内部初始化静态成员，必须在类的外部定义和初始化每个静态成员。然而，我们可以为静态成员提供<code>const</code>整数类型的类内初始值。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/190819functions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/190819functions/" itemprop="url">Functions</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-19T21:50:40+08:00">
+                2019-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="函数基础"><a href="#函数基础" class="headerlink" title="函数基础"></a>函数基础</h1><ul>
+<li>实参（argument）是函数形参（parameter）的初始值。</li>
+<li>虽然实参与形参存在对应关系，但C++对实参的求值顺序没有保证。</li>
+<li>形参名是可选的，某些情况下函数的某些形参是未被用到的，此类形参通常不命名以表示在函数体内不会使用它。函数调用必须为每个形参提供实参，即使这个形参不会被用到。</li>
+<li>函数的返回值不能为数组或函数类型，但可以是指向数组或函数的指针。</li>
+</ul>
+<h2 id="局部对象"><a href="#局部对象" class="headerlink" title="局部对象"></a>局部对象</h2><ul>
+<li>只存在于块执行期间的对象为<strong>自动对象</strong>（automatic object）。</li>
+<li>对于局部变量对应的自动对象，有两种情况：如果变量定义本身含有初始值，就用这个初始值进行初始化；否则执行默认初始化。</li>
+<li><strong>局部静态对象</strong>（local static object）在程序的执行路径第一次经过对象定义语句时初始化，并在程序结束时被销毁，在此期间对象所在函数执行结束不会对它造成影响。</li>
+<li>如果局部静态对象没有显式的初始值，他将执行值初始化，这意味着内置类型的局部静态对象被初始化为0。</li>
+</ul>
+<h2 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h2><ul>
+<li>由于函数声明没有函数体，可以在声明中省去形参名。</li>
+<li>返回值类型、函数名和形参类型描述了函数的接口，并说明了调用函数需要的信息。函数声明也被称为<strong>函数原型</strong>（function prototype）。</li>
+</ul>
+<h2 id="分离式编译"><a href="#分离式编译" class="headerlink" title="分离式编译"></a>分离式编译</h2><ul>
+<li><p>为了允许编写程序时按照逻辑关系将其划分开，C++支持<em>分离式编译</em>。分类式编译允许我们将程序划分到几个文件中，每个文件可以独立编译。</p>
+</li>
+<li><p>为了生成可执行文件，必须告诉编译器如何找到所有的代码。假设<code>fact</code>函数的定义位于<code>fact.c</code>文件中，它的声明位于<code>Chapter6.h</code>头文件中。另外在<code>factMain.cc</code>文件中创建<code>main</code>函数，<code>main</code>函数将调用<code>fact</code>函数。对于上述几个文件，编译过程如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> g++ factMain.cc fact.cc -o main</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果只修改了其中一个源文件，可以只重新编译修改的文件。大多数编译器都提供了分离式编译单个文件的机制，这个过程会产生<code>.obj</code>（Windows）或<code>.o</code>（Unix）文件，后缀名的含义是该文件包含<em>对象代码</em>（object code）。接下来编译器将对象文件<em>链接</em>在一起形成可执行文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> g++ -c factMain.cc                # generates factMain.o</span><br><span class="line"><span class="meta">$</span> g++ -c fact.cc                    # generates fact.o</span><br><span class="line"><span class="meta">$</span> g++ factMain.o fact.o -o main     # generates main</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h1><ul>
+<li>如果形参是引用类型，它将绑定到对应的实参上；否则，将实参的值拷贝后赋给形参。</li>
+</ul>
+<h2 id="传值参数"><a href="#传值参数" class="headerlink" title="传值参数"></a>传值参数</h2><h2 id="传引用参数"><a href="#传引用参数" class="headerlink" title="传引用参数"></a>传引用参数</h2><ul>
+<li>如果无需改变引用形参的值，最好将其声明为常量引用。</li>
+</ul>
+<h2 id="const形参和实参"><a href="#const形参和实参" class="headerlink" title="const形参和实参"></a><code>const</code>形参和实参</h2><ul>
+<li><p>在C++中，我们可以定义名字相同的函数，但这些函数的形参列表必须有足够的区别。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> i)</span> </span>&#123; <span class="comment">/* fcn can read but not write to i */</span> &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fcn</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123; <span class="comment">/* ... */</span> &#125; <span class="comment">//error: redefines fcn(int)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可用非<code>const</code>对象来初始化底层<code>const</code>对象，但反过来不行。一个普通的引用必须用相同类型的对象初始化。</p>
+</li>
+</ul>
+<h2 id="数组形参"><a href="#数组形参" class="headerlink" title="数组形参"></a>数组形参</h2><ul>
+<li><p>因为数组不能被拷贝，所以我们无法以值传递的方式使用数组参数。因为数组会被转换为指针，所以当我们为函数传递一个数组时，实际上传递的是指向数组首元素的指针。</p>
+</li>
+<li><p>以下声明是等价的：都声明了具有一个<code>const int*</code>类型形参的函数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// despite apperances, these three declaration of print are equivalent</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>*)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>[])</span></span>;    <span class="comment">// shows the intent that the function takes an array</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span>[<span class="number">10</span>])</span></span>;  <span class="comment">// dimension for decumentation purposes (at best)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用标记指定数组长度</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *cp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (cp)                <span class="comment">// if cp is not a null pointer</span></span><br><span class="line">        <span class="keyword">while</span> (*cp)        <span class="comment">// so long as the character it points to is not a null character</span></span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; *cp++; <span class="comment">// print the character and advance the pointer</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用标准库规范</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> *beg, <span class="keyword">const</span> <span class="keyword">int</span> *end)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// print every element starting at beg up to but not including end</span></span><br><span class="line">    <span class="keyword">while</span> (beg != end)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; *beg++ &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// print the current element</span></span><br><span class="line">                                <span class="comment">// and advance the pointer</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>显式传递一个表示数组大小的形参</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// const int ia[] is equivalent to const int* ia</span></span><br><span class="line"><span class="comment">// size is passed explicitly and used to control access to elements of ia</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> ia[], <span class="keyword">size_t</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i != size; ++i) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; ia[i] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>传递多维数组</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// matrix points to the first element in an array whose elements are arrays of ten ints</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> (*matrix)[<span class="number">10</span>], <span class="keyword">int</span> rowSize)</span> </span>&#123; <span class="comment">/* . . . */</span> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>也可以使用数组的语法，此时编译器会忽略第一个维度：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// equivalent definition</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> matrix[][<span class="number">10</span>], <span class="keyword">int</span> rowSize)</span> </span>&#123; <span class="comment">/* . . . */</span> &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="main-处理命令行选项"><a href="#main-处理命令行选项" class="headerlink" title="main:处理命令行选项"></a><code>main</code>:处理命令行选项</h2><h2 id="含有可变形参的函数"><a href="#含有可变形参的函数" class="headerlink" title="含有可变形参的函数"></a>含有可变形参的函数</h2><ul>
+<li>如果函数形参的数量未知但它们的类型相同，可以使用<code>initializer_list</code>类型的形参。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">error_msg</span><span class="params">(<span class="built_in">initializer_list</span>&lt;<span class="built_in">string</span>&gt; il)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> beg = il.begin(); beg != il.end(); ++beg)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; *beg &lt;&lt; <span class="string">" "</span> ;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="返回类型和return语句"><a href="#返回类型和return语句" class="headerlink" title="返回类型和return语句"></a>返回类型和<code>return</code>语句</h1><h2 id="无返回值函数"><a href="#无返回值函数" class="headerlink" title="无返回值函数"></a>无返回值函数</h2><ul>
+<li>返回值类型为<code>void</code>的函数可以返回另一个返回值为<code>void</code>的函数。</li>
+</ul>
+<h2 id="有返回值函数"><a href="#有返回值函数" class="headerlink" title="有返回值函数"></a>有返回值函数</h2><ul>
+<li><p>函数调用是否为左值取决于函数的返回类型：调用一个返回引用的函数得到左值，其他返回类型得到右值。</p>
+</li>
+<li><p>列表初始化返回值：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; process()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// . . .</span></span><br><span class="line">    <span class="comment">// expected and actual are strings</span></span><br><span class="line">    <span class="keyword">if</span> (expected.empty())</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;  <span class="comment">// return an empty vector</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (expected == actual)</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">"functionX"</span>, <span class="string">"okay"</span>&#125;; <span class="comment">// return list-initialized vector</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">"functionX"</span>, expected, actual&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果函数返回的是内置类型，则花括号包围的列表最多包含一个值，而且该值所占的空间不能大于目标类型的空间。</p>
+</li>
+<li><p>如果<code>main</code>函数的结尾没有<code>return</code>语句，编译器将隐式的插入一条返回<code>0</code>的<code>return</code>语句。</p>
+</li>
+</ul>
+<h2 id="返回指向数组的指针"><a href="#返回指向数组的指针" class="headerlink" title="返回指向数组的指针"></a>返回指向数组的指针</h2><ul>
+<li><p>定义一个返回数组的指针最直接的方法是使用类型别名：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> arrT[<span class="number">10</span>];  <span class="comment">// arrT is a synonym for the type array of ten ints</span></span><br><span class="line"><span class="keyword">using</span> arrtT = <span class="keyword">int</span>[<span class="number">10</span>]; <span class="comment">// equivalent declaration of arrT</span></span><br><span class="line"><span class="function">arrT* <span class="title">func</span><span class="params">(<span class="keyword">int</span> i)</span></span>;     <span class="comment">// func returns a pointer to an array of five ints</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>与以下声明相同，如果要定义一个返回数组指针的函数，则数组的维度必须跟在函数名之后。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> arr[<span class="number">10</span>];          <span class="comment">// arr is an array of ten ints</span></span><br><span class="line"><span class="keyword">int</span> *p1[<span class="number">10</span>];          <span class="comment">// p1 is an array of ten pointers</span></span><br><span class="line"><span class="keyword">int</span> (*p2)[<span class="number">10</span>] = &amp;arr; <span class="comment">// p2 points to an array of ten ints</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>因此，返回数组指针的函数形式如下所示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Type (*function(parameter_list))[dimension]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在C++11新标准中，可以使用<strong>尾置返回类型</strong>（trailing return type）简化函数声明。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fcn takes an int argument and returns a pointer to an array of ten ints</span></span><br><span class="line">auto func(int i) -&gt; int(*)[10];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>decltype</code>不会自动将数组转换为对应的指针类型：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> odd[] = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> even[] = &#123;<span class="number">0</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>&#125;;</span><br><span class="line"><span class="comment">// returns a pointer to an array of five int elements</span></span><br><span class="line"><span class="keyword">decltype</span>(odd) *arrPtr(<span class="keyword">int</span> i)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> (i % <span class="number">2</span>) ? &amp;odd : &amp;even; <span class="comment">// returns a pointer to the array</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h1><ul>
+<li><p>对于重载函数来说，它们必须在形参数量或形参类型上有所不同。</p>
+</li>
+<li><p>一个拥有顶层<code>const</code>的形参无法和另一个没有顶层<code>const</code>的形参区分开。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Record <span class="title">lookup</span><span class="params">(Phone)</span></span>;</span><br><span class="line"><span class="function">Record <span class="title">lookup</span><span class="params">(<span class="keyword">const</span> Phone)</span></span>;   <span class="comment">// redeclares Record lookup(Phone)</span></span><br><span class="line"><span class="function">Record <span class="title">lookup</span><span class="params">(Phone*)</span></span>;</span><br><span class="line"><span class="function">Record <span class="title">lookup</span><span class="params">(Phone* <span class="keyword">const</span>)</span></span>;  <span class="comment">// redeclares Record lookup(Phone*)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果形参是某种类型的指针或引用，则通过区分其指向的是<code>const</code>对象还是非<code>const</code>对象可以实现函数重载，此时的<code>const</code>是底层的。</p>
+</li>
+</ul>
+<h1 id="特殊用途语言特性"><a href="#特殊用途语言特性" class="headerlink" title="特殊用途语言特性"></a>特殊用途语言特性</h1><h2 id="默认实参"><a href="#默认实参" class="headerlink" title="默认实参"></a>默认实参</h2><ul>
+<li><p>默认实参用于函数调用中最右端的实参。</p>
+</li>
+<li><p>通常一个函数只在头文件中声明一次，但多次声明一个函数也是合法的。但一个形参在给定作用域内只能赋予一次默认实参，随后的函数声明只能为之前未设置默认值的形参添加一个默认实参。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">screen</span><span class="params">(sz, sz, <span class="keyword">char</span> = <span class="string">' '</span>)</span></span>;        <span class="comment">// no default for the height or width parameters</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">screen</span><span class="params">(sz, sz, <span class="keyword">char</span> = <span class="string">'*'</span>)</span></span>;        <span class="comment">// error: redeclaration</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">screen</span><span class="params">(sz = <span class="number">24</span>, sz = <span class="number">80</span>, <span class="keyword">char</span>)</span></span>;    <span class="comment">// ok: add default arguements</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>局部变量不能用作默认参数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// the declarations of wd, def, and ht must appear outside a function</span></span><br><span class="line">sz wd = <span class="number">80</span>;</span><br><span class="line"><span class="keyword">char</span> def = <span class="string">' '</span>;</span><br><span class="line"><span class="function">sz <span class="title">ht</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">screen</span><span class="params">(sz = ht(), sz = wd, <span class="keyword">char</span> = def)</span></span>;</span><br><span class="line"><span class="built_in">string</span> window = screen();    <span class="comment">// calls screen(ht(), 80, ' ')</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用作默认参数的名字在函数声明所在的作用域内解析，这些名字在函数调用时求值：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    def = <span class="string">'*'</span>;         <span class="comment">// changes the value of a default argument</span></span><br><span class="line">    sz wd = <span class="number">100</span>;       <span class="comment">// hides the outer definition of wd but does not change the default</span></span><br><span class="line">    window = screen(); <span class="comment">// calls screen(ht(), 80. '*')</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="内联函数和constexpr函数"><a href="#内联函数和constexpr函数" class="headerlink" title="内联函数和constexpr函数"></a>内联函数和<code>constexpr</code>函数</h2><ul>
+<li><p>定义<code>constexpr</code>函数的方法与其他函数类似，但要遵循几项约定：函数的返回类型以及所有形参类型都必须是字面类型，而且函数体中必须有且只有一条<code>return</code>语句：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">int</span> <span class="title">new_sz</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="number">42</span>; &#125;</span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> foo = new_sz();  <span class="comment">// ok: foo is a constant expression</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>constexpr</code>函数被隐式地指定为内联函数。</p>
+</li>
+<li><p>我们允许<code>constexpr</code>函数返回一个非常量：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// scale(arg) is a constant expression if arg is a constant expression</span></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> size_t <span class="title">scale</span><span class="params">(<span class="keyword">size_t</span> cnt)</span> </span>&#123; <span class="keyword">return</span> new_sz() * cnt; &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>内联函数和<code>constexpr</code>函数可以在程序中多次定义，编译器需要函数定义而非函数声明来展开函数。不过，对于某个给定的内联函数或<code>constexpr</code>函数，它的多个定义必须完全一致。基于这个原因，内联函数和<code>constexpr</code>函数通常定义在头文件中。</p>
+</li>
+</ul>
+<h2 id="调试帮助"><a href="#调试帮助" class="headerlink" title="调试帮助"></a>调试帮助</h2><ul>
+<li><code>assert</code>预处理宏</li>
+<li><code>NDEBUG</code>预处理变量</li>
+</ul>
+<h1 id="函数匹配"><a href="#函数匹配" class="headerlink" title="函数匹配"></a>函数匹配</h1><ul>
+<li><strong>候选函数</strong>（candidate function）具备两个特征：一是与被调用的函数同名，二是其声明在调用点可见。</li>
+<li><strong>可行函数</strong>（viable function）也具备两个特征：一是其形参数量与函数调用提供的实参数量相等，二是每个实参的类型与形参的类型相同，或者能转换成形参的类型。</li>
+<li>若有多个可行函数都在某一个实参上实现了更好的匹配，该函数调用会因具有二义性被拒绝。</li>
+</ul>
+<h1 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h1><ul>
+<li><p>函数的类型取决于它的返回类型以及形参的类型，与函数名无关。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// compares lengths of two strings</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">lengthCompare</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;, <span class="keyword">const</span> <span class="built_in">string</span> &amp;)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// pf points to a function returning bool that takes two const string references</span></span><br><span class="line"><span class="keyword">bool</span> (*pf)(<span class="keyword">const</span> <span class="built_in">string</span> &amp;, <span class="keyword">const</span> <span class="built_in">string</span> &amp;);  <span class="comment">// uninitialized</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当函数名被作为一个值使用时，该函数自动地转换成指针。</p>
+</li>
+<li><p>不同于将函数类型传递给形参的情况，返回类型不会自动转换为指针，必须显式地将返回类型指定为指针：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> F = <span class="keyword">int</span>(<span class="keyword">int</span>*, <span class="keyword">int</span>);     <span class="comment">// F is a function type, not a pointer</span></span><br><span class="line"><span class="keyword">using</span> PF = <span class="keyword">int</span>(*)(<span class="keyword">int</span>*, <span class="keyword">int</span>); <span class="comment">// PF is a pointer type</span></span><br><span class="line"></span><br><span class="line"><span class="function">PF <span class="title">f1</span><span class="params">(<span class="keyword">int</span>)</span></span>; <span class="comment">// ok: PF is a pointer to function; f1 returns a pointer to function</span></span><br><span class="line"><span class="function">F <span class="title">f1</span><span class="params">(<span class="keyword">int</span>)</span></span>;  <span class="comment">// error: F is a function type; f1 can't return a function</span></span><br><span class="line"><span class="function">F *<span class="title">f1</span><span class="params">(<span class="keyword">int</span>)</span></span>; <span class="comment">// ok: explicitly specify that the return type is a pointer to function</span></span><br><span class="line"><span class="keyword">int</span> (*f1(<span class="keyword">int</span>))(<span class="keyword">int</span>*, <span class="keyword">int</span>); <span class="comment">// declare f1 directly</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/190809statements/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/190809statements/" itemprop="url">Statements</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-09T23:10:11+08:00">
+                2019-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="switch语句"><a href="#switch语句" class="headerlink" title="switch语句"></a><code>switch</code>语句</h1><ul>
+<li>c++语言规定，不允许跨过变量的初始化语句直接跳转到该变量作用域内的另一个位置。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="literal">true</span>: <span class="comment">// this switch statement is illegal because these initializations might be bypassed</span></span><br><span class="line">    <span class="built_in">string</span> file_name; <span class="comment">// error: control bypasses an implicitly initialized variable</span></span><br><span class="line">    <span class="keyword">int</span> ival = <span class="number">0</span>;     <span class="comment">// error: control bypasses an explicitly initialized variable</span></span><br><span class="line">    <span class="keyword">int</span> jval;         <span class="comment">// ok: because jval is not initialized</span></span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> <span class="literal">false</span>:</span><br><span class="line">    <span class="comment">// ok: jval is in scope but is uninitialized</span></span><br><span class="line">    jval = next_num(); <span class="comment">// ok: assign a value to jval</span></span><br><span class="line">    <span class="keyword">if</span> (file_name.empty()) <span class="comment">// file_name is in scope but wasn't initialized</span></span><br><span class="line">        <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="跳转语句"><a href="#跳转语句" class="headerlink" title="跳转语句"></a>跳转语句</h1><ul>
+<li>标签标识符独立于变量名和其他标识符。</li>
+<li>与<code>switch</code>语句相同，<code>goto</code>无法跨过变量的初始化语句直接跳转到该变量作用域内的另一个位置。</li>
+<li>跳转到一个变量创建前的位置会销毁该变量并重新创建。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/190807cpp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/190807cpp/" itemprop="url">Expressions</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-07T15:25:04+08:00">
+                2019-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li>当我们使用重载运算符时，操作数的类型以及运算的结果都取决于运算的定义；然而，操作数的个数以及运算符的优先级和结合性都是无法改变的。</li>
+<li>C++中所有的表达式都是<strong>右值</strong>（rvalue）或是<strong>左值</strong>（lvalue），这两个概念继承自C语言，原本是为了帮助记忆：左值可以放在赋值语句左侧，而右值不能（在C++中有所区别）。</li>
+<li>通常，我们使用一个右值时，使用的是对象的值（内容）；我们使用一个左值时，使用的是对象的身份（在内存中的位置）。</li>
+<li>一个重要的原则是（在13.6节中有一个例外），当需要使用右值时可以使用左值代替，但不能把右值当成左值使用。</li>
+<li>内置类型以及迭代器的递增递减运算作用于左值运算对象，其前置版本返回结果也是左值。</li>
+<li>将<code>decltype</code>应用于表达式（而非变量）时，若表达式产生左值，结果将是引用类型。</li>
+</ul>
+<h2 id="求值顺序"><a href="#求值顺序" class="headerlink" title="求值顺序"></a>求值顺序</h2><ul>
+<li><p>对于不指定求值顺序的运算符，在一个表达式中引用并改变相同的对象是错误的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" "</span> &lt;&lt; ++i &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有4个运算符保证了运算对象的求值顺序：逻辑与运算符（&amp;&amp;），逻辑或运算符（||），条件运算符（?:）和逗号运算符（,）。</p>
+</li>
+</ul>
+<h1 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h1><ul>
+<li><p>以下代码中，对<code>short_value</code>的赋值是未定义的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">short</span> short_value = <span class="number">32767</span>;    <span class="comment">// max value of shorts are 16 bits</span></span><br><span class="line">short_value += <span class="number">1</span>;             <span class="comment">// this calculation overflows</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"short_value: "</span> &lt;&lt; short_value &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>(-m) / n</code>和<code>m / (-n)</code>的值与<code>-(m / n)</code>相等，<code>m % (-n)</code>与<code>m % n</code>相等，<code>(-m) % n</code>和<code>-(m % n)</code>相等。</p>
+</li>
+</ul>
+<h1 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h1><ul>
+<li>如果左侧运算对象是内置类型，那么初始化列表中只能包含一个值，并且在强制转化中不能丢失信息。</li>
+<li>无论左侧运算对象的类型是什么，初始化列表都可以为空；此时编译器会创建一个值初始化的临时量并将其赋给左侧运算对象。</li>
+<li>使用复合赋值运算符对左侧运算对象只求值一次，普通赋值运算符则求值两次。</li>
+</ul>
+<h1 id="递增和递减运算符"><a href="#递增和递减运算符" class="headerlink" title="递增和递减运算符"></a>递增和递减运算符</h1><ul>
+<li>递增和递减运算符作用于左值运算对象，前置版本将对象本身作为左值返回，后置版本将对象初始值的副本作为右值返回。</li>
+<li>以下代码是未定义行为：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (beg != s.end() &amp;&amp; !<span class="built_in">isspace</span>(*beg))</span><br><span class="line">    *beg = <span class="built_in">toupper</span>(*beg++); <span class="comment">// error: this assignment is undefined</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>问题在于：<code>=</code>的两侧都使用了<code>beg</code>并且右侧运算对象改变了<code>beg</code>。</p>
+<h1 id="成员访问运算符"><a href="#成员访问运算符" class="headerlink" title="成员访问运算符"></a>成员访问运算符</h1><ul>
+<li>解引用运算符的优先级低于点运算符。</li>
+</ul>
+<h1 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符"></a>条件运算符</h1><ul>
+<li>若条件运算符的两个表达式都是左值或者都能转换成同一种左值类型时，运算的结果是左值，否则结果为右值。</li>
+<li>条件运算符是右结合的：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">finalgrade = (grade &gt; <span class="number">90</span>) ? <span class="string">"high pass"</span> </span><br><span class="line">                          : (grade &lt; <span class="number">60</span>) ? <span class="string">"fail"</span> : <span class="string">"pass"</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h1><ul>
+<li>通常，如果运算对象是一个“小整型”，则它的值首先会自动转换为较大的整数类型。</li>
+<li>左移运算符（<code>&lt;&lt;</code>）在右侧插入<code>0</code>二进制位。右移运算符（<code>&gt;&gt;</code>）的行为取决于左侧运算对象的类型：若该运算对象为<code>unsigned</code>类型，则在左侧插入<code>0</code>二进制位；若该运算对象为<code>signed</code>类型，则在左侧插入符号位的拷贝或者<code>0</code>，取决于具体实现。</li>
+<li>位移运算符具有中等的优先级：低于算术运算符，但高于关系、赋值和条件运算符。</li>
+</ul>
+<h1 id="sizeof运算符"><a href="#sizeof运算符" class="headerlink" title="sizeof运算符"></a><code>sizeof</code>运算符</h1><ul>
+<li><code>sizeof</code>返回的结果为常量表达式，其类型为<code>size_t</code>。</li>
+<li><code>sizeof</code>不对其运算对象进行求值。</li>
+</ul>
+<h1 id="逗号运算符"><a href="#逗号运算符" class="headerlink" title="逗号运算符"></a>逗号运算符</h1><ul>
+<li>与逻辑与、逻辑或和条件运算符相同，逗号运算符保证了运算对象求值的顺序。</li>
+<li>逗号运算符左侧的表达式在求值后被舍弃。逗号运算符的结果是右侧表达式的值，若右侧运算对象为左值，那么最终结果也是左值。</li>
+</ul>
+<h1 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h1><ul>
+<li>如果两种类型可以<strong>相互转换</strong>（conversion），那么它们就是相关联的。</li>
+<li>大多数情况下，如果表达式中既有整数类型运算对象也有浮点数类型的运算对象，整型会被转换为浮点型。</li>
+<li>在以下情况下，编译器会自动转换运算对象的类型：<ul>
+<li>在大多数表达式中，比<code>int</code>类型小的整型值首先提升为较大的整数类型。</li>
+<li>在条件中，非布尔值转换为布尔值。</li>
+<li>初始化过程中，初始值转化为变量的类型；在赋值语句中，右侧运算对象转换为左侧运算对象的类型。</li>
+<li>若果算术运算或关系运算的运算对象有多种类型，需要转换为同一种类型。</li>
+<li>函数调用时也会发生类型转换。</li>
+</ul>
+</li>
+</ul>
+<h2 id="算术转换"><a href="#算术转换" class="headerlink" title="算术转换"></a>算术转换</h2><ul>
+<li>算术转换的规则定义了一套类型转换的层次，其中运算符的运算对象将转换成最宽的类型。</li>
+</ul>
+<h2 id="其他隐式类型转换"><a href="#其他隐式类型转换" class="headerlink" title="其他隐式类型转换"></a>其他隐式类型转换</h2><ul>
+<li><p><strong>数组转化为指针</strong>：在大多数用到数组的表达式中，数组自动转换为指向数组首元素的指针：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ia[<span class="number">10</span>];    <span class="comment">// array of ten ints</span></span><br><span class="line"><span class="keyword">int</span>* ip = ia;  <span class="comment">// convert ia to a pointer to the first element</span></span><br></pre></td></tr></table></figure>
+
+<p>当数组被用作<code>decltype</code>关键字的参数，或者作为取地址符（<code>&amp;</code>）、<code>sizeof</code>或<code>typeid</code>运算符的运算对象时，上述转换不会发生。</p>
+</li>
+<li><p><strong>指针转换</strong>：常量整数值<code>0</code>及字面值<code>nullptr</code>能转换为任意指针类型；指向任意非常量的指针能转换成<code>void*</code>；指向任意对象的指针可转换为<code>const void*</code>。</p>
+</li>
+</ul>
+<h2 id="显式转换"><a href="#显式转换" class="headerlink" title="显式转换"></a>显式转换</h2><ul>
+<li><p>命名的强制类型转换形式如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cast-name&lt;type&gt; (expression);</span><br></pre></td></tr></table></figure>
+
+<p>若<code>type</code>是引用类型，则结果是左值。</p>
+</li>
+<li><p>任何具有明确意义的类型转换，只要不包含底层<code>const</code>，都可以使用<code>static_cast</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> slope = <span class="keyword">static_cast</span>&lt;<span class="keyword">double</span>&gt;(j) / i;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>const_cast</code>只能改变运算对象的底层<code>const</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> *pc;</span><br><span class="line"><span class="keyword">char</span> *p = <span class="keyword">const_cast</span>&lt;<span class="keyword">char</span>*&gt;(pc); <span class="comment">// ok: but writing through p is undefined</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>只有<code>const_cast</code>能改变表达式的常量属性，使用其他形式的命名强制类型转换改变表达式的常量属性都将引发编译时错误。同样的，不能使用<code>const_cast</code>改变表达式的类型。<code>const_cast</code>常用于有函数重载的上下文中。</p>
+<ul>
+<li><code>reinterpret_cast</code>通常为运算对象的位模式提供较低层次上的重新解释。</li>
+</ul>
 
           
         
@@ -382,6 +2427,10 @@
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -427,14 +2476,32 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -525,6 +2592,15 @@
 
 
 
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66450228";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 

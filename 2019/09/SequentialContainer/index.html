@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C++ Primer,RE：从零开始的C++学习,C++,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="顺序容器概述 顺序容器类型  与vector、deque和array相比，list和forward_list的内存开销更大。   容器库概览 容器操作  容器定义和初始化  为了创建一个容器为另一个容器的拷贝，两个容器的类型及其元素类型必须匹配。不过，当传递迭代器参数来拷贝一个范围时，不要求容器类型是相同的。而且，新容器和原容器中的元素类型也可以不同，只要能将拷贝的元素转换为要初始化的元素类型即可">
+<meta name="keywords" content="C++ Primer,RE：从零开始的C++学习,C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sequential Container">
+<meta property="og:url" content="http://yoursite.com/2019/09/SequentialContainer/index.html">
+<meta property="og:site_name" content="Song">
+<meta property="og:description" content="顺序容器概述 顺序容器类型  与vector、deque和array相比，list和forward_list的内存开销更大。   容器库概览 容器操作  容器定义和初始化  为了创建一个容器为另一个容器的拷贝，两个容器的类型及其元素类型必须匹配。不过，当传递迭代器参数来拷贝一个范围时，不要求容器类型是相同的。而且，新容器和原容器中的元素类型也可以不同，只要能将拷贝的元素转换为要初始化的元素类型即可">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-1.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-2-1.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-2-2.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-3.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-4.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-5.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-6.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-7.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-8.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-9.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-10.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-11.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-12.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-13.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-14.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-15.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-16.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-17.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-18.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/SequentialContainer/9-19.png">
+<meta property="og:updated_time" content="2019-09-16T11:40:30.247Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sequential Container">
+<meta name="twitter:description" content="顺序容器概述 顺序容器类型  与vector、deque和array相比，list和forward_list的内存开销更大。   容器库概览 容器操作  容器定义和初始化  为了创建一个容器为另一个容器的拷贝，两个容器的类型及其元素类型必须匹配。不过，当传递迭代器参数来拷贝一个范围时，不要求容器类型是相同的。而且，新容器和原容器中的元素类型也可以不同，只要能将拷贝的元素转换为要初始化的元素类型即可">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/SequentialContainer/9-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/SequentialContainer/">
+
+
+
+
+
+  <title>Sequential Container | Song</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Song</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/SequentialContainer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Sequential Container</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T10:22:26+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="顺序容器概述"><a href="#顺序容器概述" class="headerlink" title="顺序容器概述"></a>顺序容器概述</h1><ul>
+<li><p>顺序容器类型<br><img src="/2019/09/SequentialContainer/9-1.png" alt></p>
+</li>
+<li><p>与<code>vector</code>、<code>deque</code>和<code>array</code>相比，<code>list</code>和<code>forward_list</code>的内存开销更大。</p>
+</li>
+</ul>
+<h1 id="容器库概览"><a href="#容器库概览" class="headerlink" title="容器库概览"></a>容器库概览</h1><ul>
+<li><p>容器操作<br><img src="/2019/09/SequentialContainer/9-2-1.png" alt><br><img src="/2019/09/SequentialContainer/9-2-2.png" alt></p>
+</li>
+<li><p>容器定义和初始化<br><img src="/2019/09/SequentialContainer/9-3.png" alt></p>
+</li>
+<li><p>为了创建一个容器为另一个容器的拷贝，两个容器的类型及其元素类型必须匹配。不过，当传递迭代器参数来拷贝一个范围时，不要求容器类型是相同的。而且，新容器和原容器中的元素类型也可以不同，只要能将拷贝的元素转换为要初始化的元素类型即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// each container has three elements, initialized from the given initializers</span></span><br><span class="line"><span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt; authors = &#123;<span class="string">"Milton"</span>, <span class="string">"Shakespeare"</span>, <span class="string">"Austen"</span>&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">const</span> <span class="keyword">char</span>*&gt; articles = &#123;<span class="string">"a"</span>, <span class="string">"an"</span>, <span class="string">"the"</span>&#125;;</span><br><span class="line"><span class="built_in">list</span>&lt;<span class="built_in">string</span>&gt; list2(authors);     <span class="comment">// ok: types match</span></span><br><span class="line"><span class="built_in">deque</span>&lt;<span class="built_in">string</span>&gt; authList(authors); <span class="comment">// error: container types don't match</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; words(articles);  <span class="comment">// error: element types must match</span></span><br><span class="line"><span class="comment">// ok: converts const char* elements to string</span></span><br><span class="line">forward_list&lt;<span class="built_in">string</span>&gt; words(articles.begin(), articles.end());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果元素是内置类型或具有默认构造函数的类类型，可以只为构造函数提供一个容器大小参数。如果元素类型没有默认构造函数，则除了大小参数外，还必须指定一个显式的元素初始值。</p>
+</li>
+<li><p>与内置数组一样，标准库<code>array</code>的大小也是类型的一部分。</p>
+</li>
+<li><p>容器赋值运算<br><img src="/2019/09/SequentialContainer/9-4.png" alt></p>
+</li>
+<li><p>对于<code>array</code>，<code>swap</code>会真正的交换它们的元素，在<code>swap</code>操作后，指针、引用和迭代器所绑定的元素不变，但元素值已经与另一个array中对应元素的值进行了交换。</p>
+</li>
+</ul>
+<h1 id="顺序容器操作"><a href="#顺序容器操作" class="headerlink" title="顺序容器操作"></a>顺序容器操作</h1><ul>
+<li><p>想顺序容器添加元素的操作<br><img src="/2019/09/SequentialContainer/9-5.png" alt></p>
+</li>
+<li><p>如果传递给<code>insert</code>一对迭代器，它们不能指向添加元素的目标容器。</p>
+</li>
+<li><p><code>emplace</code>函数在容器中直接构造元素。</p>
+</li>
+<li><p>在顺序容器中访问元素的操作<br><img src="/2019/09/SequentialContainer/9-6.png" alt></p>
+</li>
+<li><p>顺序表容器的删除操作<br><img src="/2019/09/SequentialContainer/9-7.png" alt></p>
+</li>
+<li><p>在<code>forward_list</code>中插入或删除元素的操作<br><img src="/2019/09/SequentialContainer/9-8.png" alt></p>
+</li>
+<li><p>顺序容器大小操作<br><img src="/2019/09/SequentialContainer/9-9.png" alt></p>
+</li>
+</ul>
+<h1 id="vector对象是如何增长的"><a href="#vector对象是如何增长的" class="headerlink" title="vector对象是如何增长的"></a><code>vector</code>对象是如何增长的</h1><ul>
+<li><p>容器大小管理操作<br><img src="/2019/09/SequentialContainer/9-10.png" alt></p>
+</li>
+<li><p>若请求的容器大小小于或等于已有的容量，<code>reserve</code>不会进行任何操作。</p>
+</li>
+<li><p>调用<code>shrink_to_fit</code>并不保证一定退回内存空间。</p>
+</li>
+</ul>
+<h1 id="string的额外操作"><a href="#string的额外操作" class="headerlink" title="string的额外操作"></a>string的额外操作</h1><ul>
+<li><p>构造<code>string</code>的其他方法<br><img src="/2019/09/SequentialContainer/9-11.png" alt></p>
+</li>
+<li><p><code>substr</code>操作<br><img src="/2019/09/SequentialContainer/9-12.png" alt><br>如果<code>pos + n</code>大于<code>string</code>的大小，则<code>substr</code>只拷贝到<code>string</code>的末尾。</p>
+</li>
+<li><p>修改<code>string</code>的操作<br><img src="/2019/09/SequentialContainer/9-13.png" alt></p>
+</li>
+<li><p><code>string</code>搜索操作<br><img src="/2019/09/SequentialContainer/9-14.png" alt></p>
+</li>
+<li><p><code>s.compare</code>的几种参数形式<br><img src="/2019/09/SequentialContainer/9-15.png" alt></p>
+</li>
+<li><p><code>string</code>与数值之间的转换<br><img src="/2019/09/SequentialContainer/9-16.png" alt></p>
+</li>
+</ul>
+<h1 id="容器适配器"><a href="#容器适配器" class="headerlink" title="容器适配器"></a>容器适配器</h1><ul>
+<li><p>所有容器适配器都支持的操作和类型<br><img src="/2019/09/SequentialContainer/9-17.png" alt></p>
+</li>
+<li><p>默认情况下，<code>stack</code>和<code>queue</code>基于<code>deque</code>实现，<code>priority_queue</code>基于<code>vector</code>实现。可以在创建一个适配器时将一个命名的顺序容器作为第二个类型参数，重载默认容器类型。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// empty stack implemented on top of vector</span></span><br><span class="line"><span class="built_in">stack</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; str_stk;</span><br><span class="line"><span class="comment">// str_stk2 is implemented on top of vector and initially holds a copy of svec</span></span><br><span class="line"><span class="built_in">stack</span>&lt;<span class="built_in">string</span>, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; str_stk2(svec);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>stack</code>的特有操作<br><img src="/2019/09/SequentialContainer/9-18.png" alt></p>
+</li>
+<li><p><code>queue</code>和<code>priority_queue</code>的特有操作<br><img src="/2019/09/SequentialContainer/9-19.png" alt></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C-Primer/" rel="tag"># C++ Primer</a>
+          
+            <a href="/tags/RE：从零开始的C-学习/" rel="tag"># RE：从零开始的C++学习</a>
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/190829IO-Library/" rel="next" title="The IO Library">
+                <i class="fa fa-chevron-left"></i> The IO Library
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/GenericAlgorithm/" rel="prev" title="Generic Algorithm">
+                Generic Algorithm <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Song">
+            
+              <p class="site-author-name" itemprop="name">Song</p>
+              <p class="site-description motion-element" itemprop="description">希望你快乐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heyitsmine" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:huashuo.zs@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://scutlwy.xyz/" title="lwy's studio" target="_blank">lwy's studio</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#顺序容器概述"><span class="nav-number">1.</span> <span class="nav-text">顺序容器概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#容器库概览"><span class="nav-number">2.</span> <span class="nav-text">容器库概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#顺序容器操作"><span class="nav-number">3.</span> <span class="nav-text">顺序容器操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vector对象是如何增长的"><span class="nav-number">4.</span> <span class="nav-text">vector对象是如何增长的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#string的额外操作"><span class="nav-number">5.</span> <span class="nav-text">string的额外操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#容器适配器"><span class="nav-number">6.</span> <span class="nav-text">容器适配器</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Song</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66450228";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

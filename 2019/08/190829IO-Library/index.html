@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C++ Primer,RE：从零开始的C++学习,C++,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="IO类 IO库类型和头文件  IO对象无拷贝或赋值 由于不能拷贝IO对象，我们不能将函数的形参或返回类型设为流类型。  条件状态 IO库条件状态  管理输出缓冲 导致缓冲刷新的条件有以下几种： 程序正常结束 缓冲区满 使用endl, flush等操纵符显式刷新缓冲 使用unitbuf操纵符设置流的内部状态，使流在每次输出操作后自动刷新缓冲 一个输出流A可以关联到另一个流B，此时读写B时，A的缓冲区">
+<meta name="keywords" content="C++ Primer,RE：从零开始的C++学习,C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The IO Library">
+<meta property="og:url" content="http://yoursite.com/2019/08/190829IO-Library/index.html">
+<meta property="og:site_name" content="Song">
+<meta property="og:description" content="IO类 IO库类型和头文件  IO对象无拷贝或赋值 由于不能拷贝IO对象，我们不能将函数的形参或返回类型设为流类型。  条件状态 IO库条件状态  管理输出缓冲 导致缓冲刷新的条件有以下几种： 程序正常结束 缓冲区满 使用endl, flush等操纵符显式刷新缓冲 使用unitbuf操纵符设置流的内部状态，使流在每次输出操作后自动刷新缓冲 一个输出流A可以关联到另一个流B，此时读写B时，A的缓冲区">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/08/190829IO-Library/8-1.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/190829IO-Library/8-2.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/190829IO-Library/8-3.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/190829IO-Library/8-4.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/190829IO-Library/8-5.png">
+<meta property="og:updated_time" content="2019-09-16T11:40:30.165Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The IO Library">
+<meta name="twitter:description" content="IO类 IO库类型和头文件  IO对象无拷贝或赋值 由于不能拷贝IO对象，我们不能将函数的形参或返回类型设为流类型。  条件状态 IO库条件状态  管理输出缓冲 导致缓冲刷新的条件有以下几种： 程序正常结束 缓冲区满 使用endl, flush等操纵符显式刷新缓冲 使用unitbuf操纵符设置流的内部状态，使流在每次输出操作后自动刷新缓冲 一个输出流A可以关联到另一个流B，此时读写B时，A的缓冲区">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/190829IO-Library/8-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/190829IO-Library/">
+
+
+
+
+
+  <title>The IO Library | Song</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Song</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/190829IO-Library/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">The IO Library</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-29T10:45:20+08:00">
+                2019-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="IO类"><a href="#IO类" class="headerlink" title="IO类"></a>IO类</h1><ul>
+<li>IO库类型和头文件<br><img src="/2019/08/190829IO-Library/8-1.png" alt></li>
+</ul>
+<h2 id="IO对象无拷贝或赋值"><a href="#IO对象无拷贝或赋值" class="headerlink" title="IO对象无拷贝或赋值"></a>IO对象无拷贝或赋值</h2><ul>
+<li>由于不能拷贝IO对象，我们不能将函数的形参或返回类型设为流类型。</li>
+</ul>
+<h2 id="条件状态"><a href="#条件状态" class="headerlink" title="条件状态"></a>条件状态</h2><ul>
+<li>IO库条件状态<br><img src="/2019/08/190829IO-Library/8-2.png" alt></li>
+</ul>
+<h2 id="管理输出缓冲"><a href="#管理输出缓冲" class="headerlink" title="管理输出缓冲"></a>管理输出缓冲</h2><ul>
+<li>导致缓冲刷新的条件有以下几种：<ul>
+<li>程序正常结束</li>
+<li>缓冲区满</li>
+<li>使用<code>endl</code>, <code>flush</code>等操纵符显式刷新缓冲</li>
+<li>使用<code>unitbuf</code>操纵符设置流的内部状态，使流在每次输出操作后自动刷新缓冲</li>
+<li>一个输出流A可以关联到另一个流B，此时读写B时，A的缓冲区会被刷新</li>
+</ul>
+</li>
+<li>有两个与<code>endl</code>类似的操纵符：<code>flush</code>和<code>ends</code>。<code>flush</code>刷新缓冲区但不向输出添加任何字符；<code>ends</code>在缓冲区末尾插入一个空字符，然后刷新缓冲区。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"hi!"</span> &lt;&lt; <span class="built_in">endl</span>;   <span class="comment">// writes hi and a newline, then flushes the buffer</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"hi!"</span> &lt;&lt; flush;  <span class="comment">// writes hi, then flushes the buffer; adds no data</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"hi!"</span> &lt;&lt; ends;   <span class="comment">// writes hi and a null, then flushes the buffer</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="文件输入和输出"><a href="#文件输入和输出" class="headerlink" title="文件输入和输出"></a>文件输入和输出</h1><ul>
+<li><code>fstream</code>特有操作<br><img src="/2019/08/190829IO-Library/8-3.png" alt></li>
+</ul>
+<h2 id="使用文件流对象"><a href="#使用文件流对象" class="headerlink" title="使用文件流对象"></a>使用文件流对象</h2><ul>
+<li>当<code>fstream</code>对象被销毁时，会自动调用<code>close</code>。</li>
+</ul>
+<h2 id="文件模式"><a href="#文件模式" class="headerlink" title="文件模式"></a>文件模式</h2><ul>
+<li><p>文件模式<br><img src="/2019/08/190829IO-Library/8-4.png" alt></p>
+</li>
+<li><p>默认情况下，当我们打开一个<code>ofstream</code>时，文件的内容会被丢弃。阻止一个<code>ofsteam</code>清空给定文件内容的方法是同时指定<code>app</code>模式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// file1 is truncated in each of these cases</span></span><br><span class="line"><span class="function">ofstream <span class="title">out</span><span class="params">(<span class="string">"file1"</span>)</span></span>;   <span class="comment">// out and trunc are implicit</span></span><br><span class="line"><span class="function">ofstream <span class="title">out2</span><span class="params">(<span class="string">"file1"</span>, ofstream::out)</span></span>;   <span class="comment">// trunc is implicit</span></span><br><span class="line"><span class="function">ofstream <span class="title">out3</span><span class="params">(<span class="string">"file1"</span>, ofstream::out | ofstream::trunc)</span></span>;</span><br><span class="line"><span class="comment">// to preserve the file's contents, we must explicitly specify app mode</span></span><br><span class="line"><span class="function">ofstream <span class="title">app</span><span class="params">(<span class="string">"file2"</span>, ofstream::app)</span></span>;   <span class="comment">// out is implicit</span></span><br><span class="line"><span class="function">ofstream <span class="title">app2</span><span class="params">(<span class="string">"file2"</span>, ofstream::out | ofstream::app)</span></span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="string流"><a href="#string流" class="headerlink" title="string流"></a>string流</h1><ul>
+<li>stringstream特有操作<br><img src="/2019/08/190829IO-Library/8-5.png" alt></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C-Primer/" rel="tag"># C++ Primer</a>
+          
+            <a href="/tags/RE：从零开始的C-学习/" rel="tag"># RE：从零开始的C++学习</a>
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/190827classes/" rel="next" title="Classes">
+                <i class="fa fa-chevron-left"></i> Classes
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/SequentialContainer/" rel="prev" title="Sequential Container">
+                Sequential Container <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Song">
+            
+              <p class="site-author-name" itemprop="name">Song</p>
+              <p class="site-description motion-element" itemprop="description">希望你快乐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heyitsmine" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:huashuo.zs@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://scutlwy.xyz/" title="lwy's studio" target="_blank">lwy's studio</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IO类"><span class="nav-number">1.</span> <span class="nav-text">IO类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IO对象无拷贝或赋值"><span class="nav-number">1.1.</span> <span class="nav-text">IO对象无拷贝或赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件状态"><span class="nav-number">1.2.</span> <span class="nav-text">条件状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理输出缓冲"><span class="nav-number">1.3.</span> <span class="nav-text">管理输出缓冲</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件输入和输出"><span class="nav-number">2.</span> <span class="nav-text">文件输入和输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用文件流对象"><span class="nav-number">2.1.</span> <span class="nav-text">使用文件流对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件模式"><span class="nav-number">2.2.</span> <span class="nav-text">文件模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#string流"><span class="nav-number">3.</span> <span class="nav-text">string流</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Song</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66450228";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

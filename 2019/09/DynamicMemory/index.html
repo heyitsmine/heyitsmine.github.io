@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C++ Primer,RE：从零开始的C++学习,C++,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="动态内存 静态内存用于保存局部static对象，类的static成员以及定义在任何函数之外的变量。栈内存用于保存定义在函数内的非static变量。 除了静态内存与栈内存，每个程序还拥有一个内存池，这部分内存被称为自由空间（free store）或堆（heap）。  动态内存与智能指针 在C++中，动态内存的管理通过 一对运算符完成：new，在动态内存中为对象分配空间并返回一个指向该对象的指针，我们">
+<meta name="keywords" content="C++ Primer,RE：从零开始的C++学习,C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dynamic Memory">
+<meta property="og:url" content="http://yoursite.com/2019/09/DynamicMemory/index.html">
+<meta property="og:site_name" content="Song">
+<meta property="og:description" content="动态内存 静态内存用于保存局部static对象，类的static成员以及定义在任何函数之外的变量。栈内存用于保存定义在函数内的非static变量。 除了静态内存与栈内存，每个程序还拥有一个内存池，这部分内存被称为自由空间（free store）或堆（heap）。  动态内存与智能指针 在C++中，动态内存的管理通过 一对运算符完成：new，在动态内存中为对象分配空间并返回一个指向该对象的指针，我们">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/09/DynamicMemory/12-1.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/DynamicMemory/12-2.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/DynamicMemory/12-3.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/DynamicMemory/12-4.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/DynamicMemory/12-5.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/DynamicMemory/12-6.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/DynamicMemory/12-7.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/DynamicMemory/12-8.png">
+<meta property="og:updated_time" content="2019-09-26T07:37:44.648Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dynamic Memory">
+<meta name="twitter:description" content="动态内存 静态内存用于保存局部static对象，类的static成员以及定义在任何函数之外的变量。栈内存用于保存定义在函数内的非static变量。 除了静态内存与栈内存，每个程序还拥有一个内存池，这部分内存被称为自由空间（free store）或堆（heap）。  动态内存与智能指针 在C++中，动态内存的管理通过 一对运算符完成：new，在动态内存中为对象分配空间并返回一个指向该对象的指针，我们">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/DynamicMemory/12-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/DynamicMemory/">
+
+
+
+
+
+  <title>Dynamic Memory | Song</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Song</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/DynamicMemory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Dynamic Memory</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-16T19:47:01+08:00">
+                2019-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="动态内存"><a href="#动态内存" class="headerlink" title="动态内存"></a>动态内存</h1><ul>
+<li>静态内存用于保存局部<code>static</code>对象，类的<code>static</code>成员以及定义在任何函数之外的变量。栈内存用于保存定义在函数内的非<code>static</code>变量。</li>
+<li>除了静态内存与栈内存，每个程序还拥有一个内存池，这部分内存被称为<strong>自由空间</strong>（free store）或<strong>堆</strong>（heap）。</li>
+</ul>
+<h2 id="动态内存与智能指针"><a href="#动态内存与智能指针" class="headerlink" title="动态内存与智能指针"></a>动态内存与智能指针</h2><ul>
+<li>在C++中，动态内存的管理通过 一对运算符完成：<code>new</code>，在动态内存中为对象分配空间并返回一个指向该对象的指针，我们可以选择对对象进行初始化；<code>delete</code>，接受一个动态对象的指针，销毁该对象，并释放与之关联的内存。</li>
+<li>新标准库提供了两种<strong>智能指针</strong>（smart pointer）类型来管理动态对象：<code>shared_ptr</code>允许多个指针指向同一个对象；<code>unique_ptr</code>则“独占”所指向的对象。标准库还定义了一个名为<code>weak_ptr</code>的伴随类，它是一种弱引用，指向<code>shared_ptr</code>所管理的对象。</li>
+</ul>
+<h3 id="shared-ptr类"><a href="#shared-ptr类" class="headerlink" title="shared_ptr类"></a><code>shared_ptr</code>类</h3><ul>
+<li><p>默认初始化的智能指针保存着一个空指针。</p>
+</li>
+<li><p><code>shared_ptr</code>和<code>unique_ptr</code>都支持的操作<br><img src="/2019/09/DynamicMemory/12-1.png" alt></p>
+</li>
+<li><p><code>shared_ptr</code>独有的操作<br><img src="/2019/09/DynamicMemory/12-2.png" alt></p>
+</li>
+<li><p>一旦一个<code>shared_ptr</code>的计数器变为0，它将自动释放自己所管理的对象：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> r = make_shared&lt;<span class="keyword">int</span>&gt;(<span class="number">42</span>); <span class="comment">// int to which r points has one user</span></span><br><span class="line">r = q; <span class="comment">// assign to r, making it point to a different address</span></span><br><span class="line">       <span class="comment">// increase the use count for the object to which q points</span></span><br><span class="line">       <span class="comment">// reduce the use count of the object to which r had pointed</span></span><br><span class="line">       <span class="comment">// the object r had pointed to has no users; that object is automatically freed</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="直接管理内存"><a href="#直接管理内存" class="headerlink" title="直接管理内存"></a>直接管理内存</h3><ul>
+<li><p>运算符<code>new</code>分配内存，<code>delete</code>释放<code>new</code>分配的内存。</p>
+</li>
+<li><p>默认情况下，动态分配的对象是默认初始化的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> *ps = <span class="keyword">new</span> <span class="built_in">string</span>; <span class="comment">// initialized to empty string</span></span><br><span class="line"><span class="keyword">int</span> *pi = <span class="keyword">new</span> <span class="keyword">int</span>; <span class="comment">// pi points to an uninitialized int</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以使用直接初始化的方式初始化一个动态分配的对象，可以使用传统的构造方式，也可以使用列表初始化：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *pi = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">1024</span>); <span class="comment">// object to which pi points has value 1024</span></span><br><span class="line"><span class="built_in">string</span> *ps = <span class="keyword">new</span> <span class="built_in">string</span>(<span class="number">10</span>, <span class="string">'9'</span>); <span class="comment">// *ps is "9999999999"</span></span><br><span class="line"><span class="comment">// vector with ten elements with values from 0 to 9</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; *pv = <span class="keyword">new</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于编译器使用初始值类型来推断需要分配内存的类型，只有当括号中仅有单一初始化器时才可以使用<code>auto</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> p1 = <span class="keyword">new</span> <span class="keyword">auto</span>(obj); <span class="comment">// p points to an object of the type of obj</span></span><br><span class="line"><span class="comment">// that object is initialized from obj</span></span><br><span class="line"><span class="keyword">auto</span> p2 = <span class="keyword">new</span> <span class="keyword">auto</span>&#123;a,b,c&#125;; <span class="comment">// error: must use parentheses for the initializer</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类似其他<code>const</code>对象，动态分配的<code>const</code>对象必须进行初始化。</p>
+</li>
+<li><p>若<code>new</code>不能分配所要求的内存空间，它会抛出一个类型为<code>bad_alloc</code>的异常，可以改变<code>new</code>的使用方式阻止其抛出异常：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// if allocation fails, new returns a null pointer</span></span><br><span class="line"><span class="keyword">int</span> *p1 = <span class="keyword">new</span> <span class="keyword">int</span>; <span class="comment">// if allocation fails, new throws std::bad_alloc</span></span><br><span class="line"><span class="keyword">int</span> *p2 = <span class="keyword">new</span> (nothrow) <span class="keyword">int</span>; <span class="comment">// if allocation fails, new returns a null pointer</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="shared-ptr和new结合使用"><a href="#shared-ptr和new结合使用" class="headerlink" title="shared_ptr和new结合使用"></a><code>shared_ptr</code>和<code>new</code>结合使用</h3><ul>
+<li><p>定义和改变<code>shared_ptr</code>的其他方法<br><img src="/2019/09/DynamicMemory/12-3.png" alt></p>
+</li>
+<li><p>接受指针参数的智能指针构造函数是<code>explicit</code>的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; p1 = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">1024</span>); <span class="comment">// error: must use direct initialization</span></span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; p2(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">1024</span>)); <span class="comment">// ok: uses direct initialization</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>默认情况下，智能指针使用<code>delete</code>释放与之关联的对象。</p>
+</li>
+<li><p>当将一个<code>shared_ptr</code>绑定到一个普通指针时，我们就将内存的管理责任交给了这个<code>shared_ptr</code>。一旦这样做了，我们就不应该再使用内置指针来访问<code>shared_ptr</code>所指向的内存了。</p>
+</li>
+<li><p>虽然编译器不会给出报错信息，但将另一个智能指针也绑定到<code>get</code>返回的指针上是错误的。</p>
+</li>
+</ul>
+<h3 id="智能指针与异常"><a href="#智能指针与异常" class="headerlink" title="智能指针与异常"></a>智能指针与异常</h3><ul>
+<li>如果一个异常发生在<code>new</code>与<code>delete</code>之间，并且异常没有在<code>f</code>中捕获，那么内存将永远不会被释放：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *ip = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">42</span>); <span class="comment">// dynamically allocate a new object</span></span><br><span class="line">    <span class="comment">// code that throws an exception that is not caught inside f</span></span><br><span class="line">    <span class="keyword">delete</span> ip; <span class="comment">// free the memory before exiting</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="unique-ptr"><a href="#unique-ptr" class="headerlink" title="unique_ptr"></a><code>unique_ptr</code></h3><ul>
+<li>不同于<code>shared_ptr</code>，同时只能有一个<code>unique_ptr</code>指向一个给定对象。</li>
+<li><code>unique_ptr</code>操作<br><img src="/2019/09/DynamicMemory/12-4.png" alt></li>
+</ul>
+<ul>
+<li><p>与<code>shared_ptr</code>不同，没有类似<code>make_shared</code>的标准库函数返回一个<code>unique_ptr</code>。当我们定义一个<code>unique_ptr</code>时，需要将其绑定到一个<code>new</code>返回的指针上。类似<code>shared_ptr</code>，初始化<code>unique_ptr</code>必须采用直接初始化形式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="keyword">double</span>&gt; p1; <span class="comment">// unique_ptr that can point at a double</span></span><br><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="keyword">int</span>&gt; p2(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">42</span>)); <span class="comment">// p2 points to int with value 42</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不能拷贝<code>unique_ptr</code>的规则有一个例外：我们拷贝或赋值一个将要被销毁的<code>unique_ptr</code>，最常见的例子是从函数返回一个<code>unique_ptr</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="keyword">int</span>&gt; clone(<span class="keyword">int</span> p) &#123;</span><br><span class="line">    <span class="comment">// ok: explicitly create a unique_ptr&lt;int&gt; from int*</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">unique_ptr</span>&lt;<span class="keyword">int</span>&gt;(<span class="keyword">new</span> <span class="keyword">int</span>(p));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="keyword">int</span>&gt; clone(<span class="keyword">int</span> p) &#123;</span><br><span class="line">    <span class="built_in">unique_ptr</span>&lt;<span class="keyword">int</span>&gt; ret(<span class="keyword">new</span> <span class="keyword">int</span> (p));</span><br><span class="line">    <span class="comment">// . . .</span></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a><code>weak_ptr</code></h3><ul>
+<li><img src="/2019/09/DynamicMemory/12-5.png" alt></li>
+</ul>
+<h2 id="动态数组"><a href="#动态数组" class="headerlink" title="动态数组"></a>动态数组</h2><ul>
+<li>分配了动态数组的类必须定义自己版本的操作，在拷贝、复制及销毁对象时管理所关联的内存。</li>
+</ul>
+<h3 id="new和数组"><a href="#new和数组" class="headerlink" title="new和数组"></a><code>new</code>和数组</h3><ul>
+<li><p>使用<code>new</code>分配一个数组时，获得的不是数组类型的对象，而是指向数组元素类型的指针。由于得到的不是数组类型，不能对动态数组调用<code>begin</code>或<code>end</code>。</p>
+</li>
+<li><p>默认情况下，<code>new</code>分配的对象，不管是单个分配还是数组中的，都是默认初始化的。可以对数组中的元素进行值初始化，方法是在大小之后跟一队空括号。在新标准中，还可以提供一个元素初始化器的花括号列表：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *pia = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>]; <span class="comment">// block of ten uninitialized ints</span></span><br><span class="line"><span class="keyword">int</span> *pia2 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>](); <span class="comment">// block of ten ints value initialized to 0</span></span><br><span class="line"><span class="built_in">string</span> *psa = <span class="keyword">new</span> <span class="built_in">string</span>[<span class="number">10</span>]; <span class="comment">// block of ten empty strings</span></span><br><span class="line"><span class="built_in">string</span> *psa2 = <span class="keyword">new</span> <span class="built_in">string</span>[<span class="number">10</span>](); <span class="comment">// block of ten empty strings</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// block of ten ints each initialized from the corresponding initializer</span></span><br><span class="line"><span class="keyword">int</span> *pia3 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>]&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;;</span><br><span class="line"><span class="comment">// block of ten strings; the first four are initialized from the given initializers</span></span><br><span class="line"><span class="comment">// remaining elements are value initialized</span></span><br><span class="line"><span class="built_in">string</span> *psa3 = <span class="keyword">new</span> <span class="built_in">string</span>[<span class="number">10</span>]&#123;<span class="string">"a"</span>, <span class="string">"an"</span>, <span class="string">"the"</span>, <span class="built_in">string</span>(<span class="number">3</span>,<span class="string">'x'</span>)&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为了释放动态数组，必须使用一种特殊形式的<code>delete</code>，在指针前加上一个空方括号对：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> p; <span class="comment">// p must point to a dynamically allocated object or be null</span></span><br><span class="line"><span class="keyword">delete</span> [] pa; <span class="comment">// pa must point to a dynamically allocated array or be null</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组中的元素按逆序销毁。</p>
+</li>
+<li><p>指向数组的<code>unique_ptr</code><br><img src="/2019/09/DynamicMemory/12-6.png" alt></p>
+</li>
+<li><p>与<code>unique_ptr</code>不同，<code>shared_ptr</code>不支持直接管理动态数组，如果希望使用<code>shared_ptr</code>管理一个动态数组，必须提供自己定义的删除器：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// to use a shared_ptr we must supply a deleter</span></span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; sp(<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>], [](<span class="keyword">int</span> *p) &#123; <span class="keyword">delete</span>[] p; &#125;);</span><br><span class="line">sp.reset(); <span class="comment">// uses the lambda we supplied that uses delete[] to free the array</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="allocator类"><a href="#allocator类" class="headerlink" title="allocator类"></a><code>allocator</code>类</h3><ul>
+<li><p>不能分配元素类型为“没有默认构造函数的类类型”的动态数组。</p>
+</li>
+<li><p>标准库<code>allocator</code>类及其算法<br><img src="/2019/09/DynamicMemory/12-7.png" alt></p>
+</li>
+<li><p><code>allocator</code>算法<br><img src="/2019/09/DynamicMemory/12-8.png" alt></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C-Primer/" rel="tag"># C++ Primer</a>
+          
+            <a href="/tags/RE：从零开始的C-学习/" rel="tag"># RE：从零开始的C++学习</a>
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/AssociativeContainers/" rel="next" title="Associative Containers">
+                <i class="fa fa-chevron-left"></i> Associative Containers
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/CopyControl/" rel="prev" title="CopyControl">
+                CopyControl <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Song">
+            
+              <p class="site-author-name" itemprop="name">Song</p>
+              <p class="site-description motion-element" itemprop="description">希望你快乐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heyitsmine" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:huashuo.zs@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://scutlwy.xyz/" title="lwy's studio" target="_blank">lwy's studio</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态内存"><span class="nav-number">1.</span> <span class="nav-text">动态内存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#动态内存与智能指针"><span class="nav-number">1.1.</span> <span class="nav-text">动态内存与智能指针</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#shared-ptr类"><span class="nav-number">1.1.1.</span> <span class="nav-text">shared_ptr类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接管理内存"><span class="nav-number">1.1.2.</span> <span class="nav-text">直接管理内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shared-ptr和new结合使用"><span class="nav-number">1.1.3.</span> <span class="nav-text">shared_ptr和new结合使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#智能指针与异常"><span class="nav-number">1.1.4.</span> <span class="nav-text">智能指针与异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unique-ptr"><span class="nav-number">1.1.5.</span> <span class="nav-text">unique_ptr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weak-ptr"><span class="nav-number">1.1.6.</span> <span class="nav-text">weak_ptr</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态数组"><span class="nav-number">1.2.</span> <span class="nav-text">动态数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#new和数组"><span class="nav-number">1.2.1.</span> <span class="nav-text">new和数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#allocator类"><span class="nav-number">1.2.2.</span> <span class="nav-text">allocator类</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Song</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66450228";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
