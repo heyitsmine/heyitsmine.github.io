@@ -28,7 +28,7 @@ tags:
 - 友元声明只能出现在类定义的内部，但在类内出现的具体位置不限。友元不是类的成员，也不受访问控制的约束。
 - 友元的声明仅仅指定了访问的权限，而非一个真正意义上的函数声明。如果我们希望类的用户能够调用某个友元函数，那么我们必须在友元声明之外再对函数进行一次声明。
 
-## 类的其他特性
+# 类的其他特性
 
 ## 类成员
 
@@ -43,6 +43,7 @@ tags:
 ## 类类型
 
 - 可以只声明但不定义一个类，这样的声明称为**前向声明**（forward declaration），声明的类在定义之前称为**不完全类型**（incomplete type）。
+- 不完全类型只能用于以下情形：定义不完全类型的指针或引用；声明（而不是定义）函数时，使用不完全类型作为参数或返回类型。
 
 # 类的作用域
 
@@ -73,6 +74,23 @@ public:
 ## 委托构造函数
 
 - 委托构造函数使用它所属类的其他构造函数执行它自己的初始化过程。
+```c++
+class Sales_data {
+public:
+    // nondelegating constructor initializes members from corresponding arguments
+    Sales_data(std::string s, unsigned cnt, double price):
+            bookNo(s), units_sold(cnt), revenue(cnt*price) {
+}
+    // remaining constructors all delegate to another constructor
+    Sales_data(): Sales_data("", 0, 0) {}
+    Sales_data(std::string s): Sales_data(s, 0,0) {}
+    Sales_data(std::istream &is): Sales_data()
+                                        { read(is, *this); }
+    // other members as before
+};
+```
+- 受委托的构造函数会先执行。
+
 
 ## 隐式类类型转换
 
@@ -80,7 +98,24 @@ public:
 
 ## 聚合类
 
+- **聚合类**（aggregate class）使得用户可以直接访问其成员，并且具有特殊的初始化语法形式。当一个类满足以下条件时，我们说它是聚合的：
+  - 所有数据成员都是`public`的。
+  - 没有定义任何构造函数。
+  - 没有类内初始值。
+  - 没有基类，也没有`virtual`函数。
+- 可以提供一个花括号括起来的成员初始值列表，并用它初始化聚合类的数据成员：
+```c++
+struct Data {
+    int ival;
+    string s;
+};
+// val1.ival = 0; val1.s = string("Anna")
+Data val1 = { 0, "Anna" };
+```
+
 ## 字面值常量类
 
 # 类的静态成员
+
+- 一般来说，不能在类的内部初始化静态成员，必须在类的外部定义和初始化每个静态成员。然而，我们可以为静态成员提供`const`整数类型的类内初始值。
 
