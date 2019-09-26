@@ -1,5 +1,5 @@
 ---
-title: CopyControl
+title: Copy Control
 date: 2019-09-23 15:42:57
 categories:
 - C++
