@@ -386,3 +386,20 @@ int compare(const char* const &p1, const char* const &p2)
 - 当我们定义一个特例化版本时，函数参数类型必须与一个先前声明的模板中对应的类型匹配。
 
 - 特例化一个模板时，必须在原模板定义所在的命名空间中特例化它。
+
+### 类模板部分特例化
+
+标准库中的`remove_reference`类型是通过一系列的特例化版本实现其功能的：
+```c++
+// original, most general template
+template <class T> struct remove_reference {
+    typedef T type;
+};
+// partial specializations that will be used for lvalue and rvalue references
+template <class T> struct remove_reference<T&>  // lvalue references
+{ typedef T type; };
+template <class T> struct remove_reference<T&&> // rvalue references
+{ typedef T type; };
+```
+
+部分特例化的模板参数列表是原始模板的参数列表的一个子集或是一个特例化版本。

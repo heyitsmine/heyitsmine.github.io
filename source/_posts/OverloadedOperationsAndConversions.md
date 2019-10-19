@@ -82,8 +82,9 @@ public:
 - 根据`point`类型的不同，`point->mem`分别等价于
   - `(*point).mem;               // (1) point is a built-in pointer type`
   - `point.operator->()->mem;    // (2) point is an object of class type`
-如果`point`是指针，`point->mem`等价于（1）；如果`point`是定义了`operator->()`的类的一个对象，则使用`point.operator->()`的结果来获取`mem`，若该结果是一个指针，则执行（1），若该结果为定义了`operator->()`的类的一个对象，则重复调用当前步骤。
   
+  如果`point`是指针，`point->mem`等价于（1）；如果`point`是定义了`operator->()`的类的一个对象，则使用`point.operator->()`的结果来获取`mem`，若该结果是一个指针，则执行（1），若该结果为定义了`operator->()`的类的一个对象，则重复调用当前步骤。
+
 
 ## 函数调用运算符
 
