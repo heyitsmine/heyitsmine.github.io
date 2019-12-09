@@ -86,6 +86,27 @@ void sigchld_handler(int sig)
 - shell用作业（job）来表示执行一个命令行而创建的进程（一个或多个），这些进程属于同一个进程组。任何时候，至多可以有一个前台作业以及0个或多个后台作业，下图是一个有一个前台作业和两个后台作业的shell。![](shelllab/8-28.png)
 由键盘输入产生的信号（SIGINT、SIGTSTP等）会发送给前台进程组中的所有进程。函数`tcsetpgrp`可以将指定进程组设置为前台进程组。
 
-### SIGTTIN与SIGTTOU
+# SIGTTIN与SIGTTOU
 
-当任何一个后台作业中进程试图读终端时，`SIGTTIN`信号会被发送给该作业中的所有进程；类似的，当任何一个后台作业中进程试图写终端时，`SIGTTOU`信号会被发送给该作业中的所有进程。
+`SIGTTIN`与`SIGTTOU`属于作业控制信号，当任何一个后台作业中进程试图读终端时，`SIGTTIN`信号会被发送给该作业中的所有进程；类似的，当任何一个后台作业中进程试图写终端时，`SIGTTOU`信号会被发送给该作业中的所有进程。shell主进程应该忽略这些作业控制信号，以避免被意外地停止。
+
+# 使用`sigprocmask`同步进程
+
+函数`sigprocmask`可以获取和改变信号屏蔽字，通过设置信号屏蔽字可以实现进程的同步。
+
+```c
+initjobs(); /* Initialize the job list */
+
+while (1) {
+    Sigprocmask(SIG_BLOCK, &mask_one, &prev_one); /* Block SIGCHLD */
+    if ((pid = Fork()) == 0) { /* Child process */
+        Sigprocmask(SIG_SETMASK, &prev_one, NULL); /* Unblock SIGCHLD */
+        Execve("/bin/date", argv, NULL);
+    }
+    Sigprocmask(SIG_BLOCK, &mask_all, NULL); /* Parent process */
+    addjob(pid); /* Add the child to the job list */
+    Sigprocmask(SIG_SETMASK, &prev_one, NULL); /* Unblock SIGCHLD */
+}
+```
+
+主进程在创建子进程之前屏蔽了`SIGCHLD`信号，在执行完`addjob(pid)`后再解除屏蔽`SIGCHLD`，保证了在执行`SIGCHLD`的信号处理函数之前已经执行了`addjob(pid)`。
