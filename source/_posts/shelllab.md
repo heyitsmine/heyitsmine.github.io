@@ -1,8 +1,11 @@
 ---
 title: csapp shell lab 相关
 date: 2019-12-05 16:05:58
+categories:
+- unix
 tags:
 - unix
+- shell
 ---
 
 CS: APP 的[Shell Lab](http://csapp.cs.cmu.edu/3e/labs.html)，要求实现一个支持作业控制的Unix shell。
