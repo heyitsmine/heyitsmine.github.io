@@ -10,6 +10,8 @@ tags:
 
 CS: APP 的[Shell Lab](http://csapp.cs.cmu.edu/3e/labs.html)，要求实现一个支持作业控制的Unix shell。
 
+<!--more-->
+
 # 基本框架
 
 1. 安装信号捕捉函数
