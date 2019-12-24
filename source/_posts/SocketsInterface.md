@@ -8,7 +8,7 @@ tags:
 - 网络编程
 ---
 
-内容来自CS: APP 11.4 The Sockets Interface.
+内容来自(摘抄）CS: APP 11.4 The Sockets Interface.
 
 <!--more-->
 
