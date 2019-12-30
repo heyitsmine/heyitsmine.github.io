@@ -8,7 +8,7 @@ tags:
 - 网络编程
 ---
 
-内容来自(摘抄）CS: APP 11.4 The Sockets Interface.
+内容来自(摘抄自）CS: APP 11.4 The Sockets Interface.
 
 <!--more-->
 
@@ -18,6 +18,7 @@ tags:
 
 ![](SocketsInterface/11-12.png)
 <center>图1 基于套接字的网络应用概览</center>
+
 ## 套接字地址结构
 
 从Unix内核的角度来看，一个套接字就是通信的一个端点；从Unix程序的角度来看，套接字是一个具有相应文件描述符的已打开文件。
@@ -99,6 +100,7 @@ int accept(int listenfd, struct sockaddr *addr, int *addrlen);
 
 ![](SocketsInterface/11-14.png)
 <center>图2 监听描述符与已连接描述符</center>
+
 ## `getaddrinfo`与`getnameinfo`
 
 Linux提供了`getaddrinfo`与`getnameinfo`，可以使套接字地址结构与用字符串表示的主机名、主机地址、服务名和端口号之间相互转换。我们可以将这两个函数与套接字接口结合使用，编写与IP协议版本无关的网络应用程序。
