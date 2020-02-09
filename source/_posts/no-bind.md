@@ -1,6 +1,8 @@
 ---
 title: 如果socket服务端程序未调用bind
 date: 2020-02-03 22:12:29
+categories:
+- unix
 tags:
 - unix
 - 网络编程
