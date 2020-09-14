@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="unix,网络编程,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="内容来自(摘抄自）CS: APP 11.4 The Sockets Interface.">
+<meta name="keywords" content="unix,网络编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="套接字接口">
+<meta property="og:url" content="http://yoursite.com/2019/12/SocketsInterface/index.html">
+<meta property="og:site_name" content="Song">
+<meta property="og:description" content="内容来自(摘抄自）CS: APP 11.4 The Sockets Interface.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/12/SocketsInterface/11-12.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/SocketsInterface/11-14.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/SocketsInterface/11-15.png">
+<meta property="og:updated_time" content="2020-09-11T12:01:26.421Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="套接字接口">
+<meta name="twitter:description" content="内容来自(摘抄自）CS: APP 11.4 The Sockets Interface.">
+<meta name="twitter:image" content="http://yoursite.com/2019/12/SocketsInterface/11-12.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/SocketsInterface/">
+
+
+
+
+
+  <title>套接字接口 | Song</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Song</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/SocketsInterface/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">套接字接口</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-23T20:52:55+08:00">
+                2019-12-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/unix/" itemprop="url" rel="index">
+                    <span itemprop="name">unix</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>内容来自(摘抄自）CS: APP 11.4 The Sockets Interface.</p>
+<a id="more"></a>
+
+<h1 id="套接字接口"><a href="#套接字接口" class="headerlink" title="套接字接口"></a>套接字接口</h1><p>套接字接口是Unix系统用于构建网络应用程序的一套函数，通常与I/O函数结合使用。图1是在一个<em>客户端-服务器</em>交互过程中套接字接口使用的示意图。</p>
+<p><img src="/2019/12/SocketsInterface/11-12.png" alt></p>
+<center>图1 基于套接字的网络应用概览</center>
+
+<h2 id="套接字地址结构"><a href="#套接字地址结构" class="headerlink" title="套接字地址结构"></a>套接字地址结构</h2><p>从Unix内核的角度来看，一个套接字就是通信的一个端点；从Unix程序的角度来看，套接字是一个具有相应文件描述符的已打开文件。</p>
+<p>因特网的套接字地址存储在类型为<code>sockaddr_in</code>的16字节结构中。对于因特网应用，<code>sin_family</code>成员是<code>AF_INET</code>，<code>sin_port</code>成员是一个16位的端口号，<code>sin_addr</code>是32位IP地址。IP地址和端口号总是以网络字节序（大端法）存放的。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* IP socket address structure */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint16_t</span> sin_family;       <span class="comment">/* Protocol family (always AF_INET) */</span></span><br><span class="line">    <span class="keyword">uint16_t</span> sin_port;         <span class="comment">/* Port number in network byte order */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> <span class="title">sin_addr</span>;</span>   <span class="comment">/* IP address in network byte order */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> sin_zero[<span class="number">8</span>]; <span class="comment">/* Pad to sizeof(struct sockaddr) */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Generic socket address structure (for connect, bind, and accept) */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint16_t</span> sa_family; <span class="comment">/* Protocol family */</span></span><br><span class="line">    <span class="keyword">char</span> sa_data[<span class="number">14</span>];   <span class="comment">/* Address data */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>connect</code>、<code>bind</code>和<code>accept</code>函数需要一个指向与协议相关的套接字地址结构的指针，早期的C语言不存在<code>void *</code>指针，套接字函数要求一个指向通用<code>sockaddr</code>结构的指针作为参数，应用程序需要将“与协议特定的结构的指针”强制转换成<code>sockaddr *</code>指针。</p>
+<h2 id="socket函数"><a href="#socket函数" class="headerlink" title="socket函数"></a><code>socket</code>函数</h2><p>客户端和服务器使用<code>socket</code>函数创建一个<strong>套接字描述符</strong>(<em>socket descriptor</em>)。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">(<span class="keyword">int</span> domain, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol)</span></span>;</span><br><span class="line"><span class="comment">// Returns: nonnegative descriptor if OK, −1 on error</span></span><br></pre></td></tr></table></figure>
+
+<p><code>socket</code>返回的描述符仅是部分打开的，还不能用于读写。<code>socket</code>函数需要的参数通常由<code>getaddrinfo</code>自动生成。完成打开套接字的工作需要用到<code>connect</code>、<code>bind</code>和<code>accept</code>等函数，取决于程序是客户端还是服务器。</p>
+<h2 id="connect函数"><a href="#connect函数" class="headerlink" title="connect函数"></a><code>connect</code>函数</h2><p>客户端通过调用<code>connect</code>函数建立与服务器的连接。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> clientfd, <span class="keyword">const</span> struct sockaddr *addr, <span class="keyword">socklen_t</span> addrlen)</span></span>;</span><br><span class="line"><span class="comment">// Returns: 0 if OK, −1 on error</span></span><br></pre></td></tr></table></figure>
+
+<p><code>connect</code>函数尝试与套接字地址为<code>addr</code>的服务器建立因特网连接，其中<code>addrlen</code>是<code>sizeof(sockaddr_in)</code>。<code>connect</code>函数会阻塞直到成功建立连接或是发生错误。与<code>socket</code>相同，<code>connect</code>函数需要的参数通常由<code>getaddrinfo</code>自动生成。</p>
+<h2 id="bind-listen-accept函数"><a href="#bind-listen-accept函数" class="headerlink" title="bind, listen, accept函数"></a><code>bind</code>, <code>listen</code>, <code>accept</code>函数</h2><p>服务器使用<code>bind</code>, <code>listen</code>, <code>accept</code>函数与客户端建立连接。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bind</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> struct sockaddr *addr, <span class="keyword">socklen_t</span> addrlen)</span></span>;</span><br><span class="line"><span class="comment">// Returns: 0 if OK, −1 on error</span></span><br></pre></td></tr></table></figure>
+
+<p><code>bind</code>函数向内核请求将<code>addr</code>中的服务器地址关联到套接字描述符<code>sockfd</code>，参数<code>addrlen</code>是<code>sizeof(sockaddr_in)</code>。与<code>socket</code>和<code>connect</code>相同，<code>bind</code>函数需要的参数通常由<code>getaddrinfo</code>自动生成。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br><span class="line"><span class="comment">// Returns: 0 if OK, −1 on error</span></span><br></pre></td></tr></table></figure>
+
+<p>客户端是是发起连接请求的主动实体，服务器是等待来自客户端请求的被动实体。默认情况下，内核把<code>socket</code>函数创建的描述符当作<strong>主动套接字</strong>(<em>active socket</em>)，它将被用于连接的客户端。服务器可以调用<code>listen</code>函数，将一个主动套接字转化为一个<strong>监听套接字</strong>(<em>listening socket</em>)。</p>
+<p>服务器通过调用<code>accept</code>函数等待来自客户端的连接。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">accept</span><span class="params">(<span class="keyword">int</span> listenfd, struct sockaddr *addr, <span class="keyword">int</span> *addrlen)</span></span>;</span><br><span class="line"><span class="comment">// Returns: nonnegative connected descriptor if OK, −1 on error</span></span><br></pre></td></tr></table></figure>
+
+<p><code>accepet</code>函数等待来自客户端的连接请求到达监听关键字<code>listenfd</code>，然后将客户端的套接字地址填入<code>addr</code>，并返回一个<strong>已连接描述符</strong>(<em>connected descriptor</em>)，该描述符可以通过Unix I/O函数与客户端通信，图2描述了客户端与服务器连接的过程。</p>
+<p><img src="/2019/12/SocketsInterface/11-14.png" alt></p>
+<center>图2 监听描述符与已连接描述符</center>
+
+<h2 id="getaddrinfo与getnameinfo"><a href="#getaddrinfo与getnameinfo" class="headerlink" title="getaddrinfo与getnameinfo"></a><code>getaddrinfo</code>与<code>getnameinfo</code></h2><p>Linux提供了<code>getaddrinfo</code>与<code>getnameinfo</code>，可以使套接字地址结构与用字符串表示的主机名、主机地址、服务名和端口号之间相互转换。我们可以将这两个函数与套接字接口结合使用，编写与IP协议版本无关的网络应用程序。</p>
+<p><code>getaddrinfo</code>函数将字符串形式的主机名、主机地址、服务名和端口号转化为套接字地址结构。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getaddrinfo</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *host, <span class="keyword">const</span> <span class="keyword">char</span> *service,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">const</span> struct addrinfo *hints,</span></span></span><br><span class="line"><span class="function"><span class="params">                struct addrinfo **result)</span></span>;</span><br><span class="line"><span class="comment">// Returns: 0 if OK, nonzero error code on error</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">freeaddrinfo</span><span class="params">(struct addrinfo *result)</span></span>;</span><br><span class="line"><span class="comment">// Returns: nothing</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">char</span> *<span class="title">gai_strerror</span><span class="params">(<span class="keyword">int</span> errcode)</span></span>;</span><br><span class="line"><span class="comment">// Returns: error message</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">addrinfo</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> ai_flags;              <span class="comment">/* Hints argument flags */</span></span><br><span class="line">    <span class="keyword">int</span> ai_family;             <span class="comment">/* First arg to socket function */</span></span><br><span class="line">    <span class="keyword">int</span> ai_socktype;           <span class="comment">/* Second arg to socket function */</span></span><br><span class="line">    <span class="keyword">int</span> ai_protocol;           <span class="comment">/* Third arg to socket function */</span></span><br><span class="line">    <span class="keyword">char</span> *ai_canonname;        <span class="comment">/* Canonical hostname */</span></span><br><span class="line">    <span class="keyword">size_t</span> ai_addrlen;         <span class="comment">/* Size of ai_addr struct */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span> *<span class="title">ai_addr</span>;</span>  <span class="comment">/* Ptr to socket address structure */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">addrinfo</span> *<span class="title">ai_next</span>;</span>  <span class="comment">/* Ptr to next item in linked list */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>host</code>参数可以是域名或IP地址，<code>service</code>参数可以是服务名（http、ftp等）或端口号。可选的参数<code>hint</code>是一个<code>addrinfo</code>结构，用于控制<code>getaddrinfo</code>返回套接字地址的种类，比如可以设置<code>ai_family</code>为<code>AF_INET</code>限制只返回IPv4地址。<code>getaddrinfo</code>的结果存放在<code>result</code>中，<code>result</code>指向一个<code>addrinfo</code>的链表，链表中的每一项都指向一个套接字地址结构，如图3所示。</p>
+<p><img src="/2019/12/SocketsInterface/11-15.png" alt></p>
+<center>图3 getaddrinfo返回的数据结构</center>
+通常，客户端调用`getaddrinfo`，再遍历结果链表，对链表中每一个套接字地址依次调用`socket`与`connect`直到成功建立连接。
+
+<hr>
+<p><code>getnameinfo</code>的功能与<code>getaddrinfo</code>相反，它将套接字地址结构转换为字符串形式的主机名与服务名。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getnameinfo</span><span class="params">(<span class="keyword">const</span> struct sockaddr *sa, <span class="keyword">socklen_t</span> salen,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">char</span> *host, <span class="keyword">size_t</span> hostlen,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">char</span> *service, <span class="keyword">size_t</span> servlen, <span class="keyword">int</span> flags)</span></span>;</span><br><span class="line"><span class="comment">// Returns: 0 if OK, nonzero error code on error</span></span><br></pre></td></tr></table></figure>
+
+<p>以下为使用<code>getaddrinfo</code>与<code>getnameinfo</code>的一个示例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"csapp.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">addrinfo</span> *<span class="title">p</span>, *<span class="title">listp</span>, <span class="title">hints</span>;</span></span><br><span class="line">    <span class="keyword">char</span> buf[MAXLINE];</span><br><span class="line">    <span class="keyword">int</span> rc, flags;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">2</span>) &#123;</span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"usage: %s &lt;domain name&gt;\n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">	<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Get a list of addrinfo records */</span></span><br><span class="line">    <span class="built_in">memset</span>(&amp;hints, <span class="number">0</span>, <span class="keyword">sizeof</span>(struct addrinfo));                         </span><br><span class="line">    hints.ai_family = AF_INET;       <span class="comment">/* IPv4 only */</span></span><br><span class="line">    hints.ai_socktype = SOCK_STREAM; <span class="comment">/* Connections only */</span></span><br><span class="line">    <span class="keyword">if</span> ((rc = getaddrinfo(argv[<span class="number">1</span>], <span class="literal">NULL</span>, &amp;hints, &amp;listp)) != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"getaddrinfo error: %s\n"</span>, gai_strerror(rc));</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Walk the list and display each IP address */</span></span><br><span class="line">    flags = NI_NUMERICHOST; <span class="comment">/* Display address string instead of domain name */</span></span><br><span class="line">    <span class="keyword">for</span> (p = listp; p; p = p-&gt;ai_next) &#123;</span><br><span class="line">        Getnameinfo(p-&gt;ai_addr, p-&gt;ai_addrlen, buf, MAXLINE, <span class="literal">NULL</span>, <span class="number">0</span>, flags);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, buf);</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Clean up */</span></span><br><span class="line">    Freeaddrinfo(listp);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="套接字接口的包装"><a href="#套接字接口的包装" class="headerlink" title="套接字接口的包装"></a>套接字接口的包装</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open_clientfd</span><span class="params">(<span class="keyword">char</span> *hostname, <span class="keyword">char</span> *port)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> clientfd;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">addrinfo</span> <span class="title">hints</span>, *<span class="title">listp</span>, *<span class="title">p</span>;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* Get a list of potential server addresses */</span></span><br><span class="line">    <span class="built_in">memset</span>(&amp;hints, <span class="number">0</span>, <span class="keyword">sizeof</span>(struct addrinfo));</span><br><span class="line">    hints.ai_socktype = SOCK_STREAM; <span class="comment">/* Open a connection */</span></span><br><span class="line">    hints.ai_flags = AI_NUMERICSERV; <span class="comment">/* ... using a numeric port arg. */</span></span><br><span class="line">    hints.ai_flags |= AI_ADDRCONFIG; <span class="comment">/* Recommended for connections */</span></span><br><span class="line">    Getaddrinfo(hostname, port, &amp;hints, &amp;listp);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* Walk the list for one that we can successfully connect to */</span></span><br><span class="line">    <span class="keyword">for</span> (p = listp; p; p = p-&gt;ai_next) &#123;</span><br><span class="line">        <span class="comment">/* Create a socket descriptor */</span></span><br><span class="line">        <span class="keyword">if</span> ((clientfd = socket(p-&gt;ai_family, p-&gt;ai_socktype, p-&gt;ai_protocol)) &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">continue</span>; <span class="comment">/* Socket failed, try the next */</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">/* Connect to the server */</span></span><br><span class="line">        <span class="keyword">if</span> (connect(clientfd, p-&gt;ai_addr, p-&gt;ai_addrlen) != <span class="number">-1</span>)</span><br><span class="line">            <span class="keyword">break</span>; <span class="comment">/* Success */</span></span><br><span class="line">        Close(clientfd); <span class="comment">/* Connect failed, try another */</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Clean up */</span></span><br><span class="line">    Freeaddrinfo(listp);</span><br><span class="line">    <span class="keyword">if</span> (!p) <span class="comment">/* All connects failed */</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">else</span>    <span class="comment">/* The last connect succeeded */</span></span><br><span class="line">        <span class="keyword">return</span> clientfd;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open_listenfd</span><span class="params">(<span class="keyword">char</span> *port)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">addrinfo</span> <span class="title">hints</span>, *<span class="title">listp</span>, *<span class="title">p</span>;</span></span><br><span class="line">    <span class="keyword">int</span> listenfd, rc, optval=<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Get a list of potential server addresses */</span></span><br><span class="line">    <span class="built_in">memset</span>(&amp;hints, <span class="number">0</span>, <span class="keyword">sizeof</span>(struct addrinfo));</span><br><span class="line">    hints.ai_socktype = SOCK_STREAM;             <span class="comment">/* Accept connections */</span></span><br><span class="line">    hints.ai_flags = AI_PASSIVE | AI_ADDRCONFIG; <span class="comment">/* ... on any IP address */</span></span><br><span class="line">    hints.ai_flags |= AI_NUMERICSERV;            <span class="comment">/* ... using port number */</span></span><br><span class="line">    <span class="keyword">if</span> ((rc = getaddrinfo(<span class="literal">NULL</span>, port, &amp;hints, &amp;listp)) != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"getaddrinfo failed (port %s): %s\n"</span>, port, gai_strerror(rc));</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Walk the list for one that we can bind to */</span></span><br><span class="line">    <span class="keyword">for</span> (p = listp; p; p = p-&gt;ai_next) &#123;</span><br><span class="line">        <span class="comment">/* Create a socket descriptor */</span></span><br><span class="line">        <span class="keyword">if</span> ((listenfd = socket(p-&gt;ai_family, p-&gt;ai_socktype, p-&gt;ai_protocol)) &lt; <span class="number">0</span>) </span><br><span class="line">            <span class="keyword">continue</span>;  <span class="comment">/* Socket failed, try the next */</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Eliminates "Address already in use" error from bind */</span></span><br><span class="line">        setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR,    <span class="comment">//line:netp:csapp:setsockopt</span></span><br><span class="line">                   (<span class="keyword">const</span> <span class="keyword">void</span> *)&amp;optval , <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Bind the descriptor to the address */</span></span><br><span class="line">        <span class="keyword">if</span> (bind(listenfd, p-&gt;ai_addr, p-&gt;ai_addrlen) == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">break</span>; <span class="comment">/* Success */</span></span><br><span class="line">        <span class="keyword">if</span> (close(listenfd) &lt; <span class="number">0</span>) &#123; <span class="comment">/* Bind failed, try the next */</span></span><br><span class="line">            <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"open_listenfd close failed: %s\n"</span>, strerror(errno));</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Clean up */</span></span><br><span class="line">    freeaddrinfo(listp);</span><br><span class="line">    <span class="keyword">if</span> (!p) <span class="comment">/* No address worked */</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Make it a listening socket ready to accept connection requests */</span></span><br><span class="line">    <span class="keyword">if</span> (listen(listenfd, LISTENQ) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        close(listenfd);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> listenfd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/unix/" rel="tag"># unix</a>
+          
+            <a href="/tags/网络编程/" rel="tag"># 网络编程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/FewRel/" rel="next" title="FewRel简单笔记">
+                <i class="fa fa-chevron-left"></i> FewRel简单笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/no-bind/" rel="prev" title="如果socket服务端程序未调用bind">
+                如果socket服务端程序未调用bind <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Song">
+            
+              <p class="site-author-name" itemprop="name">Song</p>
+              <p class="site-description motion-element" itemprop="description">希望你快乐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heyitsmine" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:huashuo.zs@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://scutlwy.xyz/" title="lwy's studio" target="_blank">lwy's studio</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#套接字接口"><span class="nav-number">1.</span> <span class="nav-text">套接字接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#套接字地址结构"><span class="nav-number">1.1.</span> <span class="nav-text">套接字地址结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#socket函数"><span class="nav-number">1.2.</span> <span class="nav-text">socket函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connect函数"><span class="nav-number">1.3.</span> <span class="nav-text">connect函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bind-listen-accept函数"><span class="nav-number">1.4.</span> <span class="nav-text">bind, listen, accept函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getaddrinfo与getnameinfo"><span class="nav-number">1.5.</span> <span class="nav-text">getaddrinfo与getnameinfo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#套接字接口的包装"><span class="nav-number">1.6.</span> <span class="nav-text">套接字接口的包装</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Song</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66450228";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
