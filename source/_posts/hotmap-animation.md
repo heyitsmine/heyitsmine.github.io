@@ -35,20 +35,29 @@ plt.show()
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 fig, ax = plt.subplots()
+div = make_axes_locatable(ax)
+cax = div.append_axes('right', '5%', '5%')
+
 num_frames = 50
-rwo, col = 101, 101
-data = np.random.rand(num_frames, rwo, col)
-img = plt.imshow(np.zeros((row, col)), cmap=plt.cm.hot, vmin=0, vmax=1.0, origin='lower')
+row, col = 101, 101
+data = np.random.rand(num_frames, row, col)
+img = ax.imshow(np.zeros((row, col)), cmap=plt.cm.hot, vmin=0, vmax=1.0, origin='lower')
+cbr = fig.colorbar(img, cax=cax)
 
 def update(i):
-    img.set_data(data[i])
-    return img,
+    X = data[i]
+    vmax = np.max(X)
+    vmin = np.min(X)
+    img.set_data(X)
+    img.set_clim(vmin, vmax)
 
-ani = FuncAnimation(fig, update, frames=num_frames, init_func=init, blit=True)
-plt.colorbar(img, ax=ax)
+ani = FuncAnimation(fig, update, frames=num_frames)
 plt.show()
+
 ```
 
 `FuncAnimation`的参数`update`绘制每一帧的图像，参数`frames`用于产生每次调用`update`的参数。
+
