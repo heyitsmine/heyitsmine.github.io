@@ -260,6 +260,668 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/protonet-with-attention/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/11/protonet-with-attention/" itemprop="url">在prototypical network中加入注意力机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-09T21:30:43+08:00">
+                2020-11-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/deep-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">deep learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>Context attention</strong></p>
+<p>在prototypical network中，每个类别的原型由支持集中该类别所有样本的向量表示取均值而得。然而，在实际中每个类别的含义很丰富，在不同的样本中含义存在一定差别。因此，直接对向量表示取平均值获得的原型不够准确。</p>
+<p>基于支持集中不同样本重要性不同的事实，提出上下文注意力机制，向与原型更相关的样本分配更高的权重。计算样本向量表示$\bold{S}$之间的矩阵乘积再除以$\sqrt{d_w}$以表示$\bold{S}$中样本之间的相关性，再对其使用$softmax$获得每个样本的权重。最终的$\bold{S}_{new}$由权重乘以样本向量表示获得：</p>
+<p>$\bold{S}_{new}=CATT(\bold{S})=softmax(\frac{ss^T}{\sqrt{d_w}})\bold{S}$</p>
+<p>[用词] prototype, vector</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/metanets/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/10/metanets/" itemprop="url">Meta Networks ()</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-16T19:44:06+08:00">
+                2020-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/deep-learning/" itemprop="url" rel="index">
+                    <span itemprop="name">deep learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>神经网络已成功应用于带有大量标记数据的应用中。 但是，在训练数据较少的情况下快速归纳新概念，同时又要保留先前学习的性能的任务，仍然对神经网络模型提出了重大挑战。 在本文的工作中，我们介绍了一种新颖的元学习方法Meta Networks（MetaNet），该方法可跨任务学习元级别知识，并通过快速参数化来转变其<strong>归纳偏置</strong>，以实现快速归纳。 在Omniglot和Mini-ImageNet基准测试中进行评估时，我们的MetaNet模型可达到接近人类水平的性能，并且相对与基线方法提升了高达6%的准确率。 我们解释了与泛化和持续学习有关的MetaNet的几个重要的特性。</p>
+<p><strong>归纳偏置</strong>：在机器学习中，很多学习算法经常会对学习的问题做一些假设，这些假设就称为归纳偏置(Inductive Bias)。参考<a href="https://www.zhihu.com/question/264264203" target="_blank" rel="noopener">知乎问题</a></p>
+<h1 id="1-引言"><a href="#1-引言" class="headerlink" title="1. 引言"></a>1. 引言</h1><p>当有大量标记数据可用于训练时，深度神经网络已在多个应用领域中取得了巨大成功。然而，大多数学习任务的前提是能够获得大量的训练数据。此外，标准的深度神经网络缺乏在不忘记或破坏先前学习的模式的情况下，连续不断地学习或逐步学习新概念的能力。 相反，人类可以从相同概念的一些示例中快速学习和概括。 人类也非常擅长增量（即连续）学习。 这些能力主要是通过大脑的元学习（即学习学习）过程来解释的（Harlow，1949）。</p>
+<p>先前有关元学习的工作将问题定义为两个层次的学习：对跨任务执行元级模型的缓慢学习，以及对在每个任务中起作用的基础级模型的快速学习（Mitchell at el., 1993;  Vilalta ＆ Drissi, 2002）。元级学习器的目标是获得不同任务之间通用的一般知识。然后可以将知识转移到基础级学习器，以在单个任务的上下文中提供泛化能力。基本模型和元模型可以构造在单个学习器中（Schmidhuber, 1987）或在分别在单独的学习器中（Bengio等，1990； Hochreiter等，2001）。</p>
+<p>在本文的工作中，我们介绍了一种称为MetaNet (Meta Networks) 的元学习模型，该模型能够让神经网络在学习单个样本时进行新任务或概念的归纳。MetaNet的总体结构如图1所示。MetaNet由两个主要的学习组件组成，即基础学习器和元学习器，并配备了一个外部记忆单元。学习发生在两个层次的空间（即元空间和任务空间）中。基础学习器在输入任务空间中执行，而元学习器在与任务无关的元空间中运行。通过在抽象元空间中进行操作，元学习器支持<strong>持续学习</strong>并在不同任务之间实现元知识获取。 为此，基础学习器首先分析输入任务，以较高阶元信息的形式向元学习器提供反馈，以解释其在当前任务空间中的状态。基于元信息，元学习器可以快速设定自身和基础学习器的参数，以便MetaNet模型可以识别输入任务中的新概念。 具体来说，MetaNet的训练权重在不同的时间尺度上更新：通过学习算法（如REINFORCE）更新标准慢速权重；在每个任务范围内更新任务级快速权重；对于特定的输入示例更新示例级快速权重。 此外，MetaNet还配备了外部存储器以实现快速学习和归纳。</p>
+<p><strong>持续学习</strong> <strong>(continual learning/ life-long learning)</strong> ：我们人类有能够将一个任务的知识用到另一个任务上的能力，学习后一个任务时也不会忘记如何做前一个任务，这种能力叫<strong>持续学习</strong> <strong>(continual learning/ life-long learning)</strong> 。</p>
+<p><img src="/2020/10/metanets/metanets%5Cfig1.png" alt></p>
+<center><font size="2.5">Figure 1. Overall architecture of Meta Networks.</font></center>
+
+<p>在MetaNet框架下，定义从学习器获得的元信息类型非常重要， 我们将损失梯度用作元信息（元信息的其他表示形式也适用）。MetaNet具有两种类型的损失函数：用于评判表示学习器的表示（即嵌入）损失，和用于输入任务目标任务的损失。</p>
+<p>我们在几种不同的设置下，广泛研究了MetaNet在one-shot监督学习（SL）问题上的性能和特点。 我们提出的方法不仅改进了标准基准测试的最新结果，而且还显示了一些与泛化和持续学习有关的有趣特性。</p>
+<h1 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2. 相关工作"></a>2. 相关工作</h1><p>我们的工作与多个不同的以快速学习和泛化为目标的神经网络模型架构研究有关。快速学习和泛化指的是one-shot学习：学习器需要处理多个多分类任务，在每个任务中，每个类只有一个或几个标记的样本。此问题中的主要挑战是，各个任务中的类别与概念会有所不同。目前有很多生成模型和度量学习方法被用于解决one-shot学习问题。概率编程方法取得了一个显着的成功（Lake等，2015），他们使用了组合笔画以产生不同字母字符的特定知识。Koch（2015）使用Siamese Networks进行了one-shot分类。最近，Vinyals等（2016）统一了one-shot学习器的训练和测试流程，并开发了一种端到端的微分最近邻方法用于one-shot学习。 Santoro等（2016）提出了一种基于记忆的方法和经过训练的Neural Turing Machines（Graves等人，2014）来进行one-shot学习，但这项工作中的元学习器和one-shot学习器不是明确独立的。 Santoro等人使用的训练流程（2016）改进了Hochreiter等人的工作（2001），他们使用LSTM作为元级模型。最近，（Ravi＆Larochell，2017）提出了一种基于LSTM的one-shot优化器，通过考虑基础学习器的损失、梯度和参数，对元优化器进行训练，并更新one-shot分类器的参数。</p>
+<p>一项相关工作的重点是构建元优化器（Hochreiter等，2001；Maclaurin等，2015；Andrychowicz等，2016；Li＆Malik，2017）。该方向的主要兴趣是在元学习框架内训练优化算法，因此这些工作主要集中在具有大型数据集的任务上。与之相反，由于缺少大型数据集，我们的实验设置强调了优化具有大量参数的神经网络以从少量样本中归纳出新概念的挑战性。我们的工作提出了一种巧妙的的利用元信息的快速参数化方法。通过跟踪先前工作的成功（Mitchell等，1993; Younger等，1999; Andrychowicz等，2016; Ravi＆Larochell，2017），我们研究了表现在神经网络损失梯度中的元信息。快速权重和利用一个神经网络为另一个神经网络生成参数已经分别有了单独的研究。Hinton＆Plaut（1987）建议使用快速权重进行快速学习。 Ba等（2016）最近使用快速权重代替了软注意力机制。快速权重也已用于实现循环网络（Schmidhuber，1992； 1993a）和自指网络（Schmidhuber，1987； 1993b）。突触在许多不同的时间尺度上都有动态，这一事实很好地启发了这些快速权重的使用（Greengard，2001）。</p>
+<p>最后，我们注意到，配备有外部存储单元的MetaNet可以看作是记忆增强神经网络（MANN）。从小的程序设计问题（Graves等人，2014）到大规模语言任务（Weston等人，2015; Sukhbaatar等人，2015; Munkhdalai＆Yu，2017），MANN在一系列任务上都显示出令人鼓舞的结果 。</p>
+<h1 id="3-Meta-Networks"><a href="#3-Meta-Networks" class="headerlink" title="3. Meta Networks"></a>3. Meta Networks</h1><h2 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h2><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>符号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Support set</td>
+<td>${x’<em>i, y’_i}^N</em>{i=1}$</td>
+</tr>
+<tr>
+<td>Train set</td>
+<td>${x_i, y_i}^L_{i=1}$</td>
+</tr>
+<tr>
+<td>Base learner</td>
+<td>$b$</td>
+</tr>
+<tr>
+<td>Dynamic representation learning function</td>
+<td>$u$</td>
+</tr>
+<tr>
+<td>Fast weight generation functions</td>
+<td>$m$ and $d$</td>
+</tr>
+<tr>
+<td>Slow weights</td>
+<td>$\theta={W, Q, Z, G}$</td>
+</tr>
+</tbody></table>
+<p>MetaNet通过处理更高阶的元信息来学习快速参数化基础神经网络，以进行快速概括，从而产生一个灵活的AI模型，该模型可以适应输入输出分布不同的一系列任务。 该模型包括两个主要的学习模块（图1）。 元学习器负责通过跨任务进行操作来生成快速权重，而基础学习器则每个任务中训练以优化任务目标。 生成的快速权重被集成到基础学习器和元学习器中，以改变学习器的归纳偏置。 我们提出了一种新颖的层增强方法，以将标准慢权重与任务或示例特定的快速权重集成到神经网络中。</p>
+<p>我们训练MetaNet的流程基于Vinyals等（2016）提出的方法。 我们首先构造一系列任务，每个任务都包含一个支持集和一个训练集。 对于相同任务的支持集和训练集，类标签是一致的，但是在不同任务之间会有所不同。 MetaNet的训练包括三个主要过程：<em>元信息的获取，快速权重的生成，慢速权重的优化</em>。由基础和元学习器共同执行。 算法1描述了MetaNet的训练流程。</p>
+<p><img src="/2020/10/metanets/metanets%5Calg1.png" alt></p>
+<p>为了在one-shot SL中测试模型，我们从具有未知类别的测试数据集中采样了另一组任务。 然后，部署模型基于其支持集对测试样本进行分类。 我们假设在训练和测试期间我们都具有支持集样本的标签。 注意在one-shot学习的设置中，支持集每个类别仅包含一个示例，因此容易获得。</p>
+<h2 id="3-1-Meta-Learner"><a href="#3-1-Meta-Learner" class="headerlink" title="3.1 Meta Learner"></a>3.1 Meta Learner</h2><p>元学习器包括动态表示学习函数$u$和快速权重生成函数$m$和$d$。 函数$u$具有表示学习目标，并通过使用任务级快速权重在每个任务空间中构造输入的嵌入。 权重生成函数$m$和$d$负责处理元信息，并生成示例和任务级快速权重。</p>
+<p>更具体地说，函数$m$学习从从基础学习器$b$导出的损失梯度${\bigtriangledown_i}^N_{i=1}$到快速权重${W_i^*}^N_{i=1}$的映射：</p>
+<p>$W_i^*=m(Z, \bigtriangledown_i)$            (1)</p>
+<p>其中$m$是参数为$Z$的神经网络。然后将快速权重存储在M 记忆单元$M={W_i^*}^N_{i=1}$中。记忆单元$M$使用由动态表示学习函数$u$获得的对支持集样本${x’<em>i}^N</em>{i=1}$的任务相关嵌入$R={r’<em>i}^N</em>{i=1}$进行索引。</p>
+<p>表示学习函数$u$是由慢速权重$Q$和任务级快速权重$Q^<em>$参数化的神经网络。 它使用表示损失$loss_{emb}$来捕获表示学习目标并获得梯度作为元信息。 我们基于每个任务生成快速权重$Q^</em>$，如下所示：</p>
+<p>$\mathcal{L}<em>i=loss</em>{emb}(u(Q,x’_i),y’_i)$            (2)</p>
+<p>$\bigtriangledown_i=\bigtriangledown_Q\mathcal{L}_i$            (3)</p>
+<p>$Q^*=d(G,{\bigtriangledown}^T_{i=1})$            (4)</p>
+<p>其中$d$表示由$G$参数化的神经网络，它接受大小可变的输入。 首先，我们从支持集中采样$T$个样本$(T{\leq}N){x’<em>i, y’_i}^T</em>{i=1}$，并获得其损失梯度作为元信息。 然后，$d$观察与每个采样的样本对应的梯度，并总结为任务特定的参数。我们使用LSTM作为$d$，但$d$的输入顺序是无关紧要的。我们也尝试求梯度取总和或平均值，再使用MLP。 但是，在我们的初步实验中，我们观察到后者导致收敛性较差。</p>
+<p>生成快速权重后，与任务相关的输入表示${r’<em>i}^N</em>{i=1}$的计算方式为：</p>
+<p>$r’_i=u(Q,Q^*,x’_i)$            (5)</p>
+<p>其中参数$Q$和$Q^*$使用3.3节介绍的层增强算法进行整合。</p>
+<p>损失$loss_{emb}$无需与主任务损失$loss_{task}$相同，但必须能够捕获表示学习目标。在支持集中每个类别只有一个样本时，我们使用交叉熵损失。当每个类别中的样本数量大于$1$时，使用contrastive loss (Chopra et 等., 2005)作为$loss_{emb}$比较合适，因为正负样本都能被考虑到。在此情况下，我们随机选取$T$对样本计算其梯度，损失计算如下：</p>
+<p>$\mathcal{L}<em>i=loss</em>{emb}(u(Q,x’<em>{1,i}),u(Q,x’</em>{2,i}),l_i)$            (6)</p>
+<p>其中$l_i$​为辅助标签：</p>
+<p>$l_i=\left{ \begin{array}{ll}1, &amp; \textrm{if $y’<em>{1,i}=y’</em>{2,i}$}\0, &amp; \textrm{otherwise}\end{array} \right.$            （7）</p>
+<p>在参数被存储在记忆单元$M$中且记忆单元索引$R$构造完之后，元学习器就用快速权重$W^*_i$对基础学习器进行参数化。 首先，它使用动态表示学习网络（即式5）将输入$x_i$嵌入到任务空间中，然后软注意力读取记忆单元：</p>
+<p>$a_i=attention(R, r_i)$            （8）</p>
+<p>$W^*_i=norm(a_i)^{\top}M$            （9）</p>
+<p>其中，$attention$计算记忆单元索引和输入嵌入之间的相似度，我们使用余弦相似度作为$attention$。$norm$是归一化函数，我们使用的是$softmax$。</p>
+<h2 id="3-2-Base-Learner"><a href="#3-2-Base-Learner" class="headerlink" title="3.2 Base Learner"></a>3.2 Base Learner</h2><p>基础学习器（记为$b$）是以任务损失$loss_{task}$评估主要任务目标的函数或神经网络。 但与标准神经网络不同，$b$由慢速权重$W$和样本级快速权重$W^*$参数化。慢速权重在训练期间通过学习算法进行更新，而快速权重由元学习器为每个输入样本生成。</p>
+<p>基础学习器使用通过从支持集获得的元信息的表示，为元学习器提供有关新输入任务的反馈。 元信息以损失梯度信息的形式从基础学习者中得出：</p>
+<p>$\mathcal{L}<em>i=loss</em>{task}(b(W,x’_i),y’_i)$            (10)</p>
+<p>$\bigtriangledown_i=\bigtriangledown_W\mathcal{L}_i$            (11)</p>
+<p>其中$\mathcal{L}<em>i$是支持集样本${x’_i, y’_i}^N</em>{i=1}$的损失。$N$是任务中支持集样本的数量（通常在one-shot设置中，每个类别有一个样本）。$\bigtriangledown_i$是相对于参数$W$的损失梯度，我们将其作为元信息。 注意，损失函数$loss_{task}$是通用的，可以采用任何形式，例如强化学习中的累积奖励。 对于one-shot分类，我们使用交叉熵损失。 元学习器接受梯度信息$\bigtriangledown_i$并生成快速参数$W^*$，见式(1)。</p>
+<p>定义了输入$x_i$的快速权重为$W^*_i$，基础学习器将执行one-shot分类为：</p>
+<p>$P(\hat{y}_i|x_i, W_i,W^<em>_i)=b(W,W^</em>_i,x’_i)$            (12)</p>
+<p>其中$\hat{y}<em>i$是预测输出，而${x_i}^L</em>{i=1}$是从当前任务训练集${x_i,y_i}^L_{i=1}$取出的输入。 或者，基础学习器可以将动态表示学习网络生成的任务特定表示${r_i}^L_{i=1}$作为输入，从而有效地减少MetaNet参数的数量并利用共享表示。 在这种情况下，基础学习器被限制在由$u$构成的动态任务空间中操作，而不是从原始输入${x_i}^L_{i=1}$构建新的表示。</p>
+<p>在训练过程中，给定输出标签${y_i}^L_{i=1}$，我们最小化one-shot SL的交叉熵损失。 MetaNet的训练参数由慢速权重$W$和$Q$以及元权重$Z$和$G$组成（即$\theta={W,Q,Z,G}$），并通过训练算法（例如反向传播）共同更新，以最小化任务损失$loss_{task}$式(12)。</p>
+<p>以类似的方式，如式(2)~(4)中所定义，我们还可以使用任务级快速权重对基础学习者进行参数化。 在第4节，我们进行了针对MetaNet不同版本的消融实验。</p>
+<h2 id="3-3-Layer-Augmentation"><a href="#3-3-Layer-Augmentation" class="headerlink" title="3.3 Layer Augmentation"></a>3.3 Layer Augmentation</h2><p>基础学习器中的慢速权重层由其相应的快速权重进行拓展，以实现快速概括。 图2显示了应用于MLP的层增强方法的示例。增强层的输入首先通过慢速权重和快速权重进行转换，再通过非线性（即ReLU）激活，从而得到两个单独的激活向量 。 最后，激活向量进行逐元素的向量相加。 对于最后的softmax层，我们首先汇总两个转换后的输入，然后针对分类输出进行归一化。</p>
+<p>直观地，层增强神经网络中的快速权重和慢速权重可以看作是在两个不同的数值域中运行的特征检测器。 非线性的应用将它们映射到相同的域，在使用ReLU的情况下，该域为$[0,\infty]$，从而激活值可以聚合并进行下一步处理。 我们这里的聚合函数是逐元素求和。</p>
+<p>尽管可以仅使用快速权重来定义基础学习器，但在我们的初步实验中，我们发现慢速和快速权重与层增强方法的集成对于MetaNet模型的收敛至关重要。一个仅依靠快速权重的基本精简者的MetaNet模型未能收敛，并且据报道，该模型的最佳性能与为每个输入分配相同标签的恒定分类器的性能相同。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/hotmap-animation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/10/hotmap-animation/" itemprop="url">matplotlib绘制热力图动画</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-07T15:01:35+08:00">
+                2020-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>使用python的matplotlib库绘制热力图动画</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/10/hotmap-animation/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/pytorch-usage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/pytorch-usage/" itemprop="url">python</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-28T14:39:06+08:00">
+                2020-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>python常见库</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/09/pytorch-usage/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/Few-shot/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1130,767 +1792,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/FewRel/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Song">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Song">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/FewRel/" itemprop="url">FewRel简单笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-14T17:06:11+08:00">
-                2019-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/deep-learning/" itemprop="url" rel="index">
-                    <span itemprop="name">deep learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>关系分类是NLP中一个重要的任务，它的目的是识别出同一个句子中两个实体的关系。目前在关系分类任务中有很多相关工作，但传统的方法都非常依赖大量的标注数据，受到时间与人力的限制，从而使这些方法的泛化能力不强。远程监督方法受到样本噪声的影响，对长尾关系的分类效果不佳。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/12/FewRel/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/shelllab/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Song">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Song">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/12/shelllab/" itemprop="url">csapp shell lab 相关</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-05T16:05:58+08:00">
-                2019-12-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/unix/" itemprop="url" rel="index">
-                    <span itemprop="name">unix</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>CS: APP 的<a href="http://csapp.cs.cmu.edu/3e/labs.html" target="_blank" rel="noopener">Shell Lab</a>，要求实现一个支持作业控制的Unix shell。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/12/shelllab/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/TemplateFriends/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Song">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Song">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/TemplateFriends/" itemprop="url">模板友元</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-19T15:42:47+08:00">
-                2019-10-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="模板友元"><a href="#模板友元" class="headerlink" title="模板友元"></a>模板友元</h1><p>函数模板与类模板的声明都可以在非局部类或类模板中使用<code>friend</code>说明符修饰（但只有函数模板可以定义在授予它友元权限的类或类模板中）。在这种情况下，所有特例化的模板都会成为一个友元，无论他是被隐式实例化、部分特例化或显式特例化。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> &#123;</span></span><br><span class="line">    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">B</span>;</span> <span class="comment">// every B&lt;T&gt; is a friend of A</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">    <span class="function"><span class="keyword">friend</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">(T)</span> </span>&#123;&#125; <span class="comment">// every f&lt;T&gt; is a friend of A</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>友元声明不能用于部分特例化，但可以用于完全（显式）特例化：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt; <span class="title">class</span> <span class="title">A</span> &#123;</span>&#125;; <span class="comment">// primary</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt; <span class="title">class</span> <span class="title">A</span>&lt;T*&gt; &#123;</span>&#125;; <span class="comment">// partial</span></span><br><span class="line"><span class="keyword">template</span>&lt;&gt; <span class="class"><span class="keyword">class</span> <span class="title">A</span>&lt;int&gt; &#123;</span>&#125;; <span class="comment">// full</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span> &#123;</span></span><br><span class="line">    <span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt; <span class="title">friend</span> <span class="title">class</span> <span class="title">A</span>&lt;T*&gt;;</span> <span class="comment">// error!</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span>&lt;int&gt;;</span> <span class="comment">// OK</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>当友元声明用于一个函数模板的完全特例化时，不能使用<code>inline</code>关键字和默认参数：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt; <span class="title">void</span> <span class="title">f</span>(<span class="title">int</span>);</span></span><br><span class="line"><span class="keyword">template</span>&lt;&gt; <span class="keyword">void</span> f&lt;<span class="keyword">int</span>&gt;(<span class="keyword">int</span>);</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span> &#123;</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">void</span> f&lt;<span class="keyword">int</span>&gt;(<span class="keyword">int</span> x = <span class="number">1</span>); <span class="comment">// error: default args not allowed</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h1 id="模板友元运算符"><a href="#模板友元运算符" class="headerlink" title="模板友元运算符"></a>模板友元运算符</h1><p>模板友元的一个常见用途是声明一个非成员运算符重载其默认操作；例如，对用户定义的<code>Foo&lt;T&gt;</code>声明<code>operator&lt;&lt;(std::ostream&amp;, const Foo&lt;T&gt;&amp;)</code>。</p>
-<p>该运算符可以定义在类内部，这样的效果是为每一个类型<code>T</code>生成一个独立的非模板的<code>operator&lt;&lt;</code>，并使这个非模板的<code>operator&lt;&lt;</code>成为<code>Foo&lt;T&gt;</code>的友元。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">    Foo(<span class="keyword">const</span> T&amp; val) : data(val) &#123;&#125;</span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">    T data;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// generates a non-template operator&lt;&lt; for this T</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="built_in">std</span>::ostream&amp; <span class="keyword">operator</span>&lt;&lt;(<span class="built_in">std</span>::ostream&amp; os, <span class="keyword">const</span> Foo&amp; obj)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> os &lt;&lt; obj.data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Foo&lt;<span class="keyword">double</span>&gt; obj(<span class="number">1.23</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; obj &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>或者函数模板必须在类之前进行模板声明，在这种情况下<code>Foo&lt;T&gt;</code>之内的友元声明可使用类型<code>T</code>进行完全特例化的<code>operator&lt;&lt;</code>：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>;</span> <span class="comment">// forward declare to make function declaration possible</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="comment">// declaration</span></span><br><span class="line"><span class="built_in">std</span>::ostream&amp; <span class="keyword">operator</span>&lt;&lt;(<span class="built_in">std</span>::ostream&amp;, <span class="keyword">const</span> Foo&lt;T&gt;&amp;);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">    Foo(<span class="keyword">const</span> T&amp; val) : data(val) &#123;&#125;</span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">    T data;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// refers to a full specialization for this particular T </span></span><br><span class="line">    <span class="keyword">friend</span> <span class="built_in">std</span>::ostream&amp; <span class="keyword">operator</span>&lt;&lt; &lt;&gt; (<span class="built_in">std</span>::ostream&amp;, <span class="keyword">const</span> Foo&amp;);</span><br><span class="line">    <span class="comment">// note: this relies on template argument deduction in declarations</span></span><br><span class="line">    <span class="comment">// can also specify the template argument with operator&lt;&lt; &lt;T&gt;"</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// definition</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="built_in">std</span>::ostream&amp; <span class="keyword">operator</span>&lt;&lt;(<span class="built_in">std</span>::ostream&amp; os, <span class="keyword">const</span> Foo&lt;T&gt;&amp; obj)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> os &lt;&lt; obj.data;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Foo&lt;<span class="keyword">double</span>&gt; obj(<span class="number">1.23</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; obj &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>内容来自：<a href="https://en.cppreference.com/w/cpp/language/friend" target="_blank" rel="noopener">https://en.cppreference.com/w/cpp/language/friend</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/TemplatesAndGenericProgramming/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Song">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Song">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/TemplatesAndGenericProgramming/" itemprop="url">Templates And Generic Programming</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-14T21:55:36+08:00">
-                2019-10-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="模板与泛型编程"><a href="#模板与泛型编程" class="headerlink" title="模板与泛型编程"></a>模板与泛型编程</h1><h2 id="定义模板"><a href="#定义模板" class="headerlink" title="定义模板"></a>定义模板</h2><h3 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h3><ul>
-<li><p>可以定义一个通用的<strong>函数模板</strong>（function template），而不是为每个类型都定义一个新函数，来生成针对特定类型的新版本：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">const</span> T &amp;v1, <span class="keyword">const</span> T &amp;v2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (v1 &lt; v2) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (v2 &lt; v1) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>当调用一个函数模板时，编译器（通常）用函数实参来为我们推断模板实参，并使用推断出的模板参数<strong>实例化</strong>（instantiate）一个特定版本的函数。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// instantiates int compare(const int&amp;, const int&amp;)</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; compare(<span class="number">1</span>, <span class="number">0</span>) &lt;&lt; <span class="built_in">endl</span>;       <span class="comment">// T is int</span></span><br><span class="line"><span class="comment">// instantiates int compare(const vector&lt;int&gt;&amp;, const vector&lt;int&gt;&amp;)</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec1&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;, vec2&#123;<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; compare(vec1, vec2) &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// T is vector&lt;int&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>模板类型参数前必须使用关键字<code>class</code>或<code>typename</code>，并且在模板参数列表中，这两个关键字的含义相同，可以互换使用：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// error: must precede U with either typename or class</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, U&gt; <span class="function">T <span class="title">calc</span><span class="params">(<span class="keyword">const</span> T&amp;, <span class="keyword">const</span> U&amp;)</span></span>;</span><br><span class="line"><span class="comment">// ok: no distinction between typename and class in a template parameter list</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="class"><span class="keyword">class</span> <span class="title">U</span>&gt; <span class="title">calc</span> (<span class="title">const</span> <span class="title">T</span>&amp;, <span class="title">const</span> <span class="title">U</span>&amp;);</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>除了定义类型参数，还可以在模板中定义<strong>非类型参数</strong>（nontype parameter）。一个非类型参数表示一个值而非一个类型。我们通过一个特定的类型名而非关键字<code>class</code>或<code>typename</code>来指定非类型参数。</p>
-</li>
-<li><p>当以一个模板被实例化时，非类型参数被一个用户提供的或编译器推断出的值所代替，这些值必须是常量表达式。对于以下函数模板，调用<code>compare(&quot;hi&quot;, &quot;mom&quot;)</code>会实例化出<code>compare(const char (&amp;p1)[3], const char (&amp;p1)[4])</code>。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">unsigned</span> N, <span class="keyword">unsigned</span> M&gt;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> (&amp;p1)[N], <span class="keyword">const</span> <span class="keyword">char</span> (&amp;p2)[M])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">strcmp</span>(p1, p2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一个非类型参数可以是一个整型，或者是一个指向对象或函数类型的指针或（左值）引用。绑定到非类型整型参数的实参必须是一个常量表达式，绑定到指针或引用类型非类型参数的实参必须具有静态的生存期。</p>
-</li>
-<li><p>对于模板，为了生成一个实例化的版本，编译器需要掌握函数模板或类模板成员函数的定义。因此，模板的头文件通常既包括声明也包括定义。</p>
-</li>
-</ul>
-<h3 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h3><ul>
-<li><p><strong>类模板</strong>（class template）是用来生成类的蓝图的，与函数模板不同的是，编译器不能为类模板推断模板函数类型，我们必须为类模板提供<strong>显式模板实参</strong>（explicit template）。</p>
-</li>
-<li><p>默认情况下，一个类模板的成员函数只有当程序用到他时才进行实例化。这个特性使得即使某种类型不能完全符合模板操作的要求，我们仍能用该类型实例化类。</p>
-</li>
-<li><p>当我们使用一个类模板类型时必须提供模板实参，但这规则有个例外。在类模板自己的作用域中，可以直接使用模板名而不提供实参，编译器将假定我们使用的类型与成员实例化所用的类型一致。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// BlobPtr throws an exception on attempts to access a nonexistent element</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="class"><span class="keyword">class</span> <span class="title">BlobPtr</span></span></span><br><span class="line"><span class="class"><span class="title">public</span>:</span></span><br><span class="line">    BlobPtr(): curr(<span class="number">0</span>) &#123; &#125;</span><br><span class="line">    BlobPtr(Blob&lt;T&gt; &amp;a, <span class="keyword">size_t</span> sz = <span class="number">0</span>):</span><br><span class="line">            wptr(a.data), curr(sz) &#123; &#125;</span><br><span class="line">    T&amp; <span class="keyword">operator</span>*() <span class="keyword">const</span></span><br><span class="line">    &#123; <span class="keyword">auto</span> p = check(curr, <span class="string">"dereference past end"</span>);</span><br><span class="line">      <span class="keyword">return</span> (*p)[curr];  <span class="comment">// (*p) is the vector to which this object points</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// increment and decrement</span></span><br><span class="line">    BlobPtr&amp; <span class="keyword">operator</span>++();        <span class="comment">// prefix operators</span></span><br><span class="line">    BlobPtr&amp; <span class="keyword">operator</span>--();</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// check returns a shared_ptr to the vector if the check succeeds</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;T&gt;&gt;</span><br><span class="line">        check(<span class="built_in">std</span>::<span class="keyword">size_t</span>, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp;) <span class="keyword">const</span>;</span><br><span class="line">    <span class="comment">// store a weak_ptr, which means the underlying vector might be destroyed</span></span><br><span class="line">    <span class="built_in">std</span>::weak_ptr&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;T&gt;&gt; wptr;</span><br><span class="line">    <span class="built_in">std</span>::<span class="keyword">size_t</span> curr;      <span class="comment">// current position within the array</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>为了引用（类或函数）模板的一个特定实例，我们必须首先声明模板自身：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// forward declarations needed for friend declarations in Blob</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span>&gt; <span class="class"><span class="keyword">class</span> <span class="title">BlobPtr</span>;</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span>&gt; <span class="class"><span class="keyword">class</span> <span class="title">Blob</span>;</span> <span class="comment">// needed for parameters in operator==</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span>==(<span class="keyword">const</span> Blob&lt;T&gt;&amp;, <span class="keyword">const</span> Blob&lt;T&gt;&amp;);</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="class"><span class="keyword">class</span> <span class="title">Blob</span> &#123;</span></span><br><span class="line">    <span class="comment">// each instantiation of Blob grants access to the version of</span></span><br><span class="line">    <span class="comment">// BlobPtr and the equality operator instantiated with the same type</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">BlobPtr</span>&lt;T&gt;;</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span>==&lt;T&gt;</span><br><span class="line">           (<span class="keyword">const</span> Blob&lt;T&gt;&amp;, <span class="keyword">const</span> Blob&lt;T&gt;&amp;);</span><br><span class="line">    <span class="comment">// other members as in § 12.1.1 (p. 456)</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>为了让所有实例称为友元，友元声明中必须使用与类模板本身不同的模板参数。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// forward declaration necessary to befriend a specific instantiation of a template</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="class"><span class="keyword">class</span> <span class="title">Pal</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> &#123;</span>  <span class="comment">//  C is an ordinary, nontemplate class</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Pal</span>&lt;C&gt;;</span>  <span class="comment">// Pal instantiated with class C is a friend to C</span></span><br><span class="line">    <span class="comment">// all instances of Pal2 are friends to C;</span></span><br><span class="line">    <span class="comment">// no forward declaration required when we befriend all instantiations</span></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Pal2</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="class"><span class="keyword">class</span> <span class="title">C2</span> &#123;</span> <span class="comment">// C2 is itself a class template</span></span><br><span class="line">    <span class="comment">// each instantiation of C2 has the same instance of Pal as a friend</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Pal</span>&lt;T&gt;;</span>  <span class="comment">// a template declaration for Pal must be in scope</span></span><br><span class="line">    <span class="comment">// all instances of Pal2 are friends of each instance of C2, prior declaration needed</span></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> X&gt; <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Pal2</span>;</span></span><br><span class="line">    <span class="comment">// Pal3 is a nontemplate class that is a friend of every instance of C2</span></span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Pal3</span>;</span>    <span class="comment">// prior declaration for Pal3 not needed</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在C++ 11标准中，可以将模板类型参数声明为友元：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Type&gt; <span class="class"><span class="keyword">class</span> <span class="title">Bar</span> &#123;</span></span><br><span class="line"><span class="keyword">friend</span> Type; <span class="comment">// grants access to the type used to instantiate Bar</span></span><br><span class="line">    <span class="comment">//  ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>C++ 11标准允许我们为模板类定义一个类型别名：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">using</span> twin = pair&lt;T, T&gt;;</span><br><span class="line">twin&lt;<span class="built_in">string</span>&gt; authors; <span class="comment">// authors is a pair&lt;string, string&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>对于类模板的<code>static</code>成员，类模板的每个实例都有一个独有的<code>static</code>对象。因此，与定义模板的成员函数相似，<code>static</code>数据成员也需要定义为模板：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="class"><span class="keyword">class</span> <span class="title">Foo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   <span class="keyword">static</span> <span class="built_in">std</span>::<span class="keyword">size_t</span> count() &#123; <span class="keyword">return</span> ctr; &#125;</span><br><span class="line">   <span class="comment">// other interface members</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">   <span class="keyword">static</span> <span class="built_in">std</span>::<span class="keyword">size_t</span> ctr;</span><br><span class="line">   <span class="comment">// other implementation members</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">size_t</span> Foo&lt;T&gt;::ctr = <span class="number">0</span>; <span class="comment">// define and initialize ctr</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="模板参数"><a href="#模板参数" class="headerlink" title="模板参数"></a>模板参数</h3><ul>
-<li><p>默认情况下，C++语言假定通过作用域运算符访问的名字不是类型。因此，在使用一个模板类型参数的类型成员，就必须显式告诉编译器改名字是一个类型，我们通过使用关键字<code>typename</code>（而不是<code>class</code>）实现这一点：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">typename</span> T::<span class="function">value_type <span class="title">top</span><span class="params">(<span class="keyword">const</span> T&amp; c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!c.empty())</span><br><span class="line">        <span class="keyword">return</span> c.back();</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">typename</span> T::value_type();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在C++11标准中，我们可以为函数模板和类模板提供<strong>默认模板实参</strong>（default template argument）：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// compare has a default template argument, less&lt;T&gt;</span></span><br><span class="line"><span class="comment">// and a default function argument, F()</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F = less&lt;T&gt;&gt;</span><br><span class="line"><span class="keyword">int</span> compare(<span class="keyword">const</span> T &amp;v1, <span class="keyword">const</span> T &amp;v2, F f = F())</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (f(v1, v2)) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (f(v2, v1)) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="成员模板"><a href="#成员模板" class="headerlink" title="成员模板"></a>成员模板</h3><ul>
-<li><p>一个类（普通类或类模板）可以包含本身是模板的成员函数，这种成员被称为<strong>成员模板</strong>（member template），成员模板不能是虚函数。</p>
-</li>
-<li><p>在类模板外定义一个成员模板时，必须同时为类模板和成员模板提供模板参数列表。类模板的参数列表在前，后跟成员自己的模板参数列表：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="class"><span class="keyword">class</span> <span class="title">Blob</span> &#123;</span></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> It&gt; Blob(It b, It e);</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;     <span class="comment">// type parameter for the class</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> It&gt;    <span class="comment">// type parameter for the constructor</span></span><br><span class="line">    Blob&lt;T&gt;::Blob(It b, It e):</span><br><span class="line">              data(<span class="built_in">std</span>::make_shared&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;T&gt;&gt;(b, e)) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="控制实例化"><a href="#控制实例化" class="headerlink" title="控制实例化"></a>控制实例化</h3><ul>
-<li><p>在大系统中，在多个文件中实例化相同模板的额外开销可能非常严重，在C++ 11标准中，可以通过<strong>显式实例化</strong>（explicit instantiation）来避免这种开销。一个显式实例化有如下形式：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">template</span> declaration; <span class="comment">// instantiation declaration</span></span><br><span class="line"><span class="keyword">template</span> declaration;        <span class="comment">// instantiation definition</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>当编译器遇到<code>extern</code>模板声明时，它不会在本文件中生成实例化代码。将一个实例化声明为<code>extern</code>就表示承诺该程序在其他位置有该实例化的一个非<code>extern</code>声明（定义）。</p>
-</li>
-<li><p>一个类模板的实例化定义会实例化该模板的所有成员，包括内联的成员函数。</p>
-</li>
-</ul>
-<h2 id="模板实参推断"><a href="#模板实参推断" class="headerlink" title="模板实参推断"></a>模板实参推断</h2><ul>
-<li>从函数函数实参来确定模板实参的过程被称为<strong>模板实参推断</strong>（template argument deduction）。</li>
-</ul>
-<h3 id="类型转换与模板类型参数"><a href="#类型转换与模板类型参数" class="headerlink" title="类型转换与模板类型参数"></a>类型转换与模板类型参数</h3><ul>
-<li>只有有限的几种类型转换会自动地应用与实参，编译器通常不是对实参进行类型转换，而是生成一个新的模板实例。</li>
-<li>与往常一样，顶层<code>const</code>无论在形参中还是实参中，都会被忽略。在其他类型转换中，能在调用中应用于函数模板的包括如下两项：<ul>
-<li><code>const</code>转换</li>
-<li>指针或函数指针转换</li>
-</ul>
-</li>
-</ul>
-<h3 id="函数模板显式实参"><a href="#函数模板显式实参" class="headerlink" title="函数模板显式实参"></a>函数模板显式实参</h3><ul>
-<li>显式模板实参按由左至右的顺序与对应的模板参数匹配，只有尾部（最右）参数的显式模板实参才可以忽略，而且前提是它们可以从函数参数推断出来。</li>
-<li>对于模板类型参数已经显式指定的实参，也会进行正常的类型转换：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> lng;</span><br><span class="line">compare(lng, <span class="number">1024</span>);       <span class="comment">// error: template parameters don't match</span></span><br><span class="line">compare&lt;<span class="keyword">long</span>&gt;(lng, <span class="number">1024</span>); <span class="comment">// ok: instantiates compare(long, long)</span></span><br><span class="line">compare&lt;<span class="keyword">int</span>&gt;(lng, <span class="number">1024</span>);  <span class="comment">// ok: instantiates compare(int, int)</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="尾置返回类型与类型转换"><a href="#尾置返回类型与类型转换" class="headerlink" title="尾置返回类型与类型转换"></a>尾置返回类型与类型转换</h3><ul>
-<li><p>由于尾置返回出现在参数列表之后，它可以使用函数的参数：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a trailing return lets us declare the return type after the parameter list is seen</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> It&gt;</span><br><span class="line">auto fcn(It beg, It end) -&gt; decltype(*beg)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// process the range</span></span><br><span class="line">    <span class="keyword">return</span> *beg;  <span class="comment">// return a reference to an element from the range</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>为了获得元素类型，可以使用标准库的<strong>类型转换</strong>（type transformation）模板。可以使用<code>remove_reference</code>来获得元素类型：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> It&gt;</span><br><span class="line">auto fcn2(It beg, It end) -&gt; typename remove_reference&lt;decltype(*beg)&gt;::type</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// process the range</span></span><br><span class="line">    <span class="keyword">return</span> *beg;  <span class="comment">// return a copy of an element from the range</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="函数指针和实参推断"><a href="#函数指针和实参推断" class="headerlink" title="函数指针和实参推断"></a>函数指针和实参推断</h3><ul>
-<li>当我们用一个函数模板初始化一个函数指针或为一个函数指针赋值时，编译器使用指针的类型来推断模板实参：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">const</span> T&amp;, <span class="keyword">const</span> T&amp;)</span></span>;</span><br><span class="line"><span class="comment">// pf1 points to the instantiation int compare(const int&amp;, const int&amp;)</span></span><br><span class="line"><span class="keyword">int</span> (*pf1)(<span class="keyword">const</span> <span class="keyword">int</span>&amp;, <span class="keyword">const</span> <span class="keyword">int</span>&amp;) = compare;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="模板实参推断和引用"><a href="#模板实参推断和引用" class="headerlink" title="模板实参推断和引用"></a>模板实参推断和引用</h3><ul>
-<li><p>从左值引用函数参数推断类型</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">void</span> <span class="title">f1</span><span class="params">(T&amp;)</span></span>;  <span class="comment">// argument must be an lvalue</span></span><br><span class="line"><span class="comment">// calls to f1 use the referred-to type of the argument as the template parameter type</span></span><br><span class="line">f1(i);   <span class="comment">//  i is an int; template parameter T is int</span></span><br><span class="line">f1(ci);  <span class="comment">//  ci is a const int; template parameter T is const int</span></span><br><span class="line">f1(<span class="number">5</span>);   <span class="comment">//  error: argument to a &amp; parameter must be an lvalue</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">void</span> <span class="title">f2</span><span class="params">(<span class="keyword">const</span> T&amp;)</span></span>; <span class="comment">// can take an rvalue</span></span><br><span class="line"><span class="comment">// parameter in f2 is const &amp;; const in the argument is irrelevant</span></span><br><span class="line"><span class="comment">// in each of these three calls, f2's function parameter is inferred as const int&amp;</span></span><br><span class="line">f2(i);  <span class="comment">// i is an int; template parameter T is int</span></span><br><span class="line">f2(ci); <span class="comment">// ci is a const int, but template parameter T is int</span></span><br><span class="line">f2(<span class="number">5</span>);  <span class="comment">// a const &amp; parameter can be bound to an rvalue; T is int</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>当我们将一个左值传递给函数的右值引用参数，且此右值引用指向模板类型参数（如<code>T&amp;&amp;</code>）时，编译器推断模板类型参数为实参的左值引用类型。</p>
-</li>
-<li><p>通常我们不能（直接）定义一个引用的引用，但是通过类型别名或通过模板类型参数间接定义是可以的。如果我们间接创建一个引用的引用，则这些引用会形成折叠，即对于一个给定的类型X：</p>
-<ul>
-<li><code>X&amp; &amp;</code>、<code>X&amp; &amp;&amp;</code>和<code>X&amp;&amp; &amp;</code>都折叠成类型<code>X &amp;</code></li>
-<li><code>X&amp;&amp; &amp;&amp;</code>折叠成<code>X&amp;&amp;</code></li>
-</ul>
-</li>
-</ul>
-<h3 id="理解std-move"><a href="#理解std-move" class="headerlink" title="理解std::move"></a>理解<code>std::move</code></h3><ul>
-<li><p><code>std::move</code>的定义：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">typename</span> remove_reference&lt;T&gt;::<span class="function">type&amp;&amp; <span class="title">move</span><span class="params">(T&amp;&amp; t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;typenameremove_reference&lt;T&gt;::type&amp;&amp;&gt;(t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>虽然不能隐式地将一个左值转换为右值引用，但我们可以用<code>static_cast</code>显式的将一个左值转换为一个右值引用。</p>
-</li>
-</ul>
-<h3 id="转发"><a href="#转发" class="headerlink" title="转发"></a>转发</h3><ul>
-<li>通过将一个函数定义为一个指向模板类型参数的右值引用，我们可以保持其对应实参的所有类型信息。</li>
-<li><code>forward</code>必须通过显式模板实参调用，<code>forward</code>返回该显式实参类型的右值引用。即，<code>forward&lt;T&gt;</code>的返回类型是<code>T&amp;&amp;</code>。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Type&gt; intermediary(Type &amp;&amp;arg)</span><br><span class="line">&#123;</span><br><span class="line">    finalFcn(<span class="built_in">std</span>::forward&lt;Type&gt;(arg));</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="重载与模板"><a href="#重载与模板" class="headerlink" title="重载与模板"></a>重载与模板</h2><ul>
-<li>当有多个重载模板对一个调用提供同样好的匹配时，应选择最特例化的版本。</li>
-<li>对一个调用，如果一个非函数模板与一个函数模板提供同样好的匹配，则选择非模板版本。</li>
-</ul>
-<h2 id="可变参数模板"><a href="#可变参数模板" class="headerlink" title="可变参数模板"></a>可变参数模板</h2><ul>
-<li><p>一个<strong>可变参数模板</strong>（variadic template）就是一个接受可变数目参数的模板函数或模板类。可变数目的参数被称为<strong>参数包</strong>（parameter packet）。存在两种参数包：<strong>模板参数包</strong>（template parameter packet），表示零个或多个模板参数；<strong>函数参数包</strong>（function parameter packet），表示零个或多个函数参数。</p>
-</li>
-<li><p>如果一个参数的类型是一个模板参数包，则此参数也是一个函数参数包：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Args is a template parameter pack; rest is a function parameter pack</span></span><br><span class="line"><span class="comment">// Args represents zero or more template type parameters</span></span><br><span class="line"><span class="comment">// rest represents zero or more function parameters</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">const</span> T &amp;t, <span class="keyword">const</span> Args&amp; ... rest)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>sizeof ...</code>运算符返回参数包中元素个数：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ... Args&gt; <span class="function"><span class="keyword">void</span> <span class="title">g</span><span class="params">(Args ... args)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>...(Args) &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">// number of type parameters</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="keyword">sizeof</span>...(args) &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">// number of function parameters</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="编写可变参数函数模板"><a href="#编写可变参数函数模板" class="headerlink" title="编写可变参数函数模板"></a>编写可变参数函数模板</h3><ul>
-<li><p>可变参数函数通常是递归的：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// function to end the recursion and print the last element</span></span><br><span class="line"><span class="comment">// this function must be declared before the variadic version of print is defined</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">ostream &amp;<span class="title">print</span><span class="params">(ostream &amp;os, <span class="keyword">const</span> T &amp;t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> os &lt;&lt; t; <span class="comment">// no separator after the last element in the pack</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// this version of print will be called for all but the last element in the pack</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;</span><br><span class="line"><span class="function">ostream &amp;<span class="title">print</span><span class="params">(ostream &amp;os, <span class="keyword">const</span> T &amp;t, <span class="keyword">const</span> Args&amp;... rest)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    os &lt;&lt; t &lt;&lt; <span class="string">", "</span>;           <span class="comment">// print the first argument</span></span><br><span class="line">    <span class="keyword">return</span> print(os, rest...); <span class="comment">// recursive call; print the other</span></span><br><span class="line">arguments</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>非可变参数模板比可变参数模板更特例化。</p>
-</li>
-</ul>
-<h3 id="包括展"><a href="#包括展" class="headerlink" title="包括展"></a>包括展</h3><ul>
-<li>对于一个参数包，除了可以获取其大小外，我们能对它做的唯一的事情就是<strong>扩展</strong>（expand）。当扩展一个包时，需要提供用于每个扩展元素的<strong>模式</strong>（pattern）。拓展一个包就是将它分解为构成的元素，对每个元素应用模式，获得扩展后的列表。通过在模式右边放一个省略号（…）来触发扩展操作。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... Args&gt;</span><br><span class="line"><span class="function">ostream &amp;<span class="title">print</span><span class="params">(ostream &amp;os, <span class="keyword">const</span> T &amp;t, <span class="keyword">const</span> Args&amp;... rest)</span><span class="comment">// expand Args</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    os &lt;&lt; t &lt;&lt; <span class="string">", "</span>;</span><br><span class="line">    <span class="keyword">return</span> print(os, rest...);                     <span class="comment">// expand rest</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="模板特例化"><a href="#模板特例化" class="headerlink" title="模板特例化"></a>模板特例化</h2><ul>
-<li><p>一个特例化版本是模板的一个独立的定义，其中一个或多个模板参数被指定为特定的类型。</p>
-</li>
-<li><p>当我们特例化一个函数模板时，必须为原模板中每个模板参数都提供实参。为了指出我们正在实例化一个模板，应使用关键字<code>template</code>后跟空尖括号对<code>&lt;&gt;</code>。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// special version of compare to handle pointers to character arrays</span></span><br><span class="line"><span class="keyword">template</span> &lt;&gt;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> &amp;p1, <span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> &amp;p2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">strcmp</span>(p1, p2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>当我们定义一个特例化版本时，函数参数类型必须与一个先前声明的模板中对应的类型匹配。</p>
-</li>
-<li><p>特例化一个模板时，必须在原模板定义所在的命名空间中特例化它。</p>
-</li>
-</ul>
-<h3 id="类模板部分特例化"><a href="#类模板部分特例化" class="headerlink" title="类模板部分特例化"></a>类模板部分特例化</h3><p>标准库中的<code>remove_reference</code>类型是通过一系列的特例化版本实现其功能的：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// original, most general template</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt; <span class="title">struct</span> <span class="title">remove_reference</span> &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T type;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// partial specializations that will be used for lvalue and rvalue references</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt; <span class="title">struct</span> <span class="title">remove_reference</span>&lt;T&amp;&gt;  // <span class="title">lvalue</span> <span class="title">references</span></span></span><br><span class="line"><span class="class">&#123;</span> <span class="keyword">typedef</span> T type; &#125;;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt; <span class="title">struct</span> <span class="title">remove_reference</span>&lt;T&amp;&amp;&gt; // <span class="title">rvalue</span> <span class="title">references</span></span></span><br><span class="line"><span class="class">&#123;</span> <span class="keyword">typedef</span> T type; &#125;;</span><br></pre></td></tr></table></figure>
-
-<p>部分特例化的模板参数列表是原始模板的参数列表的一个子集或是一个特例化版本。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1943,7 +1844,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1954,7 +1855,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1965,7 +1866,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

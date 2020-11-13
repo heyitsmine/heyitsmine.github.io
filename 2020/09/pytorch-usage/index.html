@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,pytorch,numpy,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="python常见库">
+<meta name="keywords" content="python,pytorch,numpy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python">
+<meta property="og:url" content="http://yoursite.com/2020/09/pytorch-usage/index.html">
+<meta property="og:site_name" content="Song">
+<meta property="og:description" content="python常见库">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-11-11T02:12:26.949Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python">
+<meta name="twitter:description" content="python常见库">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/09/pytorch-usage/">
+
+
+
+
+
+  <title>python | Song</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Song</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/pytorch-usage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-28T14:39:06+08:00">
+                2020-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>python常见库</p>
+<a id="more"></a>
+
+<h1 id="python"><a href="#python" class="headerlink" title="python"></a>python</h1><h2 id="os"><a href="#os" class="headerlink" title="os"></a>os</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chdir(path)</span><br><span class="line">    Change the current working directory to the specified path.</span><br><span class="line">    path may always be specified <span class="keyword">as</span> a string.</span><br></pre></td></tr></table></figure>
+
+<h2 id="random"><a href="#random" class="headerlink" title="random"></a>random</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">sample(population, k) method of random.Random instance</span><br><span class="line">    Chooses k unique random elements from a population sequence or set.</span><br><span class="line">    </span><br><span class="line">    Returns a new list containing elements from the population while</span><br><span class="line">    leaving the original population unchanged.  The resulting list is</span><br><span class="line">    in selection order so that all sub-slices will also be valid random</span><br><span class="line">    samples.  This allows raffle winners (the sample) to be partitioned</span><br><span class="line">    into grand prize and second place winners (the subslices).</span><br><span class="line">    </span><br><span class="line">    Members of the population need not be hashable or unique.  If the</span><br><span class="line">    population contains repeats, then each occurrence is a possible</span><br><span class="line">    selection in the sample.</span><br><span class="line">    </span><br><span class="line">    To choose a sample in a range of integers, use range as an argument.</span><br><span class="line">    This is especially fast and space efficient for sampling from a</span><br><span class="line">    large population:   sample(range(10000000), 60)</span><br></pre></td></tr></table></figure>
+
+<h2 id="iter"><a href="#iter" class="headerlink" title="iter"></a>iter</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">iter(...)</span><br><span class="line">    iter(iterable) -&gt; iterator</span><br><span class="line">    iter(callable, sentinel) -&gt; iterator</span><br><span class="line">    </span><br><span class="line">    Get an iterator <span class="keyword">from</span> an object.  In the first form, the argument must</span><br><span class="line">    supply its own iterator, <span class="keyword">or</span> be a sequence.</span><br><span class="line">    In the second form, the callable <span class="keyword">is</span> called until it returns the sentinel.</span><br></pre></td></tr></table></figure>
+
+<h2 id="next"><a href="#next" class="headerlink" title="next"></a>next</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">next(...)</span><br><span class="line">    next(iterator[, default])</span><br><span class="line">    </span><br><span class="line">    Return the next item <span class="keyword">from</span> the iterator. If default <span class="keyword">is</span> given <span class="keyword">and</span> the iterator</span><br><span class="line">    <span class="keyword">is</span> exhausted, it <span class="keyword">is</span> returned instead of raising StopIteration.</span><br></pre></td></tr></table></figure>
+
+<h2 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In: list(zip(*[[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="string">'1'</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]]))</span><br><span class="line">Out: [(<span class="number">1</span>, <span class="string">'1'</span>, <span class="number">1</span>, <span class="number">1</span>), (<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>), (<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>)]</span><br></pre></td></tr></table></figure>
+
+<h1 id="numpy"><a href="#numpy" class="headerlink" title="numpy"></a>numpy</h1><h2 id="random-1"><a href="#random-1" class="headerlink" title="random"></a>random</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">choice(...) method of mtrand.RandomState instance</span><br><span class="line">    choice(a, size=<span class="literal">None</span>, replace=<span class="literal">True</span>, p=<span class="literal">None</span>)</span><br><span class="line">    </span><br><span class="line">    Generates a random sample <span class="keyword">from</span> a given <span class="number">1</span>-D array</span><br><span class="line">    </span><br><span class="line">    Parameters</span><br><span class="line">    -----------</span><br><span class="line">    a : <span class="number">1</span>-D array-like <span class="keyword">or</span> int</span><br><span class="line">        If an ndarray, a random sample <span class="keyword">is</span> generated <span class="keyword">from</span> its elements.</span><br><span class="line">        If an int, the random sample <span class="keyword">is</span> generated <span class="keyword">as</span> <span class="keyword">if</span> a were np.arange(a)</span><br><span class="line">    size : int <span class="keyword">or</span> tuple of ints, optional</span><br><span class="line">        Output shape.  If the given shape <span class="keyword">is</span>, e.g., ``(m, n, k)``, then</span><br><span class="line">        ``m * n * k`` samples are drawn.  Default <span class="keyword">is</span> <span class="literal">None</span>, <span class="keyword">in</span> which case a</span><br><span class="line">        single value <span class="keyword">is</span> returned.</span><br><span class="line">    replace : boolean, optional</span><br><span class="line">        Whether the sample <span class="keyword">is</span> <span class="keyword">with</span> <span class="keyword">or</span> without replacement</span><br><span class="line">    p : <span class="number">1</span>-D array-like, optional</span><br><span class="line">        The probabilities associated <span class="keyword">with</span> each entry <span class="keyword">in</span> a.</span><br><span class="line">        If <span class="keyword">not</span> given the sample assumes a uniform distribution over all</span><br><span class="line">        entries <span class="keyword">in</span> a.</span><br><span class="line">    </span><br><span class="line">    Returns</span><br><span class="line">    --------</span><br><span class="line">    samples : single item <span class="keyword">or</span> ndarray</span><br><span class="line">        The generated random samples</span><br><span class="line"></span><br><span class="line">    Examples</span><br><span class="line">    ---------</span><br><span class="line">    Generate a uniform random sample <span class="keyword">from</span> np.arange(<span class="number">5</span>) of size <span class="number">3</span> without</span><br><span class="line">    replacement:</span><br><span class="line">    </span><br><span class="line">    np.random.choice(<span class="number">5</span>, <span class="number">3</span>, replace=<span class="literal">False</span>)</span><br><span class="line">        array([<span class="number">3</span>,<span class="number">1</span>,<span class="number">0</span>])</span><br><span class="line">    <span class="comment">#This is equivalent to np.random.permutation(np.arange(5))[:3]</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/pytorch/" rel="tag"># pytorch</a>
+          
+            <a href="/tags/numpy/" rel="tag"># numpy</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/Few-shot/" rel="next" title="Generalizing from a Few Examples - A Survey on Few-shot Learning">
+                <i class="fa fa-chevron-left"></i> Generalizing from a Few Examples - A Survey on Few-shot Learning
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/10/hotmap-animation/" rel="prev" title="matplotlib绘制热力图动画">
+                matplotlib绘制热力图动画 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Song">
+            
+              <p class="site-author-name" itemprop="name">Song</p>
+              <p class="site-description motion-element" itemprop="description">希望你快乐</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/heyitsmine" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:huashuo.zs@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://scutlwy.xyz/" title="lwy's studio" target="_blank">lwy's studio</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python"><span class="nav-number">1.</span> <span class="nav-text">python</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#os"><span class="nav-number">1.1.</span> <span class="nav-text">os</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#random"><span class="nav-number">1.2.</span> <span class="nav-text">random</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iter"><span class="nav-number">1.3.</span> <span class="nav-text">iter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#next"><span class="nav-number">1.4.</span> <span class="nav-text">next</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zip"><span class="nav-number">1.5.</span> <span class="nav-text">zip</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#numpy"><span class="nav-number">2.</span> <span class="nav-text">numpy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#random-1"><span class="nav-number">2.1.</span> <span class="nav-text">random</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Song</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66450228";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
