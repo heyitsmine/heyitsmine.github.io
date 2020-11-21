@@ -8,7 +8,11 @@ tags:
 - prototypical network
 ---
 
-**Context attention**
+# prototypical network 原型网络
+
+# Attention
+
+## Context attention
 
 在prototypical network中，每个类别的原型由支持集中该类别所有样本的向量表示取均值而得。然而，在实际中每个类别的含义很丰富，在不同的样本中含义存在一定差别。因此，直接对向量表示取平均值获得的原型不够准确。
 
@@ -16,7 +20,15 @@ tags:
 
 $\bold{S}_{new}=CATT(\bold{S})=softmax(\frac{ss^T}{\sqrt{d_w}})\bold{S}$
 
+## Local Matching and Aggregation
 
+## Instance Matching and Aggregation
+
+## Class Matching
+
+## Instance-level Attention
+
+## Feature-level Attention
 
 [用词] prototype, vector
 
