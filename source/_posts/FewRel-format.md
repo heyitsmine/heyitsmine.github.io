@@ -1,5 +1,5 @@
 ---
-: FewRel训练流程
+title: FewRel训练流程
 date: 2020-09-27 16:38:34
 mathjax: true
 categories:
@@ -105,7 +105,7 @@ python train_demo.py --test val_nyt --model proto --encoder cnn
 ## 保存/载入断点
 | 参数        | 默认值 | 备注                             |
 | ----------- | ------ | -------------------------------- |
-| --load_ckpt | None   | 断点文件路径                     |
+| --load_ckpt | None   | 断点文件路径，                   |
 | --save_ckpt | None   | 若不为None，将替换默认生成的名字 |
 | --ckpt_name | ''     | 断点名字，加在默认生成的名字后   |
 
