@@ -1,0 +1,17 @@
+# index 页面配置
+index:
+  # 顶部大图
+  banner_img: /img/shumatsu.jpg
+  slogan:
+    enable: true
+    text: Welcome to my blog!
+
+post:
+  math:
+    enable: true
+    specific: true
+    engine: mathjax
+
+web_analytics:  # 网页访问统计
+  enable: true
+  baidu: 25bbd832c304327384cf5e1fbcaf70a1

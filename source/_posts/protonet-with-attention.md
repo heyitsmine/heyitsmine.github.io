@@ -1,7 +1,7 @@
 ---
 title: 在prototypical network中加入注意力机制
 date: 2020-11-09 21:30:43
-mathjax: true
+math: true
 categories:
 - deep learning
 tags:
@@ -80,9 +80,9 @@ $p_{\phi}(y=r_i|q)=\frac{exp(-d(f_{\phi}(q),C_i))}{\sum_{j=1}^{|\mathcal{R}|}exp
 
 ## Context attention
 
-基于支持集中不同样本重要性不同的事实，提出上下文注意力机制，向与原型更相关的样本分配更高的权重。计算样本向量表示$\bold{S}$之间的矩阵乘积再除以$\sqrt{d_w}$以表示$\bold{S}$中样本之间的相关性，再对其使用$softmax$获得每个样本的权重。最终的$\bold{S}_{new}$由权重乘以样本向量表示获得：
+基于支持集中不同样本重要性不同的事实，提出上下文注意力机制，向与原型更相关的样本分配更高的权重。计算样本向量表示$\mathbf{S}$之间的矩阵乘积再除以$\sqrt{d_w}$以表示$\mathbf{S}$中样本之间的相关性，再对其使用$softmax$获得每个样本的权重。最终的$\mathbf{S}_{new}$由权重乘以样本向量表示获得：
 
-$\bold{S}_{new}=CATT(\bold{S})=softmax(\frac{ss^T}{\sqrt{d_w}})\bold{S}$
+$$\mathbf{S}_{new}=CATT(\mathbf{S})=softmax(\frac{ss^T}{\sqrt{d_w}})\mathbf{S}$$
 
 ## Hybrid Attention 
 
@@ -100,9 +100,9 @@ $C^i=\sum_{k=1}^K{\alpha_k\mathrm{S}_k^i}.$
 
 其中$\alpha_k$计算方式如下：
 
-$\alpha_k=\frac{\mathrm{exp}(e_j)}{\sum_{k=1}^{K}\mathrm{exp}(e_k)}$
+$$\alpha_k=\frac{\mathrm{exp}(e_j)}{\sum_{k=1}^{K}\mathrm{exp}(e_k)}$$
 
-$e_j=\mathrm{sum}\{\sigma(g(\mathrm{S}_k^i){\odot}g(\mathrm{Q}))\}$
+$$e_j=\mathrm{sum}\{\sigma(g(\mathrm{S}_k^i){\odot}g(\mathrm{Q}))\}$$
 
 其中$g(\cdot)$是线性层，$\odot$是逐元素相乘，$\sigma(\cdot)$是激活函数，$\mathrm{sum}\{\cdot\}$是对向量中所有元素取和，文中使用tanh作为$\sigma(\cdot)$以产生$[-1,1]$的结果。
 
@@ -126,23 +126,25 @@ $d(\mathrm{s_1, s_2})=\mathrm{z}_i\cdot(\mathrm{s_1-s_2})^2$
 
 为了更好的获取$\mathrm{Q}$与$\{\mathrm{S}_k;k=1,...,\mathrm{K}\}$之间的匹配信息，首先将$K$个支持集样本的向量表示拼接为一个矩阵，如下：
 
-$\mathrm{C}=\textrm{concat}(\{\mathrm{S}_k\}_{k=1}^{K})$
+$$\mathrm{C}=\textrm{concat}(\{\mathrm{S}_k\}_{k=1}^{K})$$
 
 其中$\mathrm{C}\in\mathbb{R}^{T_s{\times}d_c},T_s=\sum_{k=1}^K{T_k}$，$\mathrm{Q}$与$\mathrm{C}$匹配后的向量表示$\widetilde{\mathrm{Q}}$与$\widetilde{\mathrm{C}}$计算方式如下：
 
-$\alpha_{mn}=\mathrm{q}_m^\top\mathrm{c}_n$
+$$\alpha_{mn}=\mathrm{q}_m^\top\mathrm{c}_n$$
 
-$\widetilde{\mathbf{q}}_m=\sum_{n=1}^{T_s}\frac{\mathrm{exp}(\alpha_{mn})}{\sum_{n'=1}^{T_s}\mathrm{exp}(\alpha_{mn'})}\mathbf{c}_n, m\in\{1,...,T_q\}$
+$$\widetilde{\mathbf{q}}_m=\sum_{n=1}^{T_s}\frac{\mathrm{exp}(\alpha_{mn})}{\sum_{n'=1}^{T_s}\mathrm{exp}(\alpha_{mn'})}\mathbf{c}_n, m\in\{1,...,T_q\}$$
 
-$\widetilde{\mathbf{c}}_n=\sum_{m=1}^{T_q}\frac{\mathrm{exp}(\alpha_{mn})}{\sum_{m'=1}^{T_q}\mathrm{exp}(\alpha_{m'n})}\mathbf{q}_m, n\in\{1,...,T_s\}$
+$$\widetilde{\mathbf{c}}_n=\sum_{m=1}^{T_q}\frac{\mathrm{exp}(\alpha_{mn})}{\sum_{m'=1}^{T_q}\mathrm{exp}(\alpha_{m'n})}\mathbf{q}_m, n\in\{1,...,T_s\}$$
 
 然后，使用一个ReLU激活层将原始的向量表示与匹配后的向量表示进行融合：
 
-$\bar{\mathbf{Q}}=\mathrm{ReLU}([\mathbf{Q};\mathbf{\widetilde{Q}};|\mathbf{Q}-\mathbf{\widetilde{Q}}|;\mathbf{Q}\odot\mathbf{\widetilde{Q}}]\mathbf{W}_1),$
+$$\bar{\mathbf{Q}}=\mathrm{ReLU}([\mathbf{Q};\mathbf{\widetilde{Q}};|\mathbf{Q}-\mathbf{\widetilde{Q}}|;\mathbf{Q}\odot\mathbf{\widetilde{Q}}]\mathbf{W}_1),$$
 
-$\bar{\mathbf{C}}=\mathrm{ReLU}([\mathbf{C};\mathbf{\widetilde{C}};|\mathbf{C}-\mathbf{\widetilde{C}}|;\mathbf{C}\odot\mathbf{\widetilde{C}}]\mathbf{W}_1),$
+$$\bar{\mathbf{C}}=\mathrm{ReLU}([\mathbf{C};\mathbf{\widetilde{C}};|\mathbf{C}-\mathbf{\widetilde{C}}|;\mathbf{C}\odot\mathbf{\widetilde{C}}]\mathbf{W}_1),$$
 
-其中$\odot$是逐元素相乘，$\mathbf{W}_1\in\mathbb{R}^{4{d_c}\times{d_h}}$是该层用于降维的线性映射的权重。$\bar{\mathbf{C}}$将与$K$个支持集样本对应的分为$K$个向量表示$\{\bar{\mathbf{S}}_k\}_{k=1}^{K}$，其中$\bar{\mathbf{S}}_k\in\mathbb{R}^{T_k\times{d_h}}$。所有的$\bar{\mathbf{S}}_k$与$\bar{\mathbf{Q}}$再输入到隐藏层单元数为$d_h$的单层双向LSTM中，拼接两个方向的输出得到最终的本地匹配结果为：$\hat{\mathbf{S}}_k\in\mathbb{R}^{T_k\times{2d_h}}$和$\hat{\mathbf{Q}}\in\mathbb{R}^{T_q\times{2d_h}}$。
+其中$\odot$是逐元素相乘，
+
+$\mathbf{W}_1\in\mathbb{R}^{4{d_c}\times{d_h}}$是该层用于降维的线性映射的权重。$\bar{\mathbf{C}}$将与$K$个支持集样本对应的分为$K$个向量表示$\{\bar{\mathbf{S}}_k\}_{k=1}^{K}$，其中$\bar{\mathbf{S}}_k\in\mathbb{R}^{T_k\times{d_h}}$。所有的$\bar{\mathbf{S}}_k$与$\bar{\mathbf{Q}}$再输入到隐藏层单元数为$d_h$的单层双向LSTM中，拼接两个方向的输出得到最终的本地匹配结果为：$\hat{\mathbf{S}}_k\in\mathbb{R}^{T_k\times{2d_h}}$和$\hat{\mathbf{Q}}\in\mathbb{R}^{T_q\times{2d_h}}$。
 
 本地聚合的目标是本地匹配的结果$\hat{\mathbf{S}}_k,\hat{\mathbf{Q}}$转换为单个向量。本文使用最大池化与平均池化，再将其结果拼接，得到单个向量$\hat{\mathbf{s}}_k$或$\hat{\mathbf{q}}$,计算过程如下：
 
