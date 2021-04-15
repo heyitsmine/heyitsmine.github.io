@@ -24,8 +24,7 @@ tags:
 - 当定义一个lambda时，编译器生成一个与lambda对应的新的（未命名的）类类型。
 - lambda捕获列表
 
-![](GenericAlgorithm/10-1.png)
-
+<div align=center> {% asset_img 10-1.png %} </div>
 - 如果函数返回一个lambda，则与函数不能返回一个局部变量的引用类似，此lambda也不能包含引用捕获。
 
 # 参数绑定
@@ -45,16 +44,16 @@ for_each(words.begin(), words.end(), bind(print, ref(os), _1, ' '));
 # 再探迭代器
 
 - 插入迭代器操作
-![](GenericAlgorithm/10-2.png)
+<div align=center> {% asset_img 10-2.png %} </div>
 
 - `istream_iterator`操作
-![](GenericAlgorithm/10-3.png)
+<div align=center> {% asset_img 10-3.png %} </div>
 
 - `ostream_iterator`操作
-![](GenericAlgorithm/10-4.png)
+<div align=center> {% asset_img 10-4.png %} </div>
 
 - 对于绑定到流的迭代器，一旦其关联的流遇到文件结束或IO错误，迭代器的值就与尾迭代器相等。
 - 对于反向迭代器，可以使用`base()`成员函数返回其对应的普通迭代器，下图显示了普通迭代器与反向迭代器之间的关系。
-![](GenericAlgorithm/10-6.png)
+<div align=center> {% asset_img 10-6.png %} </div>
 
 - 当我们从一个普通迭代器初始化一个反向迭代器，或是给一个反向迭代器赋值时，结果迭代器与原迭代器指向的并不是相同的元素。

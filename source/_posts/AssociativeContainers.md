@@ -12,7 +12,7 @@ tags:
 # 关联容器
 
 - 关联容器类型
-  ![](AssociativeContainers/11-1.png)
+<div align=center> {% asset_img 11-1.png %} </div>
 
 # 使用关联容器
 
@@ -72,12 +72,12 @@ multiset<Sales_data, decltype(compareIsbn)*> bookstore(compareIsbn);
 
 - `pair`的默认构造函数对数据成员进行值初始化。
 - `pair`上的操作
-![](AssociativeContainers/11-2.png)
+<div align=center> {% asset_img 11-2.png %} </div>
 
 # 关联容器操作
 
 - 关联容器的额外类型别名
-![](AssociativeContainers/11-3.png)
+<div align=center> {% asset_img 11-3.png %} </div>
 
 ## 关联容器迭代器
 
@@ -86,25 +86,24 @@ multiset<Sales_data, decltype(compareIsbn)*> bookstore(compareIsbn);
 ## 添加元素
 
 - 关联容器`insert`操作
-![](AssociativeContainers/11-4.png)
+<div align=center> {% asset_img 11-4.png %} </div>
 
 ## 删除元素
 
 - 从关联容器中删除元素
-![](AssociativeContainers/11-5.png)
+<div align=center> {% asset_img 11-5.png %} </div>
 
 ## `map`的下标操作
 
 - `map`和`unordered_map`的下标操作
-![](AssociativeContainers/11-6.png)
+<div align=center> {% asset_img 11-6.png %} </div>
 
 ## 访问元素
 
 - 在一个关联容器中查找元素的操作
-![](AssociativeContainers/11-7.png)
+<div align=center> {% asset_img 11-7.png %} </div>
 
 # 无序容器
 
 - 无序容器管理操作
-![](AssociativeContainers/11-8.png)
-
+<div align=center> {% asset_img 11-8.png %} </div>

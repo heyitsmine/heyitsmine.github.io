@@ -16,7 +16,7 @@ tags:
 
 套接字接口是Unix系统用于构建网络应用程序的一套函数，通常与I/O函数结合使用。图1是在一个*客户端-服务器*交互过程中套接字接口使用的示意图。
 
-![](SocketsInterface/11-12.png)
+<div align=center> {% asset_img 11-12.png %} </div>
 <center>图1 基于套接字的网络应用概览</center>
 
 ## 套接字地址结构
@@ -98,7 +98,7 @@ int accept(int listenfd, struct sockaddr *addr, int *addrlen);
 
 `accepet`函数等待来自客户端的连接请求到达监听关键字`listenfd`，然后将客户端的套接字地址填入`addr`，并返回一个**已连接描述符**(*connected descriptor*)，该描述符可以通过Unix I/O函数与客户端通信，图2描述了客户端与服务器连接的过程。
 
-![](SocketsInterface/11-14.png)
+<div align=center> {% asset_img 11-14.png %} </div>
 <center>图2 监听描述符与已连接描述符</center>
 
 ## `getaddrinfo`与`getnameinfo`
@@ -136,8 +136,7 @@ struct addrinfo {
 
 `host`参数可以是域名或IP地址，`service`参数可以是服务名（http、ftp等）或端口号。可选的参数`hint`是一个`addrinfo`结构，用于控制`getaddrinfo`返回套接字地址的种类，比如可以设置`ai_family`为`AF_INET`限制只返回IPv4地址。`getaddrinfo`的结果存放在`result`中，`result`指向一个`addrinfo`的链表，链表中的每一项都指向一个套接字地址结构，如图3所示。
 
-![](SocketsInterface/11-15.png)
-
+<div align=center> {% asset_img 11-15.png %} </div>
 <center>图3 getaddrinfo返回的数据结构</center>
 通常，客户端调用`getaddrinfo`，再遍历结果链表，对链表中每一个套接字地址依次调用`socket`与`connect`直到成功建立连接。
 

@@ -15,3 +15,6 @@ post:
 web_analytics:  # 网页访问统计
   enable: true
   baidu: 25bbd832c304327384cf5e1fbcaf70a1
+
+navbar:
+  blog_title: Song's bolg

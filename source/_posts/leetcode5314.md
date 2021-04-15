@@ -1,7 +1,7 @@
 ---
 title: BFS - LeetCode 跳跃游戏IV
 date: 2020-02-09 21:32:58
-mathjax: true
+math: true
 categories:
 - 数据结构与算法
 tags:

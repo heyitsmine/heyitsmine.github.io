@@ -88,7 +88,8 @@ void sigchld_handler(int sig)
 
 # 前台与后台 
 
-- shell用作业（job）来表示执行一个命令行而创建的进程（一个或多个），这些进程属于同一个进程组。任何时候，至多可以有一个前台作业以及0个或多个后台作业，下图是一个有一个前台作业和两个后台作业的shell。![](shelllab/8-28.png)
+- shell用作业（job）来表示执行一个命令行而创建的进程（一个或多个），这些进程属于同一个进程组。任何时候，至多可以有一个前台作业以及0个或多个后台作业，下图是一个有一个前台作业和两个后台作业的shell。
+<div align=center> {% asset_img 8-28.png%} </div>
 由键盘输入产生的信号（SIGINT、SIGTSTP等）会发送给前台进程组中的所有进程。函数`tcsetpgrp`可以将指定进程组设置为前台进程组。
 
 # SIGTTIN与SIGTTOU

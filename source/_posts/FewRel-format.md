@@ -1,7 +1,7 @@
 ---
 title: FewRel训练流程
 date: 2020-09-27 16:38:34
-mathjax: true
+math: true
 categories:
 - deep learning
 tags:

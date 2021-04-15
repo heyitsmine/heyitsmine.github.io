@@ -12,7 +12,7 @@ tags:
 # IO类
 
 - IO库类型和头文件
-![](190829IO-Library/8-1.png)
+<div align=center> {% asset_img 8-1.png %} </div>
 
 ## IO对象无拷贝或赋值
 
@@ -21,7 +21,7 @@ tags:
 ## 条件状态
 
 - IO库条件状态
-![](190829IO-Library/8-2.png)
+<div align=center> {% asset_img 8-2.png %} </div>
 
 ## 管理输出缓冲
 
@@ -41,7 +41,7 @@ cout << "hi!" << ends;   // writes hi and a null, then flushes the buffer
 # 文件输入和输出
 
 - `fstream`特有操作
-![](190829IO-Library/8-3.png)
+<div align=center> {% asset_img 8-3.png %} </div>
 
 ## 使用文件流对象
 
@@ -50,7 +50,7 @@ cout << "hi!" << ends;   // writes hi and a null, then flushes the buffer
 ## 文件模式
 
 - 文件模式
-![](190829IO-Library/8-4.png)
+<div align=center> {% asset_img 8-4.png %} </div>
 
 - 默认情况下，当我们打开一个`ofstream`时，文件的内容会被丢弃。阻止一个`ofsteam`清空给定文件内容的方法是同时指定`app`模式：
 ```c++
@@ -66,5 +66,5 @@ ofstream app2("file2", ofstream::out | ofstream::app);
 # string流
 
 - stringstream特有操作
-![](190829IO-Library/8-5.png)
+<div align=center> {% asset_img 8-5.png %} </div>
 

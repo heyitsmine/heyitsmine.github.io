@@ -23,7 +23,7 @@ int operator+(int, int);
 
 - 可被重载与不可被重载的运算符：
 
-![](OverloadedOperationsAndConversions/14-1.png)
+<div align=center> {% asset_img 14-1.png %} </div>
 
 - 对于既可以是一元又可以是二元的运算符（+，-，*和&），定义的运算符取决于参数的数量。
 - 重载的运算符具有和内置运算符相同的优先级和结合律。
@@ -95,7 +95,8 @@ public:
 
 - 以下类型定义在`functional`头文件中
 
-![](OverloadedOperationsAndConversions/14-2.png)
+<div align=center> {% asset_img 14-2.png %} </div>
+
 - 内置关系运算符`<`对于指针类型是未定义的，但标准库提供的函数对象保证了对指针类型是正确定义的：
 ```c++
 vector<string *> nameTable;  // vector of pointers
@@ -113,7 +114,7 @@ int (int, int)
 ```
 
 - 具有相同调用形式的可调用对象可能具有不同的类型，标准库`function`类型可以存放具有相同调用形式的可调用对象。以下是`function`的操作：
-![](OverloadedOperationsAndConversions/14-3.png)
+<div align=center> {% asset_img 14-3.png %} </div>
 
 ## 重载、类型转换与运算符
 

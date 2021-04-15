@@ -24,10 +24,10 @@ tags:
 - 默认初始化的智能指针保存着一个空指针。
 
 - `shared_ptr`和`unique_ptr`都支持的操作
-![](DynamicMemory/12-1.png)
+<div align=center> {% asset_img 12-1.png %} </div>
 
 - `shared_ptr`独有的操作
-![](DynamicMemory/12-2.png)
+<div align=center> {% asset_img 12-2.png %} </div>
 
 - 一旦一个`shared_ptr`的计数器变为0，它将自动释放自己所管理的对象：
 ```c++
@@ -73,7 +73,7 @@ int *p2 = new (nothrow) int; // if allocation fails, new returns a null pointer
 ### `shared_ptr`和`new`结合使用
 
 - 定义和改变`shared_ptr`的其他方法
-![](DynamicMemory/12-3.png)
+<div align=center> {% asset_img 12-3.png %} </div>
 
 - 接受指针参数的智能指针构造函数是`explicit`的：
 ```c++
@@ -101,8 +101,7 @@ void f()
 
 - 不同于`shared_ptr`，同时只能有一个`unique_ptr`指向一个给定对象。
 - `unique_ptr`操作
-![](DynamicMemory/12-4.png)
-
+<div align=center> {% asset_img 12-4.png %} </div>
 
 - 与`shared_ptr`不同，没有类似`make_shared`的标准库函数返回一个`unique_ptr`。当我们定义一个`unique_ptr`时，需要将其绑定到一个`new`返回的指针上。类似`shared_ptr`，初始化`unique_ptr`必须采用直接初始化形式：
 ```c++
@@ -126,7 +125,7 @@ unique_ptr<int> clone(int p) {
 
 ### `weak_ptr`
 
-- ![](DynamicMemory/12-5.png)
+<div align=center> {% asset_img 12-5.png %} </div>
 
 ## 动态数组
 
@@ -157,7 +156,7 @@ delete [] pa; // pa must point to a dynamically allocated array or be null
 
 - 数组中的元素按逆序销毁。
 - 指向数组的`unique_ptr`
-![](DynamicMemory/12-6.png)
+<div align=center> {% asset_img 12-6.png %} </div>
 
 - 与`unique_ptr`不同，`shared_ptr`不支持直接管理动态数组，如果希望使用`shared_ptr`管理一个动态数组，必须提供自己定义的删除器：
 ```c++
@@ -170,8 +169,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array
 
 - 不能分配元素类型为“没有默认构造函数的类类型”的动态数组。
 - 标准库`allocator`类及其算法
-![](DynamicMemory/12-7.png)
+<div align=center> {% asset_img 12-7.png %} </div>
 
 - `allocator`算法
-![](DynamicMemory/12-8.png)
-
+<div align=center> {% asset_img 12-8.png %} </div>
