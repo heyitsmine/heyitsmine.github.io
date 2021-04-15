@@ -18,3 +18,7 @@ web_analytics:  # 网页访问统计
 
 navbar:
   blog_title: Song's bolg
+
+about:
+  name: "Song"
+  intro: "希望你快乐"
