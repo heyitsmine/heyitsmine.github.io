@@ -45,14 +45,24 @@ sudo apt-get install zsh-autosuggestions zsh-syntax-highlighting
 chsh -s /usr/bin/zsh
 ```
 
-# 在 Ubuntu 启用插件和主题
+# 在 Ubuntu 启用插件
 
 打开 `~/.zshrc` 文件，将以下行代码添加到其中：
 
 ```text
-source /usr/share/powerlevel9k/powerlevel9k.zsh-theme
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+```
+
+# wsl2设置Windows代理
+
+https://zhuanlan.zhihu.com/p/153124468
+
+打开`/etc/zsh/zshenv`文件，将以下两行添加到末尾
+
+```shell
+host_ip=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
+export ALL_PROXY="http://$host_ip:7890"
 ```
 
 # wsl2自动启动ssh server
