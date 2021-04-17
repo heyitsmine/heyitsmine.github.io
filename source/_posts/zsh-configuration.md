@@ -54,6 +54,16 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ```
 
+# 启用历史输入搜索
+
+在`~/.zshrc` 文件添加：
+
+```shell
+bindkey '^R' history-incremental-search-backward
+```
+
+
+
 # wsl2设置Windows代理
 
 https://zhuanlan.zhihu.com/p/153124468
