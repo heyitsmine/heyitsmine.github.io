@@ -54,3 +54,8 @@ source /usr/share/powerlevel9k/powerlevel9k.zsh-theme
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ```
+
+# wsl2自动启动ssh server
+
+https://gist.github.com/dentechy/de2be62b55cfd234681921d5a8b6be11
+
