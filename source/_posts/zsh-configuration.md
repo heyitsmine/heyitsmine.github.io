@@ -1,5 +1,5 @@
 ---
-title: Zsh配置
+title: wls2 Ubuntu配置
 date: 2021-04-15 22:18:57
 categories:
 - Linux
@@ -64,6 +64,10 @@ https://zhuanlan.zhihu.com/p/153124468
 host_ip=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
 export ALL_PROXY="http://$host_ip:7890"
 ```
+
+# 自动将wsl2 Ubuntu ip写入Windows hosts文件
+
+https://github.com/shayne/go-wsl2-host
 
 # wsl2自动启动ssh server
 
