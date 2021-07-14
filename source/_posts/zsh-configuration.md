@@ -59,3 +59,4 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 https://gist.github.com/dentechy/de2be62b55cfd234681921d5a8b6be11
 
+https://www.illuminiastudios.com/dev-diaries/ssh-on-windows-subsystem-for-linux/
