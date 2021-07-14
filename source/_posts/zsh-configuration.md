@@ -1,5 +1,5 @@
 ---
-title: Zsh配置
+title: wls2 Ubuntu配置
 date: 2021-04-15 22:18:57
 categories:
 - Linux
@@ -45,15 +45,39 @@ sudo apt-get install zsh-autosuggestions zsh-syntax-highlighting
 chsh -s /usr/bin/zsh
 ```
 
-# 在 Ubuntu 启用插件和主题
+# 在 Ubuntu 启用插件
 
 打开 `~/.zshrc` 文件，将以下行代码添加到其中：
 
 ```text
-source /usr/share/powerlevel9k/powerlevel9k.zsh-theme
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ```
+
+# 启用历史输入搜索
+
+在`~/.zshrc` 文件添加：
+
+```shell
+bindkey '^R' history-incremental-search-backward
+```
+
+
+
+# wsl2设置Windows代理
+
+https://zhuanlan.zhihu.com/p/153124468
+
+打开`/etc/zsh/zshenv`文件，将以下两行添加到末尾
+
+```shell
+host_ip=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
+export ALL_PROXY="http://$host_ip:7890"
+```
+
+# 自动将wsl2 Ubuntu ip写入Windows hosts文件
+
+https://github.com/shayne/go-wsl2-host
 
 # wsl2自动启动ssh server
 
