@@ -294,12 +294,9 @@ class Base {
 };
 class Pal {
 public:
-    int f(Base b) { return b.prot_mem; } // ok: Pal is a friend of
-Base
-    int f2(Sneaky s) { return s.j; } // error: Pal not friend of
-Sneaky
-    // access to a base class is controlled by the base class, even inside a derived
-object
+    int f(Base b) { return b.prot_mem; } // ok: Pal is a friend of Base
+    int f2(Sneaky s) { return s.j; } // error: Pal not friend of Sneaky
+    // access to a base class is controlled by the base class, even inside a derived object
     int f3(Sneaky s) { return s.prot_mem; } // ok: Pal is a friend
 };
 ```
@@ -331,7 +328,7 @@ protected:
 
 ### 虚析构函数
 
-- 通常如果一个类需要析构函数，那么它同样需要拷贝和赋值操作。但一个基类总是需要虚析构函数，若该析构函数为了称为虚函数而令内容为空，则无法由此推断该基类还需要赋值运算符或拷贝构造函数。
+- 通常如果一个类需要析构函数，那么它同样需要拷贝和赋值操作。但一个基类总是需要虚析构函数，若该析构函数为了成为虚函数而令内容为空，则无法由此推断该基类还需要赋值运算符或拷贝构造函数。
 
 ### 合成拷贝控制与继承
 
