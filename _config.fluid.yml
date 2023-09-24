@@ -4,7 +4,7 @@ index:
   banner_img: /img/shumatsu.jpg
   slogan:
     enable: true
-    text: Welcome to my blog!
+    text: Hello!
 
 post:
   math:
@@ -22,3 +22,6 @@ navbar:
 about:
   name: "Song"
   intro: "希望你快乐"
+  icons:
+    - { class: 'iconfont icon-github-fill', link: 'https://github.com/heyitsmine', tip: 'GitHub' }
+    - { class: 'iconfont icon-twitter-fill', link: 'https://twitter.com/HuashuoZs', tip: 'Twitter' }
