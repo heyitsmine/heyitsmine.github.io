@@ -1,0 +1,646 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="符号表
+
+
+
+符号
+含义
+
+
+
+
+x
+样本（句子）
+
+
+\mathrm{x}
+
+
+
+w_t
+句子中第t个单词
+
+
+\mathrm{w}_t\in\mathbb{R}^{d_w}
+句子中第t个单词的词向量
+
+
+\mathrm{p}_t\in\mathbb{R}^{2\times d_p}
+句子中第t个单词的相对两个实体的位置编码
+
+
+d_w,d_p,d_c
+词向量维度，位置编码维度,CNN卷积核维度">
+  <meta name="author" content="song">
+  <meta name="keywords" content="">
+  
+  <title>在prototypical network中加入注意力机制 - Song</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"25bbd832c304327384cf5e1fbcaf70a1","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Song's bolg</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="在prototypical network中加入注意力机制">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-11-09 21:30" pubdate>
+        2020年11月9日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      36
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">在prototypical network中加入注意力机制</h1>
+            
+            <div class="markdown-body">
+              <h1 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><script type="math/tex">x</script></td>
+<td>样本（句子）</td>
+</tr>
+<tr>
+<td><script type="math/tex">\mathrm{x}</script></td>
+<td></td>
+</tr>
+<tr>
+<td><script type="math/tex">w_t</script></td>
+<td>句子中第t个单词</td>
+</tr>
+<tr>
+<td><script type="math/tex">\mathrm{w}_t\in\mathbb{R}^{d_w}</script></td>
+<td>句子中第t个单词的词向量</td>
+</tr>
+<tr>
+<td><script type="math/tex">\mathrm{p}_t\in\mathbb{R}^{2\times d_p}</script></td>
+<td>句子中第t个单词的相对两个实体的位置编码</td>
+</tr>
+<tr>
+<td><script type="math/tex">d_w,d_p,d_c</script></td>
+<td>词向量维度，位置编码维度,CNN卷积核维度</td>
+</tr>
+<tr>
+<td><script type="math/tex">\mathrm{e}_t</script></td>
+<td>句子中第t个单词的向量表示</td>
+</tr>
+<tr>
+<td><script type="math/tex">\mathrm{W}\in\mathbb{R}^{T\times(d_w+2d_p)}</script></td>
+<td>长度为<script type="math/tex">T</script>的单个样本的向量表示</td>
+</tr>
+<tr>
+<td><script type="math/tex">\mathrm{Q}\in\mathbb{R}^{T_q\times{d_c}}</script></td>
+<td>长度为<script type="math/tex">T_q</script>的查询集样本上下文向量表示</td>
+</tr>
+<tr>
+<td><script type="math/tex">\mathrm{S}_k\in\mathbb{R}^{T_k\times{d_c}};k=1,...,K</script></td>
+<td>长度为<script type="math/tex">T_k</script>的支持集样本上下文向量表示</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>小写粗体字母为列向量 </p>
+<h1 id="Instance-Encoder-样本编码器"><a href="#Instance-Encoder-样本编码器" class="headerlink" title="Instance Encoder 样本编码器"></a>Instance Encoder 样本编码器</h1><p>给定样本<script type="math/tex">x=\{w_1,...,w_T\}</script>，可以使用嵌入层（Embedding Layer）将每个单词<script type="math/tex">w_t</script>映射到连续输入嵌入（continuous input embeddings），使<script type="math/tex">\mathrm{w}_t\in\mathbb{R}^{d_w}</script>以表示单词的语义及句法含义。这些词嵌入由GloVe预训练。</p>
+<p>对于每个单词<script type="math/tex">w_t</script>，将单词与实体的相对距离嵌入到两个<script type="math/tex">d_p</script>的向量并将其拼接得到位置嵌入<script type="math/tex">\mathrm{p}_t\in\mathbb{R}^{2\times d_p}</script>.</p>
+<span id="more"></span>
+<p>最终的每个词的输入嵌入由其词嵌入与位置嵌入拼接而得。样本经过嵌入层处理，可得到以下形式的嵌入序列：</p>
+<script type="math/tex; mode=display">\{\mathrm{e_1}...,\mathrm{e_n}\}=\{[\mathrm{w_1};\mathrm{p_1}],...,[\mathrm{w_n};\mathrm{p_n}]\},\mathrm{e_i}\in\mathbb{R}^{d_i},d_i=d_w+d_p\times2.</script><p>编码层（Encoding Layer）使用CNN对输入嵌入（input embeddings）进行编码。对于卷积核窗口大小为<script type="math/tex">m</script>，维度为<script type="math/tex">d_h</script>的CNN，有：</p>
+<script type="math/tex; mode=display">\mathrm{h_i}=CNN(\mathrm{e}_{i-\frac{m-1}{2}},...,\mathrm{e}_{i+\frac{m-1}{2}})</script><p>对隐藏层嵌入进行最大池化操作，得到最终的样本嵌入<script type="math/tex">\mathrm{x}</script>：</p>
+<script type="math/tex; mode=display">[\mathrm{W}]j=max\{[\mathrm{h_1}]_j,...,[\mathrm{h_n}]_j\}</script><p>其中<script type="math/tex">[\cdot]_j</script>是向量的第<script type="math/tex">j</script>个值。</p>
+<p>将以上的样本编码（instance encoding）操作定义为：</p>
+<script type="math/tex; mode=display">\mathrm{W}=f_\phi(x)</script><p>其中<script type="math/tex">\phi</script>是样本编码器的可学习参数。</p>
+<h1 id="prototypical-network-原型网络"><a href="#prototypical-network-原型网络" class="headerlink" title="prototypical network 原型网络"></a>prototypical network 原型网络</h1><p>原型网络的主要思想是使用一个称作原型的向量来表示每个关系。最简单的原型计算方法是分别对支持集中每种关系的所有样本嵌入取平均值：</p>
+<script type="math/tex; mode=display">C^i=\frac{1}{K}\sum_{k=1}^{K}{\mathrm{S}_k^i},</script><p>其中<script type="math/tex">C_i</script>是关系<script type="math/tex">r_i</script>的原型，<script type="math/tex">\mathrm{S}_k^i</script>是支持集<script type="math/tex">\mathcal{S}</script>中关系为<script type="math/tex">r_i</script>的一个样本的样本嵌入，<script type="math/tex">K</script>是支持集<script type="math/tex">S</script>中关系为<script type="math/tex">r_i</script>的样本数量。 </p>
+<p>在简单原型网络中取平均值的方式下，所有的样本被视为具有相同的重要程度。可以使用<strong>混合注意力机制</strong>代替取平均值，为更重要的样本分配更高的权重。</p>
+<p>对于一个查询集样本<script type="math/tex">q</script>，通过下式计算其属于<script type="math/tex">\mathcal{R}</script>中关系的概率：</p>
+<script type="math/tex; mode=display">p_{\phi}(y=r_i|q)=\frac{exp(-d(f_{\phi}(q),C_i))}{\sum_{j=1}^{|\mathcal{R}|}exp(-d(f_{\phi}(q),C_j))},</script><p>其中<script type="math/tex">d(\cdot,\cdot)</script>是用于计算两个向量间距离的度量函数。</p>
+<h1 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h1><p>在Prototypical Network中，每个类别的原型由支持集中该类别所有样本的向量表示取均值而得。然而，在实际中每个类别的含义很丰富，在不同的样本中含义存在一定差别，直接对向量表示取平均值获得的原型不够准确。</p>
+<p>注意力机制可以使模型更关注某些样本或样本的某些特征。</p>
+<h2 id="Context-attention"><a href="#Context-attention" class="headerlink" title="Context attention"></a>Context attention</h2><p>基于支持集中不同样本重要性不同的事实，提出上下文注意力机制，向与原型更相关的样本分配更高的权重。计算样本向量表示<script type="math/tex">\mathbf{S}</script>之间的矩阵乘积再除以<script type="math/tex">\sqrt{d_w}</script>以表示<script type="math/tex">\mathbf{S}</script>中样本之间的相关性，再对其使用<script type="math/tex">softmax</script>获得每个样本的权重。最终的<script type="math/tex">\mathbf{S}_{new}</script>由权重乘以样本向量表示获得：</p>
+<script type="math/tex; mode=display">\mathbf{S}_{new}=CATT(\mathbf{S})=softmax(\frac{ss^T}{\sqrt{d_w}})\mathbf{S}</script><h2 id="Hybrid-Attention"><a href="#Hybrid-Attention" class="headerlink" title="Hybrid Attention"></a>Hybrid Attention</h2><p>原文 <em>Hybrid Attention-Based Prototypical Networks for Noisy Few-Shot Relation Classification</em></p>
+<p>文中混合注意力包括两个模块：样本级别注意力模块从支持集中选择包含更多信息的样本；特征级别注意力模块在距离度量函数中强调更重要的维度。</p>
+<h3 id="Instance-level-Attention"><a href="#Instance-level-Attention" class="headerlink" title="Instance-level Attention"></a>Instance-level Attention</h3><p>原始的原型网络使用样本向量（vector of the instances）的平均值作为关系原型。在小样本的条件下，支持集样本数量有限，若一个关系中某个样本的向量表示（representation）与其他样本相差很大，则会使对应的原型产生很大偏差。同时，朴素的（vanilla）原型网络在从支持集提取特征时，从未见过具体的查询样本。因此，朴素（vanilla）的模型会提取到一些对识别查询集样本没有帮助的特征。</p>
+<p><strong>这些现象</strong>会导致模型在对查询集样本进行分类时计算出不准确的原型。为了改进原型网络，文中提出了样本级别注意力模块，使模型更关注与查询集相关的样本并缓解噪声。文中提出对于给定的查询集样本，每个支持集样本的作用不是完全相同的，对样本向量表示赋予一个权重<script type="math/tex">\alpha_j</script>，则原型的计算方式改变为：</p>
+<script type="math/tex; mode=display">C^i=\sum_{k=1}^K{\alpha_k\mathrm{S}_k^i}.</script><p>其中<script type="math/tex">\alpha_k</script>计算方式如下：</p>
+<script type="math/tex; mode=display">\alpha_k=\frac{\mathrm{exp}(e_j)}{\sum_{k=1}^{K}\mathrm{exp}(e_k)}</script><script type="math/tex; mode=display">e_j=\mathrm{sum}\{\sigma(g(\mathrm{S}_k^i){\odot}g(\mathrm{Q}))\}</script><p>其中<script type="math/tex">g(\cdot)</script>是线性层，<script type="math/tex">\odot</script>是逐元素相乘，<script type="math/tex">\sigma(\cdot)</script>是激活函数，<script type="math/tex">\mathrm{sum}\{\cdot\}</script>是对向量中所有元素取和，文中使用tanh作为<script type="math/tex">\sigma(\cdot)</script>以产生<script type="math/tex">[-1,1]</script>的结果。</p>
+<p>通过样本级别的注意力，与查询集样本具有相似特征的样本会获得更高的权重，最终的原型也会与这些样本更接近。直觉上，属于同种关系的样本也会存在很大的不同，甚至某些样本存在标记错误。查询集样本可能只与支持集中部分样本接近。对不同样本赋予不同权重后，得到的原型相比于原始的向量平均值会更加“典型”。</p>
+<h3 id="Feature-level-Attention"><a href="#Feature-level-Attention" class="headerlink" title="Feature-level Attention"></a>Feature-level Attention</h3><p><em>Prototypical networks for few-shot learning</em>提出距离度量函数的选择对原型网络的效果有很大影响。原始的原型网络选择简单的欧几里德距离作为距离度量函数。由于在支持集中只有少量样本，特征提取会受到数据稀疏的影响（data sparsity）。因此，特征空间中的某些维度在识别特定关系时，更具有决定性作用。文中提出了特征级别的注意力，能够缓解特征稀疏（feature sparsity）的问题，更好的测量空间距离。</p>
+<p>特征级别注意力在测量空间距离时，会更注意具有更强决定性的维度，采用以下距离度量函数代替平凡的欧几里德距离，</p>
+<script type="math/tex; mode=display">d(\mathrm{s_1, s_2})=\mathrm{z}_i\cdot(\mathrm{s_1-s_2})^2</script><p>其中<script type="math/tex">\mathrm{z}_i</script>是由特征级别注意力提取器计算得到的对关系<script type="math/tex">r_i</script>的分数向量。特征级别注意力提取器的结构见下图（<strong>注意padding和stride</strong>）：</p>
+<div align=center> <img src="/2020/11/09/protonet-with-attention/feature-level-attention.png" srcset="/img/loading.gif" lazyload class=""> </div>
+
+<p>该提取器基于每个关系的句向量表示计算出特征每个维度的线性可分程度。特征的某个维度越有用，该维度的分数就越高。将注意力分数乘上平方差距离，改变后的距离度量函数将更适用与度量给定关系与支持集样本的距离。</p>
+<h2 id="Local-Matching-and-Aggregation"><a href="#Local-Matching-and-Aggregation" class="headerlink" title="Local Matching and Aggregation"></a>Local Matching and Aggregation</h2><p>为了更好的获取<script type="math/tex">\mathrm{Q}</script>与<script type="math/tex">\{\mathrm{S}_k;k=1,...,\mathrm{K}\}</script>之间的匹配信息，首先将<script type="math/tex">K</script>个支持集样本的向量表示拼接为一个矩阵，如下：</p>
+<script type="math/tex; mode=display">\mathrm{C}=\textrm{concat}(\{\mathrm{S}_k\}_{k=1}^{K})</script><p>其中 <script type="math/tex">\mathrm{C}\in\mathbb{R}^{T_s{\times}d_c}</script>，<script type="math/tex">T_s=\sum_{k=1}^K{T_k}</script> ， <script type="math/tex">\mathrm{Q}</script> 与 <script type="math/tex">\mathrm{C}</script> 匹配后的向量表示 <script type="math/tex">\widetilde{\mathrm{Q}}</script> 与 <script type="math/tex">\widetilde{\mathrm{C}}</script> 计算方式如下：</p>
+<script type="math/tex; mode=display">\alpha_{mn}=\mathrm{q}_m^\top\mathrm{c}_n</script><script type="math/tex; mode=display">\widetilde{\mathbf{q}}_m=\sum_{n=1}^{T_s}\frac{\mathrm{exp}(\alpha_{mn})}{\sum_{n'=1}^{T_s}\mathrm{exp}(\alpha_{mn'})}\mathbf{c}_n, m\in\{1,...,T_q\}</script><script type="math/tex; mode=display">\widetilde{\mathbf{c}}_n=\sum_{m=1}^{T_q}\frac{\mathrm{exp}(\alpha_{mn})}{\sum_{m'=1}^{T_q}\mathrm{exp}(\alpha_{m'n})}\mathbf{q}_m, n\in\{1,...,T_s\}</script><p>然后，使用一个ReLU激活层将原始的向量表示与匹配后的向量表示进行融合：</p>
+<script type="math/tex; mode=display">\bar{\mathbf{Q}}=\mathrm{ReLU}([\mathbf{Q};\mathbf{\widetilde{Q}};|\mathbf{Q}-\mathbf{\widetilde{Q}}|;\mathbf{Q}\odot\mathbf{\widetilde{Q}}]\mathbf{W}_1),</script><script type="math/tex; mode=display">\bar{\mathbf{C}}=\mathrm{ReLU}([\mathbf{C};\mathbf{\widetilde{C}};|\mathbf{C}-\mathbf{\widetilde{C}}|;\mathbf{C}\odot\mathbf{\widetilde{C}}]\mathbf{W}_1),</script><p>其中<script type="math/tex">\odot</script>是逐元素相乘，<script type="math/tex">\mathbf{W}_1\in\mathbb{R}^{4{d_c}\times{d_h}}</script>是该层用于降维的线性映射的权重。<script type="math/tex">\bar{\mathbf{C}}</script>将与<script type="math/tex">K</script>个支持集样本对应的分为<script type="math/tex">K</script>个向量表示<script type="math/tex">\{\bar{\mathbf{S}}_k\}_{k=1}^{K}</script>，其中<script type="math/tex">\bar{\mathbf{S}}_k\in\mathbb{R}^{T_k\times{d_h}}</script>。所有的<script type="math/tex">\bar{\mathbf{S}}_k</script>与<script type="math/tex">\bar{\mathbf{Q}}</script>再输入到隐藏层单元数为<script type="math/tex">d_h</script>的单层双向LSTM中，拼接两个方向的输出得到最终的本地匹配结果为：<script type="math/tex">\hat{\mathbf{S}}_k\in\mathbb{R}^{T_k\times{2d_h}}</script>和<script type="math/tex">\hat{\mathbf{Q}}\in\mathbb{R}^{T_q\times{2d_h}}</script>。</p>
+<p>本地聚合的目标是本地匹配的结果<script type="math/tex">\hat{\mathbf{S}}_k,\hat{\mathbf{Q}}</script>转换为单个向量。本文使用最大池化与平均池化，再将其结果拼接，得到单个向量<script type="math/tex">\hat{\mathbf{s}}_k</script>或<script type="math/tex">\hat{\mathbf{q}}</script>,计算过程如下：</p>
+<script type="math/tex; mode=display">\hat{\mathbf{s}}_k=[\mathrm{max}(\hat{\mathbf{S}}_k);\mathrm{ave}(\hat{\mathbf{S}}_k)],\forall k\in\{1,...,K\},</script><script type="math/tex; mode=display">\hat{\mathbf{q}}=[\mathrm{max}(\hat{\mathbf{Q}});\mathrm{ave}(\hat{\mathbf{Q}})]</script><p>其中<script type="math/tex">\hat{\mathbf{s}}_k,\hat{\mathbf{q}}\in\mathbb{R}^{4d_h}</script>。</p>
+<h2 id="Instance-Matching-and-Aggregation"><a href="#Instance-Matching-and-Aggregation" class="headerlink" title="Instance Matching and Aggregation"></a>Instance Matching and Aggregation</h2><p>与经典的原型网络类似，本文的方法使用支持集某个类别所有样本的向量表示<script type="math/tex">\{\hat{\mathbf{s}}_k\}_{k=1}^{K}</script>计算该类别的原型<script type="math/tex">\hat{\mathbf{s}}</script>，使用注意力机制聚合样本级别特征表示，每个样本的权重由<script type="math/tex">\hat{\mathbf{s}}_k</script>与<script type="math/tex">\hat{\mathbf{q}}</script>的匹配分数导出，匹配函数如下：</p>
+<script type="math/tex; mode=display">\beta_k=\mathbf{v}^{\top}(\mathrm{ReLU}(\mathbf{W}_2[\hat{\mathbf{s}}_k;\hat{\mathbf{q}}]))</script><p>其中<script type="math/tex">\mathbf{W}_2\in\mathbb{R}^{d_h\times8d_h}</script>，<script type="math/tex">\mathbf{v}\in\mathbb{R}^{d_h}</script>，<script type="math/tex">\beta_k</script>代表查询集样本<script type="math/tex">q</script>与支持集样本<script type="math/tex">\mathbf{s}_k</script>的匹配程度。然后，所有的<script type="math/tex">\{\hat{\mathbf{s}}_k\}_{k=1}^K</script>被聚合为一个向量<script type="math/tex">\hat{\mathbf{s}}</script>:</p>
+<script type="math/tex; mode=display">\hat{\mathbf{s}}=\sum_{k=1}^K\frac{\mathrm{exp}(\beta_k)}{\sum_{k'=1}^K\mathrm{exp}(\beta'_k)}\hat{\mathbf{s}}_k</script><p>$\hat{\mathbf{s}}$就是类别的原型。</p>
+<h2 id="Class-Matching"><a href="#Class-Matching" class="headerlink" title="Class Matching"></a>Class Matching</h2><p>类别的原型<script type="math/tex">\hat{\mathbf{s}}</script>以及查询集样本<script type="math/tex">\hat{\mathbf{q}}</script>确定之后，类别匹配函数<script type="math/tex">f(\{s_k\}_{k=1}^K,q)</script>定义如下：</p>
+<script type="math/tex; mode=display">f(\{s_k\}_{k=1}^K,q)=\mathbf{v}^\top(\mathrm{ReLU}(\mathbf{W}_2)[\hat{\mathbf{s}};\hat{\mathbf{q}}])</script><p>在本文的实验中，共享权重<script type="math/tex">\mathbf{W}_2</script>与<script type="math/tex">\mathbf{v}</script>取得了最好的效果。</p>
+<h2 id="Joint-Training-with-Inconsistency-Measurement"><a href="#Joint-Training-with-Inconsistency-Measurement" class="headerlink" title="Joint Training with Inconsistency Measurement"></a>Joint Training with Inconsistency Measurement</h2><p>若一个类别中的支持集样本向量表示相差过大，得到的原型将难以捕捉所有支持集样本的共同特征。本文计算所有支持集样本与其对应类别原型的不一致程度，并将其加入损失函数进行训练。</p>
+<p>[用词] prototype, vector</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/deep-learning/">deep learning</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/few-shot/">few-shot</a>
+                    
+                      <a class="hover-with-bg" href="/tags/prototypical-network/">prototypical network</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/15/zsh-configuration/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">wls2 Ubuntu配置</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/16/metanets/">
+                        <span class="hidden-mobile">Meta Networks ()</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?25bbd832c304327384cf5e1fbcaf70a1";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

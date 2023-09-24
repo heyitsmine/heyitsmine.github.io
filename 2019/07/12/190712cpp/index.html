@@ -1,0 +1,590 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="song">
+  <meta name="keywords" content="">
+  
+  <title>CPP Primer - 变量与基本类型 - Song</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"25bbd832c304327384cf5e1fbcaf70a1","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Song's bolg</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="CPP Primer - 变量与基本类型">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-07-12 16:22" pubdate>
+        2019年7月12日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CPP Primer - 变量与基本类型</h1>
+            
+            <div class="markdown-body">
+              <h1 id="原始内置类型"><a href="#原始内置类型" class="headerlink" title="原始内置类型"></a>原始内置类型</h1><h2 id="可运算类型"><a href="#可运算类型" class="headerlink" title="可运算类型"></a>可运算类型</h2><ul>
+<li>最小的可寻址内存块被称为“<strong>字节</strong>”（byte），基本存储单元（通常是几个字节）被称为“<strong>字</strong>”（word）。</li>
+<li>C++虽然一共有3种字符类型（<code>char</code>, <code>signed char</code>, <code>unsigned char</code>），但只有2种表示方式：<code>signed</code>和<code>unsigned</code>，<code>char</code>类型使用其中一种，具体是哪一种取决于编译器。</li>
+<li>当需要使用一个小整数时，显式地使用<code>signed char</code>或<code>unsigned char</code>。</li>
+</ul>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><ul>
+<li>如果向<code>unsiged</code>类型的变量<code>a</code>赋超过其表示范围的值<code>b</code>，结果是<code>b % 变量a类型的存储范围</code>；如果向<code>siged</code>类型的变量<code>a</code>赋超过其表示范围的值<code>b</code>，结果是<strong>未定义的</strong>。</li>
+<li>如果在算术表达式中同时使用<code>unsigned</code>类型和<code>singed</code>类型，<code>singed</code>类型将被自动转换为<code>unsinged</code>类型。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">unsigned</span> u = <span class="hljs-number">10</span>, u2 = <span class="hljs-number">42</span>;<br>std::cout &lt;&lt; u2 - u &lt;&lt; std::endl;    <span class="hljs-comment">// 32</span><br>std::cout &lt;&lt; u - u2 &lt;&lt; std::endl;    <span class="hljs-comment">// 4294967264</span><br><br><span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>, i2 = <span class="hljs-number">42</span>;<br>std::cout &lt;&lt; i2 - i &lt;&lt; std::endl;    <span class="hljs-comment">// 32</span><br>std::cout &lt;&lt; i - i2 &lt;&lt; std::endl;    <span class="hljs-comment">// -32</span><br><br>std::cout &lt;&lt; i - u &lt;&lt; std::endl;     <span class="hljs-comment">// 0</span><br>std::cout &lt;&lt; u - i &lt;&lt; std::endl;     <span class="hljs-comment">// 0</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h2><ul>
+<li>默认情况下，十进制字面量是<code>signed</code>类型，而八进制和十六进制字面量可以是<code>signed</code>类型也可以是<code>unsigned</code>类型。</li>
+<li><p>虽然整数字面量存储于<code>signed</code>类型，但十进制字面量的值永远不会是一个负数。例如，<code>-42</code>中，负号不是字面量的一部分。</p>
+</li>
+<li><p>默认情况下，浮点型字面量的类型是<code>double</code>。</p>
+</li>
+<li>两个仅由空格、tab或者换行符分隔的字符串字面量会被拼接为一个字面量。</li>
+</ul>
+<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><h2 id="变量定义"><a href="#变量定义" class="headerlink" title="变量定义"></a>变量定义</h2><ul>
+<li><p>初始化和赋值在C++中是两个不同的操作。</p>
+</li>
+<li><p>可以用以下4种方法定义一个名为<code>units_sold</code>的变量，并将其初始化为0，其中使用<code>&#123;&#125;</code>的第2、3种称为<strong>列初始化</strong>（list initialization）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> units_sold = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> units_sold = &#123;<span class="hljs-number">0</span>&#125;;<br><span class="hljs-keyword">int</span> units_sold&#123;<span class="hljs-number">0</span>&#125;;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">units_sold</span><span class="hljs-params">(<span class="hljs-number">0</span>)</span></span>;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用会产生信息丢失的值进行列初始化是非法的。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">long</span> <span class="hljs-keyword">double</span> ld = <span class="hljs-number">3.14159265356</span>;<br><span class="hljs-keyword">int</span> a&#123;ld&#125;, b = &#123;ld&#125;;  <span class="hljs-comment">//error: narrowing conversion required</span><br>int c(ld), d = ld;    //ok: but value will be truncated<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在函数体外定义的变量会被初始化为0，在函数内定义的变量是<strong>未初始化的</strong>（uninitialized）。</p>
+</li>
+</ul>
+<h2 id="变量声明与定义"><a href="#变量声明与定义" class="headerlink" title="变量声明与定义"></a>变量声明与定义</h2><ul>
+<li><p>为了支持分离编译，C++将声明与定义区分开。<strong>声明</strong>（declaration）使程序知道变量的存在，一个文件若想使用在别处定义的变量，则需在文件中包含对该变量的声明；<strong>定义</strong>（definition）创建相应的变量。</p>
+</li>
+<li><p>使用<code>extern</code>关键字但不提供显式初始化则可获得一个声明而非定义。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i;    <span class="hljs-comment">// declares but does not define i</span><br><span class="hljs-keyword">int</span> j;           <span class="hljs-comment">// declares and define j</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>任何包含显式初始化的声明都是一个定义，带有初始化的<code>extern</code>声明是一个定义。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">double</span> pi = <span class="hljs-number">3.1416</span>;    <span class="hljs-comment">//definition</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><ul>
+<li>全局命名空间没有名字，因此，可用<code>::val_name</code>访问全局命名空间中的名字。</li>
+</ul>
+<h1 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h1><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><ul>
+<li>引用的类型与引用所指向对象的类型必须匹配（有2个例外）。</li>
+</ul>
+<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><ul>
+<li>指针的类型与指针所指向对象的类型必须匹配（有2个例外）。</li>
+<li><p>将<code>int</code>类型的变量赋给指针是非法的，即使该变量的值恰好为0。</p>
+</li>
+<li><p>不使用一个<code>void *</code>对其指向的对象进行操作——因为我们无法知道对象的类型。</p>
+</li>
+</ul>
+<h2 id="理解复合类型说明"><a href="#理解复合类型说明" class="headerlink" title="理解复合类型说明"></a>理解复合类型说明</h2><ul>
+<li>理解一个引用<code>r</code>最好的方式是，从右到左地读它的定义。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;<br><span class="hljs-keyword">int</span> *p;            <span class="hljs-comment">// p is a pointer to int</span><br><span class="hljs-keyword">int</span> *&amp;r = p;       <span class="hljs-comment">// r is a reference to the pointer p</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="const"><a href="#const" class="headerlink" title="const"></a><code>const</code></h1><ul>
+<li>当我们在多个文件中用相同的名字定义一个const时，这就像在每一个文件中定义了一个不同的变量。</li>
+</ul>
+<h2 id="const修饰的引用"><a href="#const修饰的引用" class="headerlink" title="const修饰的引用"></a><code>const</code>修饰的引用</h2><ul>
+<li>“引用的类型与引用所指向对象的类型必须匹配”的第一个例外是：我们可以用任何可转换为引用的类型的表达式来初始化一个<code>const</code>修饰的引用。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> i;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r1 = i;        <span class="hljs-comment">// we can bind a const int&amp; to a plain int object</span><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r2 = <span class="hljs-number">42</span>;       <span class="hljs-comment">// ok: r2 is a reference to const</span><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r3 = r1 * <span class="hljs-number">2</span>;   <span class="hljs-comment">// ok: r3 is a reference to const</span><br><span class="hljs-keyword">int</span> &amp;r4 = r * <span class="hljs-number">2</span>;          <span class="hljs-comment">// error: r4 is a plain, non const reference</span><br><br><span class="hljs-keyword">double</span> dval = <span class="hljs-number">3.14</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;ri = dval;     <span class="hljs-comment">// ok</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="指针与const"><a href="#指针与const" class="headerlink" title="指针与const"></a>指针与<code>const</code></h2><ul>
+<li>一个<code>const</code>变量的地址只能存储在用const修饰的指针中。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> pi = <span class="hljs-number">3.14</span>;    <span class="hljs-comment">// pi is const; its value may not be changed</span><br><span class="hljs-keyword">double</span> *ptr = &amp;pi;         <span class="hljs-comment">// error: ptr is a plain pointer</span><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> *cptr = &amp;pi;  <span class="hljs-comment">// ok: cptr may point to a double that is const</span><br>*cptr = <span class="hljs-number">42</span>;                <span class="hljs-comment">// error: cannot assign to *cptr</span><br></code></pre></td></tr></table></figure></li>
+<li>“指针的类型与指针所指向对象的类型必须匹配”的第一个例外是：我们可以用一个<code>const</code>修饰的指针指向一个非<code>const</code>的对象。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">double</span> dval = <span class="hljs-number">3.14</span>;         <span class="hljs-comment">// dval is a double; its value can be changed</span><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> *cptr = &amp;dval; <span class="hljs-comment">// ok: but can&#x27;t change dval through cptr</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Top-Level-const"><a href="#Top-Level-const" class="headerlink" title="Top-Level const"></a>Top-Level const</h2><ul>
+<li><strong>Top-level const</strong>是指指针本身是<code>const</code>，<strong>low-level const</strong>是指指针可指向一个<code>const</code>对象。</li>
+</ul>
+<h2 id="constexpr与常量表达式"><a href="#constexpr与常量表达式" class="headerlink" title="constexpr与常量表达式"></a><code>constexpr</code>与常量表达式</h2><ul>
+<li><strong>常量表达式</strong>是值不能改变，并且值能够在编译时确定的表达式。</li>
+<li><p>一个由常量表达式初始化的const对象也是一个常量表达式。</p>
+</li>
+<li><p>可以用<code>constexpr</code>函数初始化一个<code>constexpr</code>变量。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> max_files = <span class="hljs-number">20</span>;        <span class="hljs-comment">// max_files is a constant expression</span><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> limit = max_files + <span class="hljs-number">1</span>; <span class="hljs-comment">// limit is a constant expression</span><br><span class="hljs-keyword">int</span> staff_size = <span class="hljs-number">27</span>;             <span class="hljs-comment">// staff_size is not a constant expression</span><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> sz = <span class="hljs-built_in">get_size</span>();       <span class="hljs-comment">// sz is not a constant expression</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>可以在<code>constexpr</code>中使用的类型称为“字面类型”。</p>
+</li>
+<li>在函数外定义的变量的地址是常量表达式，可用于初始化<code>constexpr</code>指针。</li>
+<li>当我们在一个指针声明中使用<code>constexpr</code>时，<code>constexpr</code>修饰符应用于指针本身，而不是指针所指向的变量。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *p = <span class="hljs-literal">nullptr</span>;        <span class="hljs-comment">// p is a pointer to a const int</span><br><span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">int</span> *q = <span class="hljs-literal">nullptr</span>;    <span class="hljs-comment">// q is a const pointer to int</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>constexpr</code>引入的是top-level <code>const</code>。</p>
+<h1 id="类型处理"><a href="#类型处理" class="headerlink" title="类型处理"></a>类型处理</h1><h2 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h2><ul>
+<li><p>使用<code>typedef</code>定义类型别名：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">double</span> wages;    <span class="hljs-comment">// wages is a synonym for double</span><br><span class="hljs-keyword">typedef</span> wages base, *p;  <span class="hljs-comment">// base is a synonym for double, p for double*</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用<strong>类型声名</strong>定义类型别名：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">using</span> SI = Sales_item;   <span class="hljs-comment">// SI is a synonym for Sales_item</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="decltype"><a href="#decltype" class="headerlink" title="decltype"></a><code>decltype</code></h2><ul>
+<li><p><code>decltype</code>是唯一处理引用本身，而不是引用指向对象的语法。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ci = <span class="hljs-number">0</span>, &amp;cj = ci;<br><span class="hljs-keyword">decltype</span>(ci) x = <span class="hljs-number">0</span>; <span class="hljs-comment">// x has type const int</span><br><span class="hljs-keyword">decltype</span>(cj) y = x; <span class="hljs-comment">// y has type const int&amp; and is bound to x</span><br><span class="hljs-keyword">decltype</span>(cj) z;     <span class="hljs-comment">// error: z is a reference and must be initialized</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>通常，<code>decltype</code>对产生左值的表达式返回一个引用。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// decltype of an expression can be a reference type</span><br><span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>, *p = &amp;i, &amp;r = i;<br><span class="hljs-keyword">decltype</span>(r + <span class="hljs-number">0</span>) b;  <span class="hljs-comment">// ok: addition yields an int; b is an (uninitialized) int</span><br><span class="hljs-keyword">decltype</span>(*p) c;     <span class="hljs-comment">// error: c is int&amp; and must be initialized</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>如果对一个变量名加上一组或多组圆括号，编译器会将该操作数当作表达式，<code>decltype</code>会对这样的表达式产生一个引用。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// decltype of a parenthesized variable is always a reference</span><br><span class="hljs-keyword">int</span> i;<br><span class="hljs-keyword">decltype</span>((i)) d;    <span class="hljs-comment">// error: d is int&amp; and must be initialized</span><br><span class="hljs-keyword">decltype</span>(i) e;      <span class="hljs-comment">// ok: e is an (uninitialized) int</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="定义自己的数据结构"><a href="#定义自己的数据结构" class="headerlink" title="定义自己的数据结构"></a>定义自己的数据结构</h1><ul>
+<li>没有初始化器的类成员会被默认初始化。</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C/">C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C-Primer/">C++ Primer</a>
+                    
+                      <a class="hover-with-bg" href="/tags/RE%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84C-%E5%AD%A6%E4%B9%A0/">RE：从零开始的C++学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/07/18/190718cpp/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Strings, Vectors, and Arrays</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/07/09/190709cpp/">
+                        <span class="hidden-mobile">CPP Primer  -  Getting Started</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?25bbd832c304327384cf5e1fbcaf70a1";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

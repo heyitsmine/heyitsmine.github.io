@@ -1,0 +1,619 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="song">
+  <meta name="keywords" content="">
+  
+  <title>Functions - Song</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"25bbd832c304327384cf5e1fbcaf70a1","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Song's bolg</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Functions">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-08-19 21:50" pubdate>
+        2019年8月19日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      35
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Functions</h1>
+            
+            <div class="markdown-body">
+              <h1 id="函数基础"><a href="#函数基础" class="headerlink" title="函数基础"></a>函数基础</h1><ul>
+<li>实参（argument）是函数形参（parameter）的初始值。</li>
+<li>虽然实参与形参存在对应关系，但C++对实参的求值顺序没有保证。</li>
+<li>形参名是可选的，某些情况下函数的某些形参是未被用到的，此类形参通常不命名以表示在函数体内不会使用它。函数调用必须为每个形参提供实参，即使这个形参不会被用到。</li>
+<li>函数的返回值不能为数组或函数类型，但可以是指向数组或函数的指针。</li>
+</ul>
+<h2 id="局部对象"><a href="#局部对象" class="headerlink" title="局部对象"></a>局部对象</h2><ul>
+<li>只存在于块执行期间的对象为<strong>自动对象</strong>（automatic object）。</li>
+<li>对于局部变量对应的自动对象，有两种情况：如果变量定义本身含有初始值，就用这个初始值进行初始化；否则执行默认初始化。</li>
+<li><strong>局部静态对象</strong>（local static object）在程序的执行路径第一次经过对象定义语句时初始化，并在程序结束时被销毁，在此期间对象所在函数执行结束不会对它造成影响。</li>
+<li>如果局部静态对象没有显式的初始值，他将执行值初始化，这意味着内置类型的局部静态对象被初始化为0。</li>
+</ul>
+<h2 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h2><ul>
+<li>由于函数声明没有函数体，可以在声明中省去形参名。</li>
+<li>返回值类型、函数名和形参类型描述了函数的接口，并说明了调用函数需要的信息。函数声明也被称为<strong>函数原型</strong>（function prototype）。</li>
+</ul>
+<h2 id="分离式编译"><a href="#分离式编译" class="headerlink" title="分离式编译"></a>分离式编译</h2><ul>
+<li><p>为了允许编写程序时按照逻辑关系将其划分开，C++支持<em>分离式编译</em>。分类式编译允许我们将程序划分到几个文件中，每个文件可以独立编译。</p>
+</li>
+<li><p>为了生成可执行文件，必须告诉编译器如何找到所有的代码。假设<code>fact</code>函数的定义位于<code>fact.c</code>文件中，它的声明位于<code>Chapter6.h</code>头文件中。另外在<code>factMain.cc</code>文件中创建<code>main</code>函数，<code>main</code>函数将调用<code>fact</code>函数。对于上述几个文件，编译过程如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> g++ factMain.cc fact.cc -o main</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>如果只修改了其中一个源文件，可以只重新编译修改的文件。大多数编译器都提供了分离式编译单个文件的机制，这个过程会产生<code>.obj</code>（Windows）或<code>.o</code>（Unix）文件，后缀名的含义是该文件包含<em>对象代码</em>（object code）。接下来编译器将对象文件<em>链接</em>在一起形成可执行文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> g++ -c factMain.cc                <span class="hljs-comment"># generates factMain.o</span></span><br><span class="hljs-meta">$</span><span class="bash"> g++ -c fact.cc                    <span class="hljs-comment"># generates fact.o</span></span><br><span class="hljs-meta">$</span><span class="bash"> g++ factMain.o fact.o -o main     <span class="hljs-comment"># generates main</span></span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h1><ul>
+<li>如果形参是引用类型，它将绑定到对应的实参上；否则，将实参的值拷贝后赋给形参。</li>
+</ul>
+<h2 id="传值参数"><a href="#传值参数" class="headerlink" title="传值参数"></a>传值参数</h2><h2 id="传引用参数"><a href="#传引用参数" class="headerlink" title="传引用参数"></a>传引用参数</h2><ul>
+<li>如果无需改变引用形参的值，最好将其声明为常量引用。</li>
+</ul>
+<h2 id="const形参和实参"><a href="#const形参和实参" class="headerlink" title="const形参和实参"></a><code>const</code>形参和实参</h2><ul>
+<li><p>在C++中，我们可以定义名字相同的函数，但这些函数的形参列表必须有足够的区别。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">fcn</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> i)</span> </span>&#123; <span class="hljs-comment">/* fcn can read but not write to i */</span> &#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">fcn</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i)</span> </span>&#123; <span class="hljs-comment">/* ... */</span> &#125; <span class="hljs-comment">//error: redefines fcn(int)</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>可用非<code>const</code>对象来初始化底层<code>const</code>对象，但反过来不行。一个普通的引用必须用相同类型的对象初始化。</p>
+</li>
+</ul>
+<h2 id="数组形参"><a href="#数组形参" class="headerlink" title="数组形参"></a>数组形参</h2><ul>
+<li>因为数组不能被拷贝，所以我们无法以值传递的方式使用数组参数。因为数组会被转换为指针，所以当我们为函数传递一个数组时，实际上传递的是指向数组首元素的指针。</li>
+<li><p>以下声明是等价的：都声明了具有一个<code>const int*</code>类型形参的函数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// despite apperances, these three declaration of print are equivalent</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>*)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>[])</span></span>;    <span class="hljs-comment">// shows the intent that the function takes an array</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">10</span>])</span></span>;  <span class="hljs-comment">// dimension for decumentation purposes (at best)</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用标记指定数组长度</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *cp)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (cp)                <span class="hljs-comment">// if cp is not a null pointer</span><br>        <span class="hljs-keyword">while</span> (*cp)        <span class="hljs-comment">// so long as the character it points to is not a null character</span><br>            cout &lt;&lt; *cp++; <span class="hljs-comment">// print the character and advance the pointer</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用标准库规范</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *beg, <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *end)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">// print every element starting at beg up to but not including end</span><br>    <span class="hljs-keyword">while</span> (beg != end)<br>        cout &lt;&lt; *beg++ &lt;&lt; endl; <span class="hljs-comment">// print the current element</span><br>                                <span class="hljs-comment">// and advance the pointer</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>显式传递一个表示数组大小的形参</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// const int ia[] is equivalent to const int* ia</span><br><span class="hljs-comment">// size is passed explicitly and used to control access to elements of ia</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ia[], <span class="hljs-keyword">size_t</span> size)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">size_t</span> i = <span class="hljs-number">0</span>; i != size; ++i) &#123;<br>        cout &lt;&lt; ia[i] &lt;&lt; endl;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>传递多维数组</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// matrix points to the first element in an array whose elements are arrays of ten ints</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">int</span> (*matrix)[<span class="hljs-number">10</span>], <span class="hljs-keyword">int</span> rowSize)</span> </span>&#123; <span class="hljs-comment">/* . . . */</span> &#125;<br></code></pre></td></tr></table></figure></li>
+<li>也可以使用数组的语法，此时编译器会忽略第一个维度：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// equivalent definition</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">int</span> matrix[][<span class="hljs-number">10</span>], <span class="hljs-keyword">int</span> rowSize)</span> </span>&#123; <span class="hljs-comment">/* . . . */</span> &#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="main-处理命令行选项"><a href="#main-处理命令行选项" class="headerlink" title="main:处理命令行选项"></a><code>main</code>:处理命令行选项</h2><h2 id="含有可变形参的函数"><a href="#含有可变形参的函数" class="headerlink" title="含有可变形参的函数"></a>含有可变形参的函数</h2><ul>
+<li>如果函数形参的数量未知但它们的类型相同，可以使用<code>initializer_list</code>类型的形参。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">error_msg</span><span class="hljs-params">(initializer_list&lt;string&gt; il)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> beg = il.<span class="hljs-built_in">begin</span>(); beg != il.<span class="hljs-built_in">end</span>(); ++beg)<br>        cout &lt;&lt; *beg &lt;&lt; <span class="hljs-string">&quot; &quot;</span> ;<br>    cout &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="返回类型和return语句"><a href="#返回类型和return语句" class="headerlink" title="返回类型和return语句"></a>返回类型和<code>return</code>语句</h1><h2 id="无返回值函数"><a href="#无返回值函数" class="headerlink" title="无返回值函数"></a>无返回值函数</h2><ul>
+<li>返回值类型为<code>void</code>的函数可以返回另一个返回值为<code>void</code>的函数。</li>
+</ul>
+<h2 id="有返回值函数"><a href="#有返回值函数" class="headerlink" title="有返回值函数"></a>有返回值函数</h2><ul>
+<li>函数调用是否为左值取决于函数的返回类型：调用一个返回引用的函数得到左值，其他返回类型得到右值。</li>
+<li>列表初始化返回值：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;string&gt; <span class="hljs-title">process</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">// . . .</span><br>    <span class="hljs-comment">// expected and actual are strings</span><br>    <span class="hljs-keyword">if</span> (expected.<span class="hljs-built_in">empty</span>())<br>        <span class="hljs-keyword">return</span> &#123;&#125;;  <span class="hljs-comment">// return an empty vector</span><br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (expected == actual)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;functionX&quot;</span>, <span class="hljs-string">&quot;okay&quot;</span>&#125;; <span class="hljs-comment">// return list-initialized vector</span><br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&quot;functionX&quot;</span>, expected, actual&#125;;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>如果函数返回的是内置类型，则花括号包围的列表最多包含一个值，而且该值所占的空间不能大于目标类型的空间。</p>
+</li>
+<li><p>如果<code>main</code>函数的结尾没有<code>return</code>语句，编译器将隐式的插入一条返回<code>0</code>的<code>return</code>语句。</p>
+</li>
+</ul>
+<h2 id="返回指向数组的指针"><a href="#返回指向数组的指针" class="headerlink" title="返回指向数组的指针"></a>返回指向数组的指针</h2><ul>
+<li>定义一个返回数组的指针最直接的方法是使用类型别名：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">int</span> arrT[<span class="hljs-number">10</span>];  <span class="hljs-comment">// arrT is a synonym for the type array of ten ints</span><br><span class="hljs-keyword">using</span> arrtT = <span class="hljs-keyword">int</span>[<span class="hljs-number">10</span>]; <span class="hljs-comment">// equivalent declaration of arrT</span><br><span class="hljs-function">arrT* <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i)</span></span>;     <span class="hljs-comment">// func returns a pointer to an array of five ints</span><br></code></pre></td></tr></table></figure></li>
+<li>与以下声明相同，如果要定义一个返回数组指针的函数，则数组的维度必须跟在函数名之后。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> arr[<span class="hljs-number">10</span>];          <span class="hljs-comment">// arr is an array of ten ints</span><br><span class="hljs-keyword">int</span> *p1[<span class="hljs-number">10</span>];          <span class="hljs-comment">// p1 is an array of ten pointers</span><br><span class="hljs-built_in"><span class="hljs-keyword">int</span></span> (*p2)[<span class="hljs-number">10</span>] = &amp;arr; <span class="hljs-comment">// p2 points to an array of ten ints</span><br></code></pre></td></tr></table></figure></li>
+<li><p>因此，返回数组指针的函数形式如下所示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">Type</span> (*<span class="hljs-built_in">function</span>(parameter_list))[dimension]<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在C++11新标准中，可以使用<strong>尾置返回类型</strong>（trailing return type）简化函数声明。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// fcn takes an int argument and returns a pointer to an array of ten ints</span><br>auto func(int i) -&gt; int(*)[10];<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>decltype</code>不会自动将数组转换为对应的指针类型：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> odd[] = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>,<span class="hljs-number">7</span>,<span class="hljs-number">9</span>&#125;;<br><span class="hljs-keyword">int</span> even[] = &#123;<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">8</span>&#125;;<br><span class="hljs-comment">// returns a pointer to an array of five int elements</span><br><span class="hljs-keyword">decltype</span>(odd) *<span class="hljs-built_in">arrPtr</span>(<span class="hljs-keyword">int</span> i)<br>&#123;<br>    <span class="hljs-keyword">return</span> (i % <span class="hljs-number">2</span>) ? &amp;odd : &amp;even; <span class="hljs-comment">// returns a pointer to the array</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h1><ul>
+<li>对于重载函数来说，它们必须在形参数量或形参类型上有所不同。</li>
+<li><p>一个拥有顶层<code>const</code>的形参无法和另一个没有顶层<code>const</code>的形参区分开。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">Record <span class="hljs-title">lookup</span><span class="hljs-params">(Phone)</span></span>;<br><span class="hljs-function">Record <span class="hljs-title">lookup</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Phone)</span></span>;   <span class="hljs-comment">// redeclares Record lookup(Phone)</span><br><span class="hljs-function">Record <span class="hljs-title">lookup</span><span class="hljs-params">(Phone*)</span></span>;<br><span class="hljs-function">Record <span class="hljs-title">lookup</span><span class="hljs-params">(Phone* <span class="hljs-keyword">const</span>)</span></span>;  <span class="hljs-comment">// redeclares Record lookup(Phone*)</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>如果形参是某种类型的指针或引用，则通过区分其指向的是<code>const</code>对象还是非<code>const</code>对象可以实现函数重载，此时的<code>const</code>是底层的。</p>
+</li>
+</ul>
+<h1 id="特殊用途语言特性"><a href="#特殊用途语言特性" class="headerlink" title="特殊用途语言特性"></a>特殊用途语言特性</h1><h2 id="默认实参"><a href="#默认实参" class="headerlink" title="默认实参"></a>默认实参</h2><ul>
+<li>默认实参用于函数调用中最右端的实参。</li>
+<li><p>通常一个函数只在头文件中声明一次，但多次声明一个函数也是合法的。但一个形参在给定作用域内只能赋予一次默认实参，随后的函数声明只能为之前未设置默认值的形参添加一个默认实参。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">string <span class="hljs-title">screen</span><span class="hljs-params">(sz, sz, <span class="hljs-keyword">char</span> = <span class="hljs-string">&#x27; &#x27;</span>)</span></span>;        <span class="hljs-comment">// no default for the height or width parameters</span><br><span class="hljs-function">string <span class="hljs-title">screen</span><span class="hljs-params">(sz, sz, <span class="hljs-keyword">char</span> = <span class="hljs-string">&#x27;*&#x27;</span>)</span></span>;        <span class="hljs-comment">// error: redeclaration</span><br><span class="hljs-function">string <span class="hljs-title">screen</span><span class="hljs-params">(sz = <span class="hljs-number">24</span>, sz = <span class="hljs-number">80</span>, <span class="hljs-keyword">char</span>)</span></span>;    <span class="hljs-comment">// ok: add default arguements</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>局部变量不能用作默认参数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// the declarations of wd, def, and ht must appear outside a function</span><br>sz wd = <span class="hljs-number">80</span>;<br><span class="hljs-keyword">char</span> def = <span class="hljs-string">&#x27; &#x27;</span>;<br><span class="hljs-function">sz <span class="hljs-title">ht</span><span class="hljs-params">()</span></span>;<br><span class="hljs-function">string <span class="hljs-title">screen</span><span class="hljs-params">(sz = ht(), sz = wd, <span class="hljs-keyword">char</span> = def)</span></span>;<br>string window = <span class="hljs-built_in">screen</span>();    <span class="hljs-comment">// calls screen(ht(), 80, &#x27; &#x27;)</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>用作默认参数的名字在函数声明所在的作用域内解析，这些名字在函数调用时求值：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f2</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    def = <span class="hljs-string">&#x27;*&#x27;</span>;         <span class="hljs-comment">// changes the value of a default argument</span><br>    sz wd = <span class="hljs-number">100</span>;       <span class="hljs-comment">// hides the outer definition of wd but does not change the default</span><br>    window = <span class="hljs-built_in">screen</span>(); <span class="hljs-comment">// calls screen(ht(), 80. &#x27;*&#x27;)</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="内联函数和constexpr函数"><a href="#内联函数和constexpr函数" class="headerlink" title="内联函数和constexpr函数"></a>内联函数和<code>constexpr</code>函数</h2><ul>
+<li><p>定义<code>constexpr</code>函数的方法与其他函数类似，但要遵循几项约定：函数的返回类型以及所有形参类型都必须是字面类型，而且函数体中必须有且只有一条<code>return</code>语句：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">int</span> <span class="hljs-title">new_sz</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-keyword">return</span> <span class="hljs-number">42</span>; &#125;<br><span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">int</span> foo = <span class="hljs-built_in">new_sz</span>();  <span class="hljs-comment">// ok: foo is a constant expression</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>constexpr</code>函数被隐式地指定为内联函数。</p>
+</li>
+<li><p>我们允许<code>constexpr</code>函数返回一个非常量：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// scale(arg) is a constant expression if arg is a constant expression</span><br><span class="hljs-function"><span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">size_t</span> <span class="hljs-title">scale</span><span class="hljs-params">(<span class="hljs-keyword">size_t</span> cnt)</span> </span>&#123; <span class="hljs-keyword">return</span> <span class="hljs-built_in">new_sz</span>() * cnt; &#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>内联函数和<code>constexpr</code>函数可以在程序中多次定义，编译器需要函数定义而非函数声明来展开函数。不过，对于某个给定的内联函数或<code>constexpr</code>函数，它的多个定义必须完全一致。基于这个原因，内联函数和<code>constexpr</code>函数通常定义在头文件中。</p>
+</li>
+</ul>
+<h2 id="调试帮助"><a href="#调试帮助" class="headerlink" title="调试帮助"></a>调试帮助</h2><ul>
+<li><code>assert</code>预处理宏</li>
+<li><code>NDEBUG</code>预处理变量</li>
+</ul>
+<h1 id="函数匹配"><a href="#函数匹配" class="headerlink" title="函数匹配"></a>函数匹配</h1><ul>
+<li><strong>候选函数</strong>（candidate function）具备两个特征：一是与被调用的函数同名，二是其声明在调用点可见。</li>
+<li><strong>可行函数</strong>（viable function）也具备两个特征：一是其形参数量与函数调用提供的实参数量相等，二是每个实参的类型与形参的类型相同，或者能转换成形参的类型。</li>
+<li>若有多个可行函数都在某一个实参上实现了更好的匹配，该函数调用会因具有二义性被拒绝。</li>
+</ul>
+<h1 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h1><ul>
+<li><p>函数的类型取决于它的返回类型以及形参的类型，与函数名无关。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// compares lengths of two strings</span><br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">lengthCompare</span><span class="hljs-params">(<span class="hljs-keyword">const</span> string &amp;, <span class="hljs-keyword">const</span> string &amp;)</span></span>;<br><br><span class="hljs-comment">// pf points to a function returning bool that takes two const string references</span><br><span class="hljs-built_in"><span class="hljs-keyword">bool</span></span> (*pf)(<span class="hljs-keyword">const</span> string &amp;, <span class="hljs-keyword">const</span> string &amp;);  <span class="hljs-comment">// uninitialized</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>当函数名被作为一个值使用时，该函数自动地转换成指针。</p>
+</li>
+<li><p>不同于将函数类型传递给形参的情况，返回类型不会自动转换为指针，必须显式地将返回类型指定为指针：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">using</span> F = <span class="hljs-built_in"><span class="hljs-keyword">int</span></span>(<span class="hljs-keyword">int</span>*, <span class="hljs-keyword">int</span>);     <span class="hljs-comment">// F is a function type, not a pointer</span><br><span class="hljs-keyword">using</span> PF = <span class="hljs-built_in"><span class="hljs-keyword">int</span></span>(*)(<span class="hljs-keyword">int</span>*, <span class="hljs-keyword">int</span>); <span class="hljs-comment">// PF is a pointer type</span><br><br><span class="hljs-function">PF <span class="hljs-title">f1</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>; <span class="hljs-comment">// ok: PF is a pointer to function; f1 returns a pointer to function</span><br><span class="hljs-function">F <span class="hljs-title">f1</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;  <span class="hljs-comment">// error: F is a function type; f1 can&#x27;t return a function</span><br><span class="hljs-function">F *<span class="hljs-title">f1</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>; <span class="hljs-comment">// ok: explicitly specify that the return type is a pointer to function</span><br><span class="hljs-built_in"><span class="hljs-keyword">int</span></span> (*<span class="hljs-built_in">f1</span>(<span class="hljs-keyword">int</span>))(<span class="hljs-keyword">int</span>*, <span class="hljs-keyword">int</span>); <span class="hljs-comment">// declare f1 directly</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C/">C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C-Primer/">C++ Primer</a>
+                    
+                      <a class="hover-with-bg" href="/tags/RE%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84C-%E5%AD%A6%E4%B9%A0/">RE：从零开始的C++学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/08/27/190827classes/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Classes</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/08/09/190809statements/">
+                        <span class="hidden-mobile">Statements</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?25bbd832c304327384cf5e1fbcaf70a1";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

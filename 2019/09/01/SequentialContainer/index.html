@@ -1,0 +1,572 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="song">
+  <meta name="keywords" content="">
+  
+  <title>Sequential Container - Song</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"25bbd832c304327384cf5e1fbcaf70a1","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Song's bolg</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Sequential Container">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-09-01 10:22" pubdate>
+        2019年9月1日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      756 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      9
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Sequential Container</h1>
+            
+            <div class="markdown-body">
+              <h1 id="顺序容器概述"><a href="#顺序容器概述" class="headerlink" title="顺序容器概述"></a>顺序容器概述</h1><ul>
+<li>顺序容器类型</li>
+</ul>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-1.png" srcset="/img/loading.gif" lazyload class=""> </div>
+- 与`vector`、`deque`和`array`相比，`list`和`forward_list`的内存开销更大。
+
+# 容器库概览
+
+- 容器操作
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-2-1.png" srcset="/img/loading.gif" lazyload class=""> </div>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-2-2.png" srcset="/img/loading.gif" lazyload class=""> </div>
+
+<ul>
+<li><p>容器定义和初始化</p>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-3.png" srcset="/img/loading.gif" lazyload class=""> </div>
+</li>
+<li><p>为了创建一个容器为另一个容器的拷贝，两个容器的类型及其元素类型必须匹配。不过，当传递迭代器参数来拷贝一个范围时，不要求容器类型是相同的。而且，新容器和原容器中的元素类型也可以不同，只要能将拷贝的元素转换为要初始化的元素类型即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// each container has three elements, initialized from the given initializers</span><br>list&lt;string&gt; authors = &#123;<span class="hljs-string">&quot;Milton&quot;</span>, <span class="hljs-string">&quot;Shakespeare&quot;</span>, <span class="hljs-string">&quot;Austen&quot;</span>&#125;;<br>vector&lt;<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*&gt; articles = &#123;<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;an&quot;</span>, <span class="hljs-string">&quot;the&quot;</span>&#125;;<br><span class="hljs-function">list&lt;string&gt; <span class="hljs-title">list2</span><span class="hljs-params">(authors)</span></span>;     <span class="hljs-comment">// ok: types match</span><br><span class="hljs-function">deque&lt;string&gt; <span class="hljs-title">authList</span><span class="hljs-params">(authors)</span></span>; <span class="hljs-comment">// error: container types don&#x27;t match</span><br><span class="hljs-function">vector&lt;string&gt; <span class="hljs-title">words</span><span class="hljs-params">(articles)</span></span>;  <span class="hljs-comment">// error: element types must match</span><br><span class="hljs-comment">// ok: converts const char* elements to string</span><br><span class="hljs-function">forward_list&lt;string&gt; <span class="hljs-title">words</span><span class="hljs-params">(articles.begin(), articles.end())</span></span>;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>如果元素是内置类型或具有默认构造函数的类类型，可以只为构造函数提供一个容器大小参数。如果元素类型没有默认构造函数，则除了大小参数外，还必须指定一个显式的元素初始值。</p>
+</li>
+<li><p>与内置数组一样，标准库<code>array</code>的大小也是类型的一部分。</p>
+</li>
+<li><p>容器赋值运算</p>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-4.png" srcset="/img/loading.gif" lazyload class=""> </div>
+</li>
+<li><p>对于<code>array</code>，<code>swap</code>会真正的交换它们的元素，在<code>swap</code>操作后，指针、引用和迭代器所绑定的元素不变，但元素值已经与另一个array中对应元素的值进行了交换。</p>
+</li>
+</ul>
+<h1 id="顺序容器操作"><a href="#顺序容器操作" class="headerlink" title="顺序容器操作"></a>顺序容器操作</h1><ul>
+<li>想顺序容器添加元素的操作<div align=center> <img src="/2019/09/01/SequentialContainer/9-5.png" srcset="/img/loading.gif" lazyload class=""> </div></li>
+<li>如果传递给<code>insert</code>一对迭代器，它们不能指向添加元素的目标容器。</li>
+<li><code>emplace</code>函数在容器中直接构造元素。</li>
+<li>在顺序容器中访问元素的操作<div align=center> <img src="/2019/09/01/SequentialContainer/9-6.png" srcset="/img/loading.gif" lazyload class=""> </div></li>
+<li><p>顺序表容器的删除操作</p>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-7.png" srcset="/img/loading.gif" lazyload class=""> </div>
+</li>
+<li><p>在<code>forward_list</code>中插入或删除元素的操作</p>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-8.png" srcset="/img/loading.gif" lazyload class=""> </div></li>
+<li>顺序容器大小操作<div align=center> <img src="/2019/09/01/SequentialContainer/9-9.png" srcset="/img/loading.gif" lazyload class=""> </div>
+
+</li>
+</ul>
+<h1 id="vector对象是如何增长的"><a href="#vector对象是如何增长的" class="headerlink" title="vector对象是如何增长的"></a><code>vector</code>对象是如何增长的</h1><ul>
+<li><p>容器大小管理操作</p>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-10.png" srcset="/img/loading.gif" lazyload class=""> </div>
+</li>
+<li><p>若请求的容器大小小于或等于已有的容量，<code>reserve</code>不会进行任何操作。</p>
+</li>
+<li>调用<code>shrink_to_fit</code>并不保证一定退回内存空间。</li>
+</ul>
+<h1 id="string的额外操作"><a href="#string的额外操作" class="headerlink" title="string的额外操作"></a>string的额外操作</h1><ul>
+<li><p>构造<code>string</code>的其他方法</p>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-11.png" srcset="/img/loading.gif" lazyload class=""> </div>
+</li>
+<li><p><code>substr</code>操作</p>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-12.png" srcset="/img/loading.gif" lazyload class=""> </div>
+
+</li>
+</ul>
+<p>如果<code>pos + n</code>大于<code>string</code>的大小，则<code>substr</code>只拷贝到<code>string</code>的末尾。</p>
+<ul>
+<li><p>修改<code>string</code>的操作</p>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-13.png" srcset="/img/loading.gif" lazyload class=""> </div>
+</li>
+<li><p><code>string</code>搜索操作</p>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-14.png" srcset="/img/loading.gif" lazyload class=""> </div>
+</li>
+<li><p><code>s.compare</code>的几种参数形式</p>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-15.png" srcset="/img/loading.gif" lazyload class=""> </div>
+</li>
+<li><p><code>string</code>与数值之间的转换</p>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-16.png" srcset="/img/loading.gif" lazyload class=""> </div>
+
+</li>
+</ul>
+<h1 id="容器适配器"><a href="#容器适配器" class="headerlink" title="容器适配器"></a>容器适配器</h1><ul>
+<li><p>所有容器适配器都支持的操作和类型</p>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-17.png" srcset="/img/loading.gif" lazyload class=""> </div>
+</li>
+<li><p>默认情况下，<code>stack</code>和<code>queue</code>基于<code>deque</code>实现，<code>priority_queue</code>基于<code>vector</code>实现。可以在创建一个适配器时将一个命名的顺序容器作为第二个类型参数，重载默认容器类型。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// empty stack implemented on top of vector</span><br>stack&lt;string, vector&lt;string&gt;&gt; str_stk;<br><span class="hljs-comment">// str_stk2 is implemented on top of vector and initially holds a copy of svec</span><br>stack&lt;string, vector&lt;string&gt;&gt; <span class="hljs-built_in">str_stk2</span>(svec);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>stack</code>的特有操作</p>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-18.png" srcset="/img/loading.gif" lazyload class=""> </div>
+</li>
+<li><p><code>queue</code>和<code>priority_queue</code>的特有操作</p>
+<div align=center> <img src="/2019/09/01/SequentialContainer/9-19.png" srcset="/img/loading.gif" lazyload class=""> </div>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C/">C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C-Primer/">C++ Primer</a>
+                    
+                      <a class="hover-with-bg" href="/tags/RE%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84C-%E5%AD%A6%E4%B9%A0/">RE：从零开始的C++学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/09/06/GenericAlgorithm/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Generic Algorithm</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/08/29/190829IO-Library/">
+                        <span class="hidden-mobile">The IO Library</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?25bbd832c304327384cf5e1fbcaf70a1";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

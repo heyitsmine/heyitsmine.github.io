@@ -1,0 +1,593 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="song">
+  <meta name="keywords" content="">
+  
+  <title>Copy Control - Song</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"25bbd832c304327384cf5e1fbcaf70a1","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Song's bolg</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Copy Control">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-09-23 15:42" pubdate>
+        2019年9月23日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Copy Control</h1>
+            
+            <div class="markdown-body">
+              <h1 id="拷贝控制"><a href="#拷贝控制" class="headerlink" title="拷贝控制"></a>拷贝控制</h1><p>当我们定义一个类时，我们显式地或隐式地指定在此类型的对象拷贝、移动、赋值和销毁时做什么。一个类通过定义五种特殊的成员函数来控制这些操作，包括：<strong>拷贝构造函数</strong>（copy constructor）、<strong>拷贝赋值运算符</strong>（copy assignment operator）、<strong>移动构造函数</strong>（move constructor）、<strong>移动赋值运算符</strong>（move assignment operator）和<strong>析构函数</strong>（destructor）。</p>
+<h2 id="拷贝、赋值与销毁"><a href="#拷贝、赋值与销毁" class="headerlink" title="拷贝、赋值与销毁"></a>拷贝、赋值与销毁</h2><h3 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h3><ul>
+<li><p>如果一个构造函数的第一个参数是对自身类型的引用，并且其他参数都有默认值，则此构造函数是拷贝构造函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">Foo</span>();            <span class="hljs-comment">// default constructor</span><br>    <span class="hljs-built_in">Foo</span>(<span class="hljs-keyword">const</span> Foo&amp;);  <span class="hljs-comment">// copy constructor</span><br>    <span class="hljs-comment">// ...</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>与合成默认构造函数不同，即使我们定义了其他构造函数，编译器也会为我们合成一个拷贝构造函数。</p>
+</li>
+<li>合成拷贝构造函数依次将每个非<code>static</code>成员拷贝到正在创建的对象中。每个成员的类型决定了它如何拷贝：对类类型的成员，使用其拷贝构造函数来拷贝；内置类型的成员则直接拷贝。</li>
+<li>虽然我们不能直接拷贝一个数组，但合成拷贝构造函数会逐元素地拷贝一个数组类型的成员。如果数组元素是类类型，则使用元素的拷贝构造函数来进行拷贝。</li>
+<li>拷贝初始化不仅在使用<code>=</code>定义变量时发生，在下列情况下也会发生：<ul>
+<li>将一个对象作为实参传递给一个非引用类型的形参</li>
+<li>从一个返回类型为非引用类型的函数返回一个对象</li>
+<li>用花括号列表初始化一个数组中的元素或一个聚合类中的成员</li>
+</ul>
+</li>
+</ul>
+<h3 id="拷贝赋值运算符"><a href="#拷贝赋值运算符" class="headerlink" title="拷贝赋值运算符"></a>拷贝赋值运算符</h3><ul>
+<li>如果一个运算符是一个成员函数，其左侧运算对象就绑定到隐式的<code>this</code>参数。对于二元运算符，其右侧对象作为显式参数传递。</li>
+</ul>
+<h3 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h3><ul>
+<li>由于析构函数没有参数，因此它不能被重载。对一个给定的类，只会有一个析构函数。</li>
+<li>在析构函数中，首先执行函数体，然后销毁成员。成员按初始化的逆序销毁。</li>
+<li>销毁类类型的成员需要执行成员自己的析构函数。内置类型没有析构函数，所以销毁内置类型成员什么都不需要做。</li>
+</ul>
+<h3 id="三-五法则"><a href="#三-五法则" class="headerlink" title="三/五法则"></a>三/五法则</h3><ul>
+<li>如果一个类需要析构函数，那么它几乎肯定也需要拷贝构造函数和拷贝赋值运算符。</li>
+<li>如果一个类需要拷贝构造函数，那么它几乎一定需要拷贝赋值运算符，反之亦然。</li>
+</ul>
+<h3 id="使用-default"><a href="#使用-default" class="headerlink" title="使用=default"></a>使用<code>=default</code></h3><ul>
+<li>当在类内使用<code>=default</code>修饰成员的声明时，合成的函数将隐式地声明为内联的。</li>
+</ul>
+<h3 id="阻值拷贝"><a href="#阻值拷贝" class="headerlink" title="阻值拷贝"></a>阻值拷贝</h3><ul>
+<li><p><code>=delete</code>必须出现在函数第一次声明的时候，并且可以对任何函数指定<code>=delete</code>。</p>
+</li>
+<li><p>如果一个类成员的析构函数是删除的，则该成员无法被销毁；而如果一个成员无法被销毁，则该对象整体也无法被销毁。</p>
+</li>
+<li>如果一个类有数据成员不能默认构造、拷贝、复制或销毁，则类的合成拷贝控制成员将被定义为删除的。</li>
+</ul>
+<h2 id="拷贝控制和资源管理"><a href="#拷贝控制和资源管理" class="headerlink" title="拷贝控制和资源管理"></a>拷贝控制和资源管理</h2><h3 id="行为像值的类"><a href="#行为像值的类" class="headerlink" title="行为像值的类"></a>行为像值的类</h3><ul>
+<li>编写赋值运算符时，需要记住两点：<ul>
+<li>赋值运算符必须在一个对象赋值给他本身时正确工作。</li>
+<li>大多数赋值运算组合了析构函数和构造函数的工作。</li>
+</ul>
+</li>
+</ul>
+<h3 id="行为像指针的类"><a href="#行为像指针的类" class="headerlink" title="行为像指针的类"></a>行为像指针的类</h3><ul>
+<li>使用动态内存进行引用计数。</li>
+</ul>
+<h2 id="交换操作"><a href="#交换操作" class="headerlink" title="交换操作"></a>交换操作</h2><ul>
+<li>如果存在类型特定的<code>swap</code>版本，其匹配优先程度会优于<code>std</code>中定义的版本。</li>
+</ul>
+<h2 id="动态内存管理"><a href="#动态内存管理" class="headerlink" title="动态内存管理"></a>动态内存管理</h2><ul>
+<li>移动构造函数通常是将资源从给定对象“移动”而不是拷贝到正在创建的对象。</li>
+<li>调用<code>move</code>的返回结果会令<code>construct</code>使用<code>string</code>的移动构造函数。</li>
+<li>对一个对象调用<code>move</code>之后，我们无法知道该对象中保存的值，但是可以保证该对象的构造函数可以正确地执行。</li>
+</ul>
+<h2 id="对象移动"><a href="#对象移动" class="headerlink" title="对象移动"></a>对象移动</h2><h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><ul>
+<li><strong>右值引用</strong>（rvalue reference）是必须绑定到右值的引用，通过<code>&amp;&amp;</code>而不是<code>&amp;</code>来获得右值引用。</li>
+<li>左值有持久的状态，而右值要么是字面常量，要么是在表达式求值过程中创建的临时变量。</li>
+<li><p>变量是左值，因此我们不能将一个右值引用直接绑定到一个变量上，即使这个变量是右值引用类型也不行。</p>
+</li>
+<li><p><code>move</code>函数返回给定对象的右值引用。</p>
+</li>
+<li><p>应该直接调用<code>std::move</code>而不是<code>move</code>。</p>
+</li>
+</ul>
+<h3 id="移动构造函数和移动赋值运算符"><a href="#移动构造函数和移动赋值运算符" class="headerlink" title="移动构造函数和移动赋值运算符"></a>移动构造函数和移动赋值运算符</h3><ul>
+<li><p>一旦资源完成移动，源对象必须不再指向被移动的资源——这些资源的所有权已经归属新创建的对象。</p>
+</li>
+<li><p>不会抛出异常的移动构造函数和移动赋值运算符必须标记为<code>noexcept</code>。</p>
+</li>
+<li><p>移动操作必须保证移动源对象仍是有效的；一般来说对象有效是指可以安全地为其赋予新值或者可以安全地使用而不依赖其当前值。例如，在移动一个<code>string</code>或者其他容器对象后，该移后源对象仍然是有效的，我们可以对它执行<code>empty</code>、<code>size</code>等操作，但结果无法得到保证。</p>
+</li>
+<li><p>如果一个类定义了自己的拷贝构造函数、拷贝赋值运算符或者析构函数，编译器就不会为它合成移动构造函数和移动赋值运算符了。如果一个类没有移动操作，通过正常的函数匹配，类会使用对应的拷贝操作来代替移动操作。</p>
+</li>
+<li>只有当一个类没有定义任任何自己版本的拷贝控制成员，且它的所有数据成员都可以移动构造或移动赋值时，编译器才会为它合成移动构造函数或移动赋值运算符。</li>
+<li>“何时将合成的移动操作定义为删除的函数”遵循与“定义删除的合成拷贝操作“类似的原则。<ul>
+<li>与拷贝构造函数不同的，移动构造函数被定义为删除函数的条件是：有类成员定义了自己的拷贝构造函数且未定义移动构造函数，或是有类成员未定义自己的拷贝构造函数且编译器不能为其合成移动构造函数。移动赋值运算符的情况类似。</li>
+<li>其他条件与拷贝操作类似。</li>
+</ul>
+</li>
+<li>定义了一个移动构造函数或者移动赋值运算符的类必须也定义自己的拷贝操作，否则这些成员默认地被定义为删除的。</li>
+<li>如果一个类既有移动构造函数，也有拷贝构造函数，编译器将使用普通的函数匹配规则来确定使用哪个构造函数。</li>
+<li><p>如果一个类没有移动构造函数，函数匹配保证该类型的对象会被拷贝，即使调用了<code>move</code>也是如此：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">Foo</span>() = <span class="hljs-keyword">default</span>;<br>    <span class="hljs-built_in">Foo</span>(<span class="hljs-keyword">const</span> Foo&amp;); <span class="hljs-comment">// copy constructor</span><br>    <span class="hljs-comment">// other members, but Foo does not define a move constructor</span><br>&#125;;<br>Foo x;<br><span class="hljs-function">Foo <span class="hljs-title">y</span><span class="hljs-params">(x)</span></span>;            <span class="hljs-comment">// copy constructor; x is an lvalue</span><br><span class="hljs-function">Foo <span class="hljs-title">z</span><span class="hljs-params">(std::move(x))</span></span>; <span class="hljs-comment">// copy constructor, because there is no move constructor</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>对<strong>移动迭代器</strong>（move iterator）进行解引用得到的是右值引用。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">StrVec::reallocate</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">// allocate space for twice as many elements as the current size</span><br>    <span class="hljs-keyword">auto</span> newcapacity = <span class="hljs-built_in">size</span>() ? <span class="hljs-number">2</span> * <span class="hljs-built_in">size</span>() : <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">auto</span> first = alloc.<span class="hljs-built_in">allocate</span>(newcapacity);<br>    <span class="hljs-comment">// move the elements</span><br>    <span class="hljs-keyword">auto</span> last = <span class="hljs-built_in">uninitialized_copy</span>(<span class="hljs-built_in">make_move_iterator</span>(<span class="hljs-built_in">begin</span>()), <br>                                   <span class="hljs-built_in">make_move_iterator</span>(<span class="hljs-built_in">end</span>()), first);<br>    <span class="hljs-built_in">free</span>(); <span class="hljs-comment">// free the old space</span><br>    elements = first; <span class="hljs-comment">// update the pointers</span><br>    first_free = last;<br>    cap = elements + newcapacity;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="右值引用与成员函数"><a href="#右值引用与成员函数" class="headerlink" title="右值引用与成员函数"></a>右值引用与成员函数</h3><ul>
+<li><p>区分移动和拷贝的重载函数通常有一个版本接受一个<code>const T&amp;</code>，而另一个版本接受一个<code>T&amp;&amp;</code>。</p>
+</li>
+<li><p>通常，无论对象是左值还是右值，我们都可以调用它的成员函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">string s1 = <span class="hljs-string">&quot;a value&quot;</span>, s2 = <span class="hljs-string">&quot;another&quot;</span>;<br><span class="hljs-keyword">auto</span> n = (s1 + s2).<span class="hljs-built_in">find</span>(<span class="hljs-string">&#x27;a&#x27;</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>指定<code>this</code>的左值/右值属性的方式与定义<code>const</code>成员函数相同，即在参数列表后放置一个<strong>引用限定符</strong>（reference qualifier）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    Foo &amp;<span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> Foo&amp;) &amp;; <span class="hljs-comment">// may assign only to modifiable lvalues</span><br>    <span class="hljs-comment">// other members of Foo</span><br>&#125;;<br>Foo &amp;Foo::<span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> Foo &amp;rhs) &amp;<br>&#123;<br>    <span class="hljs-comment">// do whatever is needed to assign rhs to this object</span><br>    <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>引用限定符可以是<code>&amp;</code>或者<code>&amp;&amp;</code>，分别指出<code>this</code>指向一个左值或右值。</p>
+</li>
+<li><p>一个函数可以同时用<code>const</code>和引用限定，引用限定符必须跟随在<code>const</code>限定符之后：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">Foo <span class="hljs-title">someMem</span><span class="hljs-params">()</span> &amp; <span class="hljs-keyword">const</span></span>;    <span class="hljs-comment">// error: const qualifier must come first</span><br>    <span class="hljs-function">Foo <span class="hljs-title">anotherMem</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> &amp;</span>; <span class="hljs-comment">// ok: const qualifier comes first</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>可以根据引用限定符对函数进行重载：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">Foo <span class="hljs-title">sorted</span><span class="hljs-params">()</span> &amp;&amp;</span>; <span class="hljs-comment">// may run on modifiable rvalues</span><br>    <span class="hljs-function">Foo <span class="hljs-title">sorted</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> &amp;</span>; <span class="hljs-comment">// may run on any kind of Foo</span><br>    <span class="hljs-comment">// other members of Foo</span><br><span class="hljs-keyword">private</span>:<br>    vector&lt;<span class="hljs-keyword">int</span>&gt; data;<br>&#125;;<br><span class="hljs-comment">// this object is an rvalue, so we can sort in place</span><br><span class="hljs-function">Foo <span class="hljs-title">Foo::sorted</span><span class="hljs-params">()</span> &amp;&amp;</span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">sort</span>(data.<span class="hljs-built_in">begin</span>(), data.<span class="hljs-built_in">end</span>());<br>    <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>&#125;<br>    <span class="hljs-comment">// this object is either const or it is an lvalue; either way we can&#x27;t sort in place</span><br><span class="hljs-function">Foo <span class="hljs-title">Foo::sorted</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> &amp; </span>&#123;<br>    <span class="hljs-function">Foo <span class="hljs-title">ret</span><span class="hljs-params">(*<span class="hljs-keyword">this</span>)</span></span>; <span class="hljs-comment">// make a copy</span><br>    <span class="hljs-built_in">sort</span>(ret.data.<span class="hljs-built_in">begin</span>(), ret.data.<span class="hljs-built_in">end</span>()); <span class="hljs-comment">// sort the copy</span><br>    <span class="hljs-keyword">return</span> ret; <span class="hljs-comment">// return the copy</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>如果我们定义两个或两个以上具有相同名字和相同参数列表的成员函数，就必须对所有的函数都加上引用限定符，或者所有的都不加：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">Foo <span class="hljs-title">sorted</span><span class="hljs-params">()</span> &amp;&amp;</span>;<br>    <span class="hljs-function">Foo <span class="hljs-title">sorted</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>; <span class="hljs-comment">// error: must have reference qualifier</span><br>    <span class="hljs-comment">// Comp is type alias for the function type (see § 6.7 (p. 249))</span><br>    <span class="hljs-comment">// that can be used to compare int values</span><br>    <span class="hljs-keyword">using</span> Comp = <span class="hljs-built_in"><span class="hljs-keyword">bool</span></span>(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>&amp;, <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>&amp;);<br>    <span class="hljs-function">Foo <span class="hljs-title">sorted</span><span class="hljs-params">(Comp*)</span></span>; <span class="hljs-comment">// ok: different parameter list</span><br>    <span class="hljs-function">Foo <span class="hljs-title">sorted</span><span class="hljs-params">(Comp*)</span> <span class="hljs-keyword">const</span></span>; <span class="hljs-comment">// ok: neither version is reference qualified</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C/">C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C-Primer/">C++ Primer</a>
+                    
+                      <a class="hover-with-bg" href="/tags/RE%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84C-%E5%AD%A6%E4%B9%A0/">RE：从零开始的C++学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/09/26/OverloadedOperationsAndConversions/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Overloaded Operations and Conversions</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/09/16/DynamicMemory/">
+                        <span class="hidden-mobile">Dynamic Memory</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?25bbd832c304327384cf5e1fbcaf70a1";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

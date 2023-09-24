@@ -1,0 +1,553 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="song">
+  <meta name="keywords" content="">
+  
+  <title>Strings, Vectors, and Arrays - Song</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"25bbd832c304327384cf5e1fbcaf70a1","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Song's bolg</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Strings, Vectors, and Arrays">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-07-18 10:23" pubdate>
+        2019年7月18日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Strings, Vectors, and Arrays</h1>
+            
+            <div class="markdown-body">
+              <h1 id="string类型"><a href="#string类型" class="headerlink" title="string类型"></a><code>string</code>类型</h1><h2 id="string的定义与声明"><a href="#string的定义与声明" class="headerlink" title="string的定义与声明"></a><code>string</code>的定义与声明</h2><ul>
+<li>初始化<code>string</code>的方法</li>
+</ul>
+<div align=center> <img src="/2019/07/18/190718cpp/1.png" srcset="/img/loading.gif" lazyload class=""> </div>
+
+<ul>
+<li>当我们使用<code>=</code>初始化一个变量时，编译器将<code>=</code>右边对象的内容复制到新创建的对象，以进行<strong>拷贝初始化</strong>。当我们省略<code>=</code>时，进行的是直接初始化。</li>
+</ul>
+<h2 id="string上的操作"><a href="#string上的操作" class="headerlink" title="string上的操作"></a><code>string</code>上的操作</h2><ul>
+<li>string的size方法返回一个<code>string::size_type</code>类型的值，该类型是<code>unsigned</code>类型。</li>
+<li>可以将字符字面量和字符串字面量转化为<code>string</code>，将<code>string</code>与字符或字符串字面量拼接时，时<code>+</code>运算符的操作数必须至少有一个为string类型。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">string s1 = <span class="hljs-string">&quot;hello&quot;</span>, s2 = <span class="hljs-string">&quot;world&quot;</span>;<br>string s3 = s1 + <span class="hljs-string">&quot;, &quot;</span> + s2 + <span class="hljs-string">&#x27;\n&#x27;</span>;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="处理string中的字符"><a href="#处理string中的字符" class="headerlink" title="处理string中的字符"></a>处理<code>string</code>中的字符</h2><ul>
+<li>定义在<code>cname</code>头文件中的名字在<code>std</code>命名空间中，而定义在<code>.h</code>头文件中的名字则不在<code>std</code>命名空间中。</li>
+<li><p>在以下range <code>for</code>的每一次迭代中，<em>declaration</em>中的变量由<em>expression</em>中下一元素的值初始化。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">for</span> (declaration : expression)<br>    statement<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>若要在range <code>for</code>中改变<em>expression</em>中元素的值，则需要在<em>declaration</em>中将变量定义为引用类型。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">string <span class="hljs-title">s</span><span class="hljs-params">(<span class="hljs-string">&quot;Hello World!!!&quot;</span>)</span></span>;    <span class="hljs-comment">// convert s to uppercase</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> &amp;c : s)    <span class="hljs-comment">// for every char in s (note: c is a reference)</span><br>    c = <span class="hljs-built_in">toupper</span>(c);  <span class="hljs-comment">// c is a reference, so the assignment changes the char in s</span><br>cout &lt;&lt; s &lt;&lt; endl;   <span class="hljs-comment">// HELLO WORLD!!!</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="vector类型"><a href="#vector类型" class="headerlink" title="vector类型"></a><code>vector</code>类型</h1><h2 id="vector的定义与声明"><a href="#vector的定义与声明" class="headerlink" title="vector的定义与声明"></a><code>vector</code>的定义与声明</h2><ul>
+<li>初始化<code>vector</code>的方法</li>
+</ul>
+<div align=center> <img src="/2019/07/18/190718cpp/2.png" srcset="/img/loading.gif" lazyload class=""> </div>
+
+<ul>
+<li><p>若<code>vector</code>中的元素为内置类型（例如<code>int</code>），则<code>vector</code>中元素会被初始化为0；若<code>vector</code>中的元素为<code>class</code>类型（例如<code>string</code>）,则<code>vector</code>中元素会进行该元素的默认初始化。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">vector&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">ivec</span><span class="hljs-params">(<span class="hljs-number">10</span>)</span></span>;    <span class="hljs-comment">// ten elements, each initialized to 0</span><br><span class="hljs-function">vector&lt;string&gt; <span class="hljs-title">svec</span><span class="hljs-params">(<span class="hljs-number">10</span>)</span></span>; <span class="hljs-comment">// ten elements, each an empty string</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>对于必需显式初始化的对象，由于没有默认初始化方法，创建该类型的<code>vector</code>时，不能只提供<code>size</code>一个参数。</p>
+</li>
+<li>如果无法进行列初始化，编译器会从根据给定的值寻找其他适合的方法进行初始化。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++">vector&lt;string&gt; v5&#123;<span class="hljs-string">&quot;hi&quot;</span>&#125;;     <span class="hljs-comment">// list initialization: v5 has one element</span><br><span class="hljs-function">vector&lt;string&gt; <span class="hljs-title">v6</span><span class="hljs-params">(<span class="hljs-string">&quot;hi&quot;</span>)</span></span>;     <span class="hljs-comment">// error: can&#x27;t construct a vector from a string literal</span><br>vector&lt;string&gt; v7&#123;<span class="hljs-number">10</span>&#125;;       <span class="hljs-comment">// v7 has ten default-initialized elements</span><br>vector&lt;string&gt; v8&#123;<span class="hljs-number">10</span>, <span class="hljs-string">&quot;hi&quot;</span>&#125;; <span class="hljs-comment">// v8 has ten elements with value &quot;hi&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="向vector添加元素"><a href="#向vector添加元素" class="headerlink" title="向vector添加元素"></a>向<code>vector</code>添加元素</h2><ul>
+<li>如果循环体中向<code>vector</code>添加了元素，则不能使用range <code>for</code>。</li>
+</ul>
+<h2 id="vector的其他操作"><a href="#vector的其他操作" class="headerlink" title="vector的其他操作"></a><code>vector</code>的其他操作</h2><ul>
+<li><code>vector</code>（以及<code>string</code>）的下标运算符只能获取已有的元素，不能添加新的元素。</li>
+</ul>
+<h1 id="迭代器（iterators）简介"><a href="#迭代器（iterators）简介" class="headerlink" title="迭代器（iterators）简介"></a>迭代器（iterators）简介</h1><ul>
+<li>若容器是空的，则<code>begin</code>返回与<code>end</code>相同的迭代器。</li>
+<li>大多数迭代器没有<code>&lt;</code>运算符，所以通常在迭代器比较时使用<code>！=</code>。</li>
+<li><code>cbegin</code>和<code>cend</code>返回<code>const_iterator</code>的迭代器，不能修改指向的对象。</li>
+</ul>
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="数组的声明与初始化"><a href="#数组的声明与初始化" class="headerlink" title="数组的声明与初始化"></a>数组的声明与初始化</h2><ul>
+<li>数组的维度必须是常量表达式<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">unsigned</span> cnt = <span class="hljs-number">42</span>;          <span class="hljs-comment">// not a constant expression</span><br><span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">unsigned</span> sz = <span class="hljs-number">42</span>; <span class="hljs-comment">// constant expression</span><br><span class="hljs-keyword">int</span> arr[<span class="hljs-number">10</span>];                <span class="hljs-comment">// array of ten ints</span><br><span class="hljs-keyword">int</span> *parr[sz];              <span class="hljs-comment">// array of 42 pointers to int</span><br>string bad[cnt];            <span class="hljs-comment">// error: cnt is not a constant expression</span><br>string strs[<span class="hljs-built_in">get_size</span>()];    <span class="hljs-comment">// ok if get_size is constexpr, error otherwise</span><br></code></pre></td></tr></table></figure></li>
+<li>复杂的数组声明<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> *ptrs[<span class="hljs-number">10</span>];            <span class="hljs-comment">//  ptrs is an array of ten pointers to int</span><br><span class="hljs-keyword">int</span> &amp;refs[<span class="hljs-number">10</span>] = <span class="hljs-comment">/* ? */</span>;  <span class="hljs-comment">//  error: no arrays of references</span><br><span class="hljs-built_in"><span class="hljs-keyword">int</span></span> (*Parray)[<span class="hljs-number">10</span>] = &amp;arr; <span class="hljs-comment">//  Parray points to an array of ten ints</span><br><span class="hljs-built_in"><span class="hljs-keyword">int</span></span> (&amp;arrRef)[<span class="hljs-number">10</span>] = arr;  <span class="hljs-comment">//  arrRef refers to an array of ten ints</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="指针与数组"><a href="#指针与数组" class="headerlink" title="指针与数组"></a>指针与数组</h2><ul>
+<li><p><code>decltype(ia)</code>返回的是数组类型</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> ia[] = &#123;<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>&#125;; <span class="hljs-comment">// ia is an array of ten ints</span><br><span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">ia2</span><span class="hljs-params">(ia)</span></span>; <span class="hljs-comment">// ia2 is an int* that points to the first element in ia</span><br>ia2 = <span class="hljs-number">42</span>;     <span class="hljs-comment">// error: ia2 is a pointer, and we can&#x27;t assign an int to a pointer</span><br><span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">ia2</span><span class="hljs-params">(&amp;ia[<span class="hljs-number">0</span>])</span></span>;  <span class="hljs-comment">// now it&#x27;s clear that ia2 has type int*</span><br><span class="hljs-keyword">decltype</span>(ia) ia3 = &#123;<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>&#125;; <span class="hljs-comment">// ia3 is an array of ten ints</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>iterator</code>头文件提供了<code>begin</code>与<code>end</code>，分别返回数组的首地址与数组最后一个元素后一位置的地址。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> ia[] = &#123;<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>&#125;; <span class="hljs-comment">// ia is an array of ten ints</span><br><span class="hljs-keyword">int</span> *beg = <span class="hljs-built_in">begin</span>(ia); <span class="hljs-comment">// pointer to the first element in ia</span><br><span class="hljs-keyword">int</span> *last = <span class="hljs-built_in">end</span>(ia);  <span class="hljs-comment">// pointer one past the last element in ia</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="指针运算"><a href="#指针运算" class="headerlink" title="指针运算"></a>指针运算</h2><ul>
+<li>库类型强制要求下标必须为<code>unsigned</code>类型，原始数组无此要求。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">int</span> ia[] = &#123;<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">8</span>&#125;;  <span class="hljs-comment">// array with 5 elements of type int</span><br><span class="hljs-keyword">int</span> *p = &amp;ia[<span class="hljs-number">2</span>];         <span class="hljs-comment">// p points to the element indexed by 2</span><br><span class="hljs-keyword">int</span> k = p[<span class="hljs-number">-2</span>];           <span class="hljs-comment">// p[-2] is the same element as ia[0]</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="与旧代码的接口"><a href="#与旧代码的接口" class="headerlink" title="与旧代码的接口"></a>与旧代码的接口</h2><ul>
+<li><code>string</code>类型的<code>c_str</code>成员函数的返回值可用于初始化C风格字符串，该返回值类型为<code>const char*</code>。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">string <span class="hljs-title">s</span><span class="hljs-params">(<span class="hljs-string">&quot;Hello world&quot;</span>)</span></span>;     <span class="hljs-comment">// s holds Hello World</span><br><span class="hljs-keyword">char</span> *str = s;               <span class="hljs-comment">// error: can&#x27;t initialize a char* from a string</span><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *str = s.<span class="hljs-built_in">c_str</span>(); <span class="hljs-comment">// ok</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h1><ul>
+<li>对多维数组使用range <code>for</code>时，除最内层循环之外的循环控制变量必须为引用类型。</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C/">C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C-Primer/">C++ Primer</a>
+                    
+                      <a class="hover-with-bg" href="/tags/RE%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84C-%E5%AD%A6%E4%B9%A0/">RE：从零开始的C++学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/08/07/190807cpp/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Expressions</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/07/12/190712cpp/">
+                        <span class="hidden-mobile">CPP Primer - 变量与基本类型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?25bbd832c304327384cf5e1fbcaf70a1";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

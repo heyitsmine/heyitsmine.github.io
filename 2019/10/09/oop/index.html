@@ -1,0 +1,642 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="song">
+  <meta name="keywords" content="">
+  
+  <title>Object-Oriented Programming - Song</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"25bbd832c304327384cf5e1fbcaf70a1","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Song's bolg</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Object-Oriented Programming">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-10-09 16:47" pubdate>
+        2019年10月9日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      55
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Object-Oriented Programming</h1>
+            
+            <div class="markdown-body">
+              <h1 id="面向对象程序设计"><a href="#面向对象程序设计" class="headerlink" title="面向对象程序设计"></a>面向对象程序设计</h1><h2 id="OOP：概述"><a href="#OOP：概述" class="headerlink" title="OOP：概述"></a>OOP：概述</h2><ul>
+<li><p>对于某些函数，基类希望它的派生类各自定义适合自生的版本，此时基类就将这些函数声明成<strong>虚函数</strong>（virtual function）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Quote</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">std::string <span class="hljs-title">isbn</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">double</span> <span class="hljs-title">net_price</span><span class="hljs-params">(std::<span class="hljs-keyword">size_t</span> n)</span> <span class="hljs-keyword">const</span></span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>派生类必须在其内部对所有重新定义的虚函数进行声明。C++11新标准允许派生类显式地注明它将使用哪个成员函数改写基类的虚函数，具体措施是在函数形参列表之后增加一个<code>override</code>关键字。</p>
+</li>
+<li><p><code>print_total</code>是使用引用类型调用<code>net_price</code>函数的，实际传入<code>print_total</code>的对象类型将决定执行<code>net_price</code>的哪个版本：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// calculate and print the price for the given number of copies, applying any discounts</span><br><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">print_total</span><span class="hljs-params">(ostream &amp;os,</span></span><br><span class="hljs-function"><span class="hljs-params">                   <span class="hljs-keyword">const</span> Quote &amp;item, <span class="hljs-keyword">size_t</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">// depending on the type of the object bound to the item parameter</span><br>    <span class="hljs-comment">// calls either Quote::net_price or Bulk_quote::net_price</span><br>    <span class="hljs-keyword">double</span> ret = item.<span class="hljs-built_in">net_price</span>(n);<br>    os &lt;&lt; <span class="hljs-string">&quot;ISBN: &quot;</span> &lt;&lt; item.<span class="hljs-built_in">isbn</span>() <span class="hljs-comment">// calls Quote::isbn</span><br>       &lt;&lt; <span class="hljs-string">&quot; # sold: &quot;</span> &lt;&lt; n &lt;&lt; <span class="hljs-string">&quot; total due: &quot;</span> &lt;&lt; ret &lt;&lt; endl;<br>     <span class="hljs-keyword">return</span> ret;<br>&#125;<br><br><span class="hljs-comment">// basic has type Quote; bulk has type Bulk_quote</span><br><span class="hljs-built_in">print_total</span>(cout, basic, <span class="hljs-number">20</span>); <span class="hljs-comment">//  calls Quote version of net_price</span><br><span class="hljs-built_in">print_total</span>(cout, bulk, <span class="hljs-number">20</span>);  <span class="hljs-comment">//  calls Bulk_quote version of net_price</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="定义基类和派生类"><a href="#定义基类和派生类" class="headerlink" title="定义基类和派生类"></a>定义基类和派生类</h2><h3 id="定义基类"><a href="#定义基类" class="headerlink" title="定义基类"></a>定义基类</h3><ul>
+<li>作为继承关系中根节点的类通常都会定义一个虚析构函数。</li>
+<li>在C++语言中，基类必须将它的两种成员函数区分开：一种是基类希望其派生类进行覆盖的函数；另一种是基类希望派生类直接继承而不要改变的函数。对于前者，基类通常将其定义为<strong>虚函数</strong>（virtual）。当我们使用指针或引用调用虚函数时，该调用将被动态绑定。</li>
+<li>任何构造函数之外的非静态函数都可以是虚函数。关键字<code>virtual</code>只能出现在类内部的声明语句之前而不能用于类外部的函数定义。</li>
+<li><p>如果基类把一个函数声明为虚函数，则该函数在派生类中隐式地也是虚函数。</p>
+</li>
+<li><p>成员函数若没有被声明为虚函数，则其解析过程发生在编译时而非运行时。</p>
+</li>
+<li><p>对于某些成员，基类希望它的派生类有权限访问该成员，同时禁止其他用户访问。我们使用<code>protected</code>修饰这样的成员。</p>
+</li>
+</ul>
+<h3 id="定义派生类"><a href="#定义派生类" class="headerlink" title="定义派生类"></a>定义派生类</h3><ul>
+<li>派生类使用<strong>类派生列表</strong>（class derivation list）明确指出它是从哪个（哪些）基类继承而来。其中每个基类前面可以有以下三种访问说明符中的一个：<code>public</code>、<code>protected</code>或者<code>private</code>。</li>
+<li>如果一个派生是共有的，则基类的共有成员也是派生类接口的组成部分。并且我们可以将公有派生类型的对象绑定到基类的引用或指针上。</li>
+<li><p>如果派生类没有覆盖其基类中的某个虚函数，则该虚函数的行为类似与其他的普通成员，派生类会直接继承其在基类中的版本。</p>
+</li>
+<li><p>派生类可以在它覆盖的函数前使用<code>virtual</code>关键字，但不是一定要这么做。</p>
+</li>
+<li><p>因为在派生类对象中含有与其基类对应的组成部分，所以我们能把派生类的对象当成基类对象来使用，而且我们也能将基类的引用或指针绑定到派生类对象的基类部分上。这种转换通常称为<strong>派生类到基类</strong>（derived-to-base）类型转换。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++">Quote item;        <span class="hljs-comment">//  object of base type</span><br>Bulk_quote bulk;   <span class="hljs-comment">//  object of derived type</span><br>Quote *p = &amp;item;  <span class="hljs-comment">//  p points to a Quote object</span><br>p = &amp;bulk;         <span class="hljs-comment">//  p points to the Quote part of bulk</span><br>Quote &amp;r = bulk;   <span class="hljs-comment">//  r bound to the Quote part of bulk</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>和其他创建了基类对象的代码一样，派生类也必须使用基类的构造函数来初始化它的基类部分。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">Bulk_quote</span>(<span class="hljs-keyword">const</span> std::string&amp; book, <span class="hljs-keyword">double</span> p,<br>           std::<span class="hljs-keyword">size_t</span> qty, <span class="hljs-keyword">double</span> disc) :<br>           <span class="hljs-built_in">Quote</span>(book, p), <span class="hljs-built_in">min_qty</span>(qty), <span class="hljs-built_in">discount</span>(disc) &#123; &#125;<br>    <span class="hljs-comment">// as before</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>除非我们特别指出，否则派生类对象的基类部分会像数据成员一样执行默认初始化。</p>
+</li>
+<li><p>派生类可以访问基类中的<code>public</code>和<code>protected</code>成员：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// if the specified number of items are purchased, use the discounted price</span><br><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Bulk_quote::net_price</span><span class="hljs-params">(<span class="hljs-keyword">size_t</span> cnt)</span> <span class="hljs-keyword">const</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (cnt &gt;= min_qty)<br>        <span class="hljs-keyword">return</span> cnt * (<span class="hljs-number">1</span> - discount) * price;<br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-keyword">return</span> cnt * price;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>派生类的作用域嵌套在基类的作用域之内。</p>
+</li>
+<li><p>如果基类定义了一个<code>static</code>成员，则在整个继承体系中只存在该成员的唯一定义。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">statmem</span><span class="hljs-params">()</span></span>;<br>&#125;;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Derived</span> :</span> <span class="hljs-keyword">public</span> Base &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Derived&amp;)</span></span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>假设某静态成员是可访问的，则我们既能通过基类使用它也能通过派生类使用它：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Derived::f</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Derived &amp;derived_obj)</span></span><br><span class="hljs-function"></span>&#123;<br>    Base::<span class="hljs-built_in">statmem</span>();    <span class="hljs-comment">// ok: Base defines statmem</span><br>    Derived::<span class="hljs-built_in">statmem</span>(); <span class="hljs-comment">// ok: Derived inherits statmem</span><br>    <span class="hljs-comment">// ok: derived objects can be used to access static from base</span><br>    derived_obj.<span class="hljs-built_in">statmem</span>(); <span class="hljs-comment">// accessed through a Derived object</span><br>    <span class="hljs-built_in">statmem</span>();             <span class="hljs-comment">// accessed through this object</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>派生类的声明中包含类名但不包含它的派生列表：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bulk_quote</span> :</span> <span class="hljs-keyword">public</span> Quote; <span class="hljs-comment">// error: derivation list can&#x27;t appear here</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bulk_quote</span>;</span>                <span class="hljs-comment">// ok: right way to declare a derived class</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>一个类在被用作基类之前，必须以及定义而非仅仅声明：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Quote</span>;</span>   <span class="hljs-comment">// declared but not defined</span><br><span class="hljs-comment">// error: Quote must be defined</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bulk_quote</span> :</span> <span class="hljs-keyword">public</span> Quote &#123; ... &#125;;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>C++11新标准提供了一种防止继承发生的方法，即在类名后跟一个关键字final：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NoDerived</span> <span class="hljs-keyword">final</span> &#123;</span> <span class="hljs-comment">/*  */</span> &#125;; <span class="hljs-comment">// NoDerived can&#x27;t be a base class</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> &#123;</span> <span class="hljs-comment">/*  */</span> &#125;;<br><span class="hljs-comment">// Last is final; we cannot inherit from Last</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Last</span> <span class="hljs-keyword">final</span> :</span> Base &#123; <span class="hljs-comment">/*  */</span> &#125;; <span class="hljs-comment">// Last can&#x27;t be a base class</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bad</span> :</span> NoDerived &#123; <span class="hljs-comment">/*  */</span> &#125;;   <span class="hljs-comment">// error: NoDerived is final</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bad2</span> :</span> Last &#123; <span class="hljs-comment">/*  */</span> &#125;;       <span class="hljs-comment">// error: Last is final</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="类型转换与继承"><a href="#类型转换与继承" class="headerlink" title="类型转换与继承"></a>类型转换与继承</h3><ul>
+<li>可以将基类的指针绑定到派生类对象上。</li>
+<li>和内置指针一样，智能指针类也支持派生类向基类的类型转换，这意味着我们可以将一个派生类对象的指针存储在一个基类的智能指针内。</li>
+<li>当我们使用存在继承关系的类型时，必须将一个变量或其他表达式的<strong>静态类型</strong>（static type）与该表达式表示对象的<strong>动态类型</strong>（dynamic type）区分开来。表达式的静态类型在编译时是已知的，它是变量声明时的类型或表达式生成的类型；动态类型则是变量或表达式表示的内存中的对象的类型。动态类型在运行时才可知。</li>
+<li>如果表达式既不是引用也不是指针，则它的动态类型永远与静态类型一致。</li>
+<li><p>因为一个基类的对象可能是派生类对象的一部分，也可能不是，所以不存在从基类向派生类的自动类型转换：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++">Quote base;<br>Bulk_quote* bulkP = &amp;base;  <span class="hljs-comment">// error: can&#x27;t convert base to derived</span><br>Bulk_quote&amp; bulkRef = base; <span class="hljs-comment">// error: can&#x27;t convert base to derived</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>派生类向基类的自动类型转换只对指针或引用类型有效，在派生类类型和基类类型之间不存在这样的转换。</p>
+</li>
+</ul>
+<h2 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h2><ul>
+<li>因为我们直到运行时才能知道到底调用了哪个版本的虚函数，所以所有的虚函数都必须有定义。</li>
+<li><p>动态绑定只有当我们通过指针或引用调用虚函数时才会发生，当我们通过一个具有普通类型（非引用非指针）的表达式调用虚函数时，在编译时就会将调用的版本确定下来。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">Quote <span class="hljs-title">base</span><span class="hljs-params">(<span class="hljs-string">&quot;0-201-82470-1&quot;</span>, <span class="hljs-number">50</span>)</span></span>;<br><span class="hljs-built_in">print_total</span>(cout, base, <span class="hljs-number">10</span>);    <span class="hljs-comment">// calls Quote::net_price</span><br><span class="hljs-function">Bulk_quote <span class="hljs-title">derived</span><span class="hljs-params">(<span class="hljs-string">&quot;0-201-82470-1&quot;</span>, <span class="hljs-number">50</span>, <span class="hljs-number">5</span>, <span class="hljs-number">.19</span>)</span></span>;<br><span class="hljs-built_in">print_total</span>(cout, derived, <span class="hljs-number">10</span>); <span class="hljs-comment">// calls Bulk_quote::net_price</span><br><br>base = derived;         <span class="hljs-comment">// copies the Quote part of derived into base</span><br>base.<span class="hljs-built_in">net_price</span>(<span class="hljs-number">20</span>);     <span class="hljs-comment">// calls Quote::net_price</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>当且仅当通过指针或引用调用虚函数时，才会在运行时解析该调用，也只有在这种情况下对象的动态类型才有可能与静态类型不同。</p>
+</li>
+<li>一旦某个函数被声明成虚函数，则在所有的派生类中他都是虚函数。</li>
+<li>一个派生类的函数如果覆盖了某个继承而来的虚函数，则它的形参类型必须与被它覆盖的基类函数完全一致。</li>
+<li><p>如果我们使用<code>override</code>标记了某个函数，但该函数没有覆盖已存在的虚函数，此时编译器将报错：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">B</span> &#123;</span><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">f1</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span> <span class="hljs-keyword">const</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">f2</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f3</span><span class="hljs-params">()</span></span>;<br>&#125;;<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">D1</span> :</span> B &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f1</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">override</span></span>; <span class="hljs-comment">// ok: f1 matches f1 in the base</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f2</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span> <span class="hljs-keyword">override</span></span>; <span class="hljs-comment">// error: B has no f2(int) function</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f3</span><span class="hljs-params">()</span> <span class="hljs-keyword">override</span></span>;    <span class="hljs-comment">// error: f3 not virtual</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f4</span><span class="hljs-params">()</span> <span class="hljs-keyword">override</span></span>;    <span class="hljs-comment">// error: B doesn&#x27;t have a function named f4</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>可以将某个函数指定为<code>final</code>，被定义为<code>final</code>的函数不能被它的派生类覆盖：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">D2</span> :</span> B &#123;<br>    <span class="hljs-comment">// inherits f2() and f3() from B and overrides f1(int)</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f1</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">final</span></span>; <span class="hljs-comment">// subsequent classes can&#x27;t override f1(int)</span><br>&#125;;<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">D3</span> :</span> D2 &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f2</span><span class="hljs-params">()</span></span>;          <span class="hljs-comment">// ok: overrides f2 inherited from the indirect base, B</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f1</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span> <span class="hljs-keyword">const</span></span>; <span class="hljs-comment">// error: D2 declared f2 as final</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>如果某次函数调用使用了默认实参，则该实参值由本次调用的静态类型决定。也就是说，若通过基类的引用或者指针调用函数，则使用基类中定义的默认实参，即使实际运行的是派生类中的函数版本也是如此。</p>
+</li>
+<li>使用作用域运算符可以强制执行虚函数的某个特定版本：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">//  calls the version from the base class regardless of the dynamic type of baseP</span><br><span class="hljs-keyword">double</span> undiscounted = baseP-&gt;Quote::<span class="hljs-built_in">net_price</span>(<span class="hljs-number">42</span>);<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="抽象基类"><a href="#抽象基类" class="headerlink" title="抽象基类"></a>抽象基类</h2><ul>
+<li><p>可以将函数定义为<strong>纯虚</strong>（pure virtual）函数，表面该函数是没有实际意义的。纯虚函数无需定义，通过在函数体的位置书写<code>=0</code>可以将一个虚函数说明为纯虚函数。其中，<code>=0</code>只能出现在类内部的虚函数声明语句处：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// class to hold the discount rate and quantity</span><br><span class="hljs-comment">// derived classes will implement pricing strategies using these data</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Disc_quote</span> :</span> <span class="hljs-keyword">public</span> Quote &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">Disc_quote</span>() = <span class="hljs-keyword">default</span>;<br>    <span class="hljs-built_in">Disc_quote</span>(<span class="hljs-keyword">const</span> std::string&amp; book, <span class="hljs-keyword">double</span> price,<br>              std::<span class="hljs-keyword">size_t</span> qty, <span class="hljs-keyword">double</span> disc):<br>                 <span class="hljs-built_in">Quote</span>(book, price),<br>                 <span class="hljs-built_in">quantity</span>(qty), <span class="hljs-built_in">discount</span>(disc) &#123; &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">net_price</span><span class="hljs-params">(std::<span class="hljs-keyword">size_t</span>)</span> <span class="hljs-keyword">const</span> </span>= <span class="hljs-number">0</span>;<br><span class="hljs-keyword">protected</span>:<br>    std::<span class="hljs-keyword">size_t</span> quantity = <span class="hljs-number">0</span>; <span class="hljs-comment">//  purchase size for the discount to apply</span><br>    <span class="hljs-keyword">double</span> discount = <span class="hljs-number">0.0</span>;    <span class="hljs-comment">//  fractional discount to apply</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>可以为纯虚函数提供定义，不过函数体必须定义在类的外部，也就是说，不能在类的内部为一个<code>=0</code>的函数提供函数体。</p>
+</li>
+<li>含有（或者未经覆盖直接继承）纯虚函数的类是<strong>抽象基类</strong>（abstract base class）。不能直接创建一个抽象基类的对象。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// Disc_quote declares pure virtual functions, which Bulk_quote will override</span><br>Disc_quote discounted; <span class="hljs-comment">// error: can&#x27;t define a Disc_quote object</span><br>Bulk_quote bulk;       <span class="hljs-comment">// ok: Bulk_quote has no pure virtual functions</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="访问控制与继承"><a href="#访问控制与继承" class="headerlink" title="访问控制与继承"></a>访问控制与继承</h2><ul>
+<li>一个类使用<code>protected</code>关键字来声明那些它希望与派生类分享但是不想被其他公共访问使用的成员。</li>
+<li><p>派生类的成员或友元只能通过派生类对象来访问基类的受保护成员。派生类对于一个基类对象中的受保护成员没有任何访问特权。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> &#123;</span><br><span class="hljs-keyword">protected</span>:<br>    <span class="hljs-keyword">int</span> prot_mem;     <span class="hljs-comment">// protected member</span><br>&#125;;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sneaky</span> :</span> <span class="hljs-keyword">public</span> Base  &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">friend</span> <span class="hljs-keyword">void</span> <span class="hljs-title">clobber</span><span class="hljs-params">(Sneaky&amp;)</span></span>;  <span class="hljs-comment">// can access Sneaky::prot_mem</span><br>    <span class="hljs-function"><span class="hljs-keyword">friend</span> <span class="hljs-keyword">void</span> <span class="hljs-title">clobber</span><span class="hljs-params">(Base&amp;)</span></span>;    <span class="hljs-comment">// can&#x27;t access Base::prot_mem</span><br>    <span class="hljs-keyword">int</span> j;                          <span class="hljs-comment">// j is private by default</span><br>&#125;;<br><span class="hljs-comment">// ok: clobber can access the private and protected members in Sneaky objects</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">clobber</span><span class="hljs-params">(Sneaky &amp;s)</span> </span>&#123; s.j = s.prot_mem = <span class="hljs-number">0</span>; &#125;<br><span class="hljs-comment">// error: clobber can&#x27;t access the protected members in Base</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">clobber</span><span class="hljs-params">(Base &amp;b)</span> </span>&#123; b.prot_mem = <span class="hljs-number">0</span>; &#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>派生访问说明符对于派生类的成员（及友元）能否访问其直接基类的成员没有影响，对基类成员的访问权限只与基类中的访问说明符有关。</p>
+</li>
+<li><p>派生访问说明符的目的是控制派生类用户（包括派生类的派生类在内）对于基类成员的访问权限：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pub_mem</span><span class="hljs-params">()</span></span>;   <span class="hljs-comment">// public member</span><br><span class="hljs-keyword">protected</span>:<br>    <span class="hljs-keyword">int</span> prot_mem;     <span class="hljs-comment">// protected member</span><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">char</span> priv_mem;    <span class="hljs-comment">// private member</span><br>&#125;;<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Pub_Derv</span> :</span> <span class="hljs-keyword">public</span> Base &#123;<br>    <span class="hljs-comment">// ok: derived classes can access protected members</span><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">f</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-keyword">return</span> prot_mem; &#125;<br>    <span class="hljs-comment">// error: private members are inaccessible to derived classes</span><br>    <span class="hljs-function"><span class="hljs-keyword">char</span> <span class="hljs-title">g</span><span class="hljs-params">()</span> </span>&#123; <span class="hljs-keyword">return</span> priv_mem; &#125;<br>&#125;;<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Priv_Derv</span> :</span> <span class="hljs-keyword">private</span> Base &#123;<br>    <span class="hljs-comment">// private derivation doesn&#x27;t affect access in the derived class</span><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">f1</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>&#123; <span class="hljs-keyword">return</span> prot_mem; &#125;<br>&#125;;<br><br>Pub_Derv d1;   <span class="hljs-comment">//  members inherited from Base are public</span><br>Priv_Derv d2;  <span class="hljs-comment">//  members inherited from Base are private</span><br>d1.<span class="hljs-built_in">pub_mem</span>();  <span class="hljs-comment">//  ok: pub_mem is public in the derived class</span><br>d2.<span class="hljs-built_in">pub_mem</span>();  <span class="hljs-comment">//  error: pub_mem is private in the derived class</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>派生类向基类的转换是否可访问由使用该转换的代码决定，同时派生类的派生访问说明符也会有影响。</p>
+</li>
+<li><p>对于代码中的某个给定节点来说，如果基类的共有成员是可访问的，则派生类向基类的类型转换也是可访问的；反之则不行。</p>
+</li>
+<li><p>就像友元关系不能传递一样，友元关系同样也不能继承。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> &#123;</span><br>    <span class="hljs-comment">// added friend declaration; other members as before</span><br>    <span class="hljs-keyword">friend</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pal</span>;</span> <span class="hljs-comment">// Pal has no access to classes derived from Base</span><br>&#125;;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Pal</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">f</span><span class="hljs-params">(Base b)</span> </span>&#123; <span class="hljs-keyword">return</span> b.prot_mem; &#125; <span class="hljs-comment">// ok: Pal is a friend of Base</span><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">f2</span><span class="hljs-params">(Sneaky s)</span> </span>&#123; <span class="hljs-keyword">return</span> s.j; &#125; <span class="hljs-comment">// error: Pal not friend of Sneaky</span><br>    <span class="hljs-comment">// access to a base class is controlled by the base class, even inside a derived object</span><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">f3</span><span class="hljs-params">(Sneaky s)</span> </span>&#123; <span class="hljs-keyword">return</span> s.prot_mem; &#125; <span class="hljs-comment">// ok: Pal is a friend</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>通过在类的内部使用<code>using</code>声明语句，可以将该类的直接或间接基类中的任何可访问成员标记出来，改变这些成员的可访问性。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">std::<span class="hljs-keyword">size_t</span> <span class="hljs-title">size</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>&#123; <span class="hljs-keyword">return</span> n; &#125;<br><span class="hljs-keyword">protected</span>:<br>    std::<span class="hljs-keyword">size_t</span> n;<br>&#125;;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Derived</span> :</span> <span class="hljs-keyword">private</span> Base &#123;    <span class="hljs-comment">//  note: private inheritance</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// maintain access levels for members related to the size of the object</span><br>    <span class="hljs-keyword">using</span> Base::size;<br><span class="hljs-keyword">protected</span>:<br>    <span class="hljs-keyword">using</span> Base::n;<br>&#125;;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>默认情况下，使用<code>class</code>关键字定义的派生类是私有继承的；而使用<code>struct</code>关键字定义的派生类是共有继承的。</p>
+</li>
+</ul>
+<h2 id="继承中的类作用域"><a href="#继承中的类作用域" class="headerlink" title="继承中的类作用域"></a>继承中的类作用域</h2><ul>
+<li>如果一个名字在派生类的作用域内无法正确解析，则编译器将继续在外层的基类作用域中寻找该名字的定义。</li>
+</ul>
+<h2 id="构造函数与拷贝控制"><a href="#构造函数与拷贝控制" class="headerlink" title="构造函数与拷贝控制"></a>构造函数与拷贝控制</h2><h3 id="虚析构函数"><a href="#虚析构函数" class="headerlink" title="虚析构函数"></a>虚析构函数</h3><ul>
+<li>通常如果一个类需要析构函数，那么它同样需要拷贝和赋值操作。但一个基类总是需要虚析构函数，若该析构函数为了成为虚函数而令内容为空，则无法由此推断该基类还需要赋值运算符或拷贝构造函数。</li>
+</ul>
+<h3 id="合成拷贝控制与继承"><a href="#合成拷贝控制与继承" class="headerlink" title="合成拷贝控制与继承"></a>合成拷贝控制与继承</h3><ul>
+<li>在实际中，如果在基类中没有默认、拷贝或移动构造函数，则一般情况下派生类也不对定义相应的操作。</li>
+</ul>
+<h3 id="派生类的拷贝控制成员"><a href="#派生类的拷贝控制成员" class="headerlink" title="派生类的拷贝控制成员"></a>派生类的拷贝控制成员</h3><ul>
+<li>当派生类定义了拷贝或移动操作时，该操作负责拷贝或移动包括基类部分成员在内的整个对象。</li>
+<li>在默认情况下，基类默认构造函数初始化派生类对象的基类部分。如果我们想拷贝（或移动）基类部分，则必须在派生类的构造函数初始值列表中显式地使用基类的拷贝（或移动）构造函数。</li>
+<li><p>与拷贝和移动构造函数一样，派生类的赋值运算符也必须显式地为其基类部分赋值：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// Base::operator=(const Base&amp;) is not invoked automatically</span><br>D &amp;D::<span class="hljs-keyword">operator</span>=(<span class="hljs-keyword">const</span> D &amp;rhs)<br>&#123;<br>    Base::<span class="hljs-keyword">operator</span>=(rhs); <span class="hljs-comment">// assigns the base part</span><br>    <span class="hljs-comment">// assign the members in the derived class, as usual,</span><br>    <span class="hljs-comment">// handling self-assignment and freeing existing resources as appropriate</span><br>    <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在析构函数体执行完成后，对象的成员会被隐式销毁；类似的，对象的基类部分也是隐式销毁的。因此，与构造函数及赋值运算符不同，派生类析构函数只负责由派生类自己分配的资源：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">D</span>:</span> <span class="hljs-keyword">public</span> Base &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// Base::~Base invoked automatically</span><br>    ~<span class="hljs-built_in">D</span>() &#123; <span class="hljs-comment">/* do what it takes to clean up derived members   */</span> &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>对象销毁的顺序正好与其创建的顺序相反：派生类析构函数首先执行，然后是基类的析构函数，以此类推，沿着集继承体系的反方向直至最后。</p>
+</li>
+<li>如果构造函数或者析构函数调用了某个虚函数，则我们应该执行与构造函数或析构函数所属类型相对应的虚函数版本。</li>
+</ul>
+<h3 id="继承的构造函数"><a href="#继承的构造函数" class="headerlink" title="继承的构造函数"></a>继承的构造函数</h3><ul>
+<li><p>通常，<code>using</code>声明语句只是令某个名字在当前作用域内可见。而当作用于构造函数时，<code>using</code>声明语句将令编译器产生代码。</p>
+</li>
+<li><p>在以下<code>Bulk_quote</code>类中，继承的构造函数与以下函数等价：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bulk_quote</span> :</span> <span class="hljs-keyword">public</span> Disc_quote &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-keyword">using</span> Disc_quote::Disc_quote; <span class="hljs-comment">// inherit Disc_quote&#x27;s constructors</span><br>    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">net_price</span><span class="hljs-params">(std::<span class="hljs-keyword">size_t</span>)</span> <span class="hljs-keyword">const</span></span>;<br>&#125;;<br><br><span class="hljs-built_in">Bulk_quote</span>(<span class="hljs-keyword">const</span> std::string&amp; book, <span class="hljs-keyword">double</span> price,<br>          std::<span class="hljs-keyword">size_t</span> qty, <span class="hljs-keyword">double</span> disc):<br>      <span class="hljs-built_in">Disc_quote</span>(book, price, qty, disc) &#123; &#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>和普通成员的<code>using</code>声明不一样，一个构造函数的<code>using</code>声明不会改变该构造函数的访问级别。不管<code>using</code>声明出现在哪，派生类从基类继承的构造函数与基类中的构造函数具有相同的访问级别。</p>
+</li>
+<li>如果派生类定义的构造函数与基类的构造函数具有相同的参数列表，则该构造函数将不会被继承。定义在派生类中的构造函数将替换继承而来的构造函数。</li>
+<li>默认、拷贝和移动构造函数不会被继承。</li>
+</ul>
+<h2 id="容器与继承"><a href="#容器与继承" class="headerlink" title="容器与继承"></a>容器与继承</h2><ul>
+<li>当派生类对象被赋值给基类对象时，其中派生类部分将被“切掉”。</li>
+<li><p>当我们希望在容器中存放具有继承关系的对象时，我们通常存放的是基类的指针（更好的选择是智能指针）。</p>
+</li>
+<li><p>当我们令一个类公有地继承另一个类时，派生类与基类的关系是“是一种（Is A）”。在设计良好的类体系中，公有派生类的对象应该可以用在任何需要基类对象的地方。</p>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C/">C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C-Primer/">C++ Primer</a>
+                    
+                      <a class="hover-with-bg" href="/tags/RE%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84C-%E5%AD%A6%E4%B9%A0/">RE：从零开始的C++学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/10/14/TemplatesAndGenericProgramming/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Templates And Generic Programming</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/09/26/OverloadedOperationsAndConversions/">
+                        <span class="hidden-mobile">Overloaded Operations and Conversions</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?25bbd832c304327384cf5e1fbcaf70a1";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

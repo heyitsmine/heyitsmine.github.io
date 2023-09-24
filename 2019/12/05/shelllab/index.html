@@ -1,0 +1,508 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="CS: APP 的Shell Lab，要求实现一个支持作业控制的Unix shell。">
+  <meta name="author" content="song">
+  <meta name="keywords" content="">
+  
+  <title>csapp shell lab 相关 - Song</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9a","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"25bbd832c304327384cf5e1fbcaf70a1","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Song's bolg</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="csapp shell lab 相关">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-12-05 16:05" pubdate>
+        2019年12月5日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">csapp shell lab 相关</h1>
+            
+            <div class="markdown-body">
+              <p>CS: APP 的<a target="_blank" rel="noopener" href="http://csapp.cs.cmu.edu/3e/labs.html">Shell Lab</a>，要求实现一个支持作业控制的Unix shell。</p>
+<span id="more"></span>
+<h1 id="基本框架"><a href="#基本框架" class="headerlink" title="基本框架"></a>基本框架</h1><ol>
+<li>安装信号捕捉函数</li>
+<li>在循环中读取命令，创建子进程运行命令。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * main - The shell&#x27;s main routine </span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> **argv)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">/* Install the signal handlers */</span><br>    <span class="hljs-comment">/* Execute the shell&#x27;s read/eval loop */</span><br>    <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-comment">/* Read command line */</span><br>        <span class="hljs-keyword">if</span> ((fgets(cmdline, MAXLINE, <span class="hljs-built_in">stdin</span>) == <span class="hljs-literal">NULL</span>) &amp;&amp; ferror(<span class="hljs-built_in">stdin</span>))<br>            app_error(<span class="hljs-string">&quot;fgets error&quot;</span>);<br>        <span class="hljs-keyword">if</span> (feof(<span class="hljs-built_in">stdin</span>)) &#123; <span class="hljs-comment">/* End of file (ctrl-d) */</span><br>            fflush(<span class="hljs-built_in">stdout</span>);<br>            <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>        &#125;<br>        <span class="hljs-comment">/* Evaluate the command line */</span><br>        eval(cmdline);<br>        fflush(<span class="hljs-built_in">stdout</span>);<br>    &#125;<br><br>    <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>); <span class="hljs-comment">/* control never reaches here */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="调用waitpid获取子进程终止状态"><a href="#调用waitpid获取子进程终止状态" class="headerlink" title="调用waitpid获取子进程终止状态"></a>调用waitpid获取子进程终止状态</h1><p>进程停止（stopped）或终止（terminated）时，会向父进程发送SIGCHLD信号，该信号的默认动作是忽略；父进程可以捕捉SIGCHLD信号，在信号处理函数中根据子进程状态做相应处理。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">pid_t</span> <span class="hljs-title">waitpid</span><span class="hljs-params">(<span class="hljs-keyword">pid_t</span> pid, <span class="hljs-keyword">int</span> *wstatus, <span class="hljs-keyword">int</span> options)</span></span>;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">sigchld_handler</span><span class="hljs-params">(<span class="hljs-keyword">int</span> sig)</span> </span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">pid_t</span> pid;<br>    <span class="hljs-keyword">int</span> status;<br><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">job_t</span> *<span class="hljs-title">job</span>;</span><br><br>    <span class="hljs-keyword">while</span> ((pid = waitpid(<span class="hljs-number">-1</span>, &amp;status, WNOHANG|WUNTRACED)) &gt; <span class="hljs-number">0</span>) &#123; <span class="hljs-comment">/* Reap a zombie child */</span><br>        <span class="hljs-keyword">if</span>((job = getjobpid(jobs, pid)) != <span class="hljs-literal">NULL</span>) &#123;<br>            <span class="hljs-comment">/* Should always get here */</span><br>            <span class="hljs-keyword">if</span> (WIFEXITED(status)) &#123;<br>                deletejob(jobs, pid);<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (WIFSIGNALED(status)) &#123;<br>                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Job [%d] (%d) terminated by signal %d (from pid %d)\n&quot;</span>,<br>                        pid2jid(pid), pid, WTERMSIG(status), getpid());<br>                deletejob(jobs, pid);<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (WIFSTOPPED(status)) &#123;<br>                job-&gt;state = ST;<br>                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Job [%d] (%d) stoped by signal %d (from pid %d)\n&quot;</span>,<br>                        pid2jid(pid), pid, WSTOPSIG(status), getpid());<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<ul>
+<li><p><code>waitpid</code>的参数<code>options</code>或者是0，或者是以下几个常量按位或运算的结果：</p>
+<ul>
+<li><code>WNOHANG</code>：若没有由<code>pid</code>指定的进程状态发生改变，<code>waitpid</code>立刻返回，返回值为0；</li>
+<li><code>WUNTRACED</code>：若有由<code>pid</code>指定的进程停止（stopped），<code>waitpid</code>也会返回；</li>
+<li><code>WCONTINUED</code>：若有由<code>pid</code>指定的进程在停止（stopped）状态下收到<code>SIGCONT</code>信号而继续运行，<code>waitpid</code>也会返回。</li>
+</ul>
+</li>
+<li><p>一个以及发出但未被接收的信号叫做<strong>待处理信号</strong>（pending signal）。在任何时刻，每种类型的信号都至多只有一个待处理信号。如果一个进程有一个类型为<em>k</em>的待处理信号，那么接下来任何发送到这个进程的类型为<em>k</em>的信号都不会排队等待，它们都会被直接丢弃。</p>
+<p>因此，shell主进程接收到一个来自子进程的SIGCHLD信号并运行信号捕捉函数时，可能会有其他子进程的运行状态发生改变并向shell主进程发送SIGCHLD信号，shell主进程需要处理所有运行状态发生改变的子进程。</p>
+<p><code>sigchld_handler</code>第10行的<code>while ((pid = waitpid(-1, &amp;status, WNOHANG|WUNTRACED)) &gt; 0)</code>，将<code>waitpid</code>的返回值作为循环判断条件，只有处理完所有停止（stopped）或终止（terminated）的子进程时<code>waitpid</code>返回0，循环结束。</p>
+</li>
+</ul>
+<h1 id="前台与后台"><a href="#前台与后台" class="headerlink" title="前台与后台"></a>前台与后台</h1><ul>
+<li>shell用作业（job）来表示执行一个命令行而创建的进程（一个或多个），这些进程属于同一个进程组。任何时候，至多可以有一个前台作业以及0个或多个后台作业，下图是一个有一个前台作业和两个后台作业的shell。<br><div align=center> <img src="/2019/12/05/shelllab/8-28.png" srcset="/img/loading.gif" lazyload class=""> </div><br>由键盘输入产生的信号（SIGINT、SIGTSTP等）会发送给前台进程组中的所有进程。函数<code>tcsetpgrp</code>可以将指定进程组设置为前台进程组。</li>
+</ul>
+<h1 id="SIGTTIN与SIGTTOU"><a href="#SIGTTIN与SIGTTOU" class="headerlink" title="SIGTTIN与SIGTTOU"></a>SIGTTIN与SIGTTOU</h1><p><code>SIGTTIN</code>与<code>SIGTTOU</code>属于作业控制信号，当任何一个后台作业中进程试图读终端时，<code>SIGTTIN</code>信号会被发送给该作业中的所有进程；类似的，当任何一个后台作业中进程试图写终端时，<code>SIGTTOU</code>信号会被发送给该作业中的所有进程。shell主进程应该忽略这些作业控制信号，以避免被意外地停止。</p>
+<h1 id="使用sigprocmask同步进程"><a href="#使用sigprocmask同步进程" class="headerlink" title="使用sigprocmask同步进程"></a>使用<code>sigprocmask</code>同步进程</h1><p>函数<code>sigprocmask</code>可以获取和改变信号屏蔽字，通过设置信号屏蔽字可以实现进程的同步。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c">initjobs(); <span class="hljs-comment">/* Initialize the job list */</span><br><br><span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) &#123;<br>    Sigprocmask(SIG_BLOCK, &amp;mask_one, &amp;prev_one); <span class="hljs-comment">/* Block SIGCHLD */</span><br>    <span class="hljs-keyword">if</span> ((pid = Fork()) == <span class="hljs-number">0</span>) &#123; <span class="hljs-comment">/* Child process */</span><br>        Sigprocmask(SIG_SETMASK, &amp;prev_one, <span class="hljs-literal">NULL</span>); <span class="hljs-comment">/* Unblock SIGCHLD */</span><br>        Execve(<span class="hljs-string">&quot;/bin/date&quot;</span>, argv, <span class="hljs-literal">NULL</span>);<br>    &#125;<br>    Sigprocmask(SIG_BLOCK, &amp;mask_all, <span class="hljs-literal">NULL</span>); <span class="hljs-comment">/* Parent process */</span><br>    addjob(pid); <span class="hljs-comment">/* Add the child to the job list */</span><br>    Sigprocmask(SIG_SETMASK, &amp;prev_one, <span class="hljs-literal">NULL</span>); <span class="hljs-comment">/* Unblock SIGCHLD */</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>主进程在创建子进程之前屏蔽了<code>SIGCHLD</code>信号，在执行完<code>addjob(pid)</code>后再解除屏蔽<code>SIGCHLD</code>，保证了在执行<code>SIGCHLD</code>的信号处理函数之前已经执行了<code>addjob(pid)</code>。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/unix/">unix</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/unix/">unix</a>
+                    
+                      <a class="hover-with-bg" href="/tags/shell/">shell</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/12/14/FewRel/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">FewRel简单笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/10/19/TemplateFriends/">
+                        <span class="hidden-mobile">模板友元</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?25bbd832c304327384cf5e1fbcaf70a1";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
